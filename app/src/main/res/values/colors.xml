@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!--  Our chosen colors are saved as:
+        ourPurple
+        ourGray
+        ourTeal
+      Purple was chosen to represent addiction awareness
+      Teal was chosen to represent addiction recovery
+  -->
+
 <resources>
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
@@ -7,4 +16,7 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="ourPurple">#aa40da</color>
+    <color name="ourGray">#999999</color>
+    <color name="ourTeal">#15adad</color>
 </resources>

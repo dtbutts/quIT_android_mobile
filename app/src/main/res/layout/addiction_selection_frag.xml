@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/ourGray"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_weight="2"
+            />
+
+        <TextView
+            android:id="@+id/question"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-black"
+            android:textSize="20dp"
+            android:text="What addiction would you like to end?"
+            android:textColor="@color/black"/>
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_weight="2"
+            />
+
+        <!--  Nicotine Button  -->
+        <Button
+            android:id="@+id/nicotineButton"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:backgroundTint="@color/ourPurple"
+            android:text="Nicotine"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_weight=".5"
+            />
+
+        <!--  Alcohol Button  -->
+        <Button
+            android:id="@+id/alcoholButton"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:backgroundTint="@color/ourPurple"
+            android:text="Alcohol"
+            tools:layout_editor_absoluteX="153dp"
+            tools:layout_editor_absoluteY="139dp" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_weight=".5"
+            />
+
+        <!--  Caffeine Button  -->
+        <Button
+            android:id="@+id/caffeineButton"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:backgroundTint="@color/ourPurple"
+            android:text="Caffeine"
+            tools:layout_editor_absoluteX="152dp"
+            tools:layout_editor_absoluteY="341dp" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_weight="2"
+            />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
