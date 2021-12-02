@@ -10,6 +10,7 @@
     android:paddingRight="20dp"
     android:paddingTop="20dp"
     android:paddingBottom="20dp"
+    android:orientation="vertical"
     >
 
     <RelativeLayout
@@ -22,9 +23,9 @@
             android:layout_height="match_parent"
             android:layout_marginTop="15dp"
             android:background="@drawable/boarder"
-            android:hint=""
+            android:hint="username"
             android:paddingLeft="10dp"
-            android:text="username"
+
             android:textSize="14dp"
             android:textColor="@color/black"
 
@@ -40,9 +41,149 @@
             android:text="Create Username"
             android:textColor="@color/ourPurple"
             />
-
     </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="60dp">
 
+        <EditText
+            android:id="@+id/age"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/boarder"
+            android:hint="age"
+            android:paddingLeft="10dp"
+            android:textSize="14dp"
+            android:textColor="@color/black"
+
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="7dp"
+            android:background="@color/ourGray"
+            android:textSize="15dp"
+            android:text="Add Age"
+            android:textColor="@color/ourPurple"
+            />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="60dp">
+
+        <EditText
+            android:id="@+id/Height"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/boarder"
+            android:hint="height"
+            android:paddingLeft="10dp"
+            android:textSize="14dp"
+            android:textColor="@color/black"
+
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="7dp"
+            android:background="@color/ourGray"
+            android:textSize="15dp"
+            android:text="Add Height"
+            android:textColor="@color/ourPurple"
+            />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="60dp">
+
+        <EditText
+            android:id="@+id/weight"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/boarder"
+            android:hint="weight"
+            android:paddingLeft="10dp"
+            android:textSize="14dp"
+            android:textColor="@color/black"
+
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="7dp"
+            android:background="@color/ourGray"
+            android:textSize="15dp"
+            android:text="Add Weight"
+            android:textColor="@color/ourPurple"
+            />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="60dp">
+
+        <EditText
+            android:id="@+id/moneySpent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/boarder"
+            android:hint="money spent"
+            android:paddingLeft="10dp"
+            android:textSize="14dp"
+            android:textColor="@color/black"
+
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="7dp"
+            android:background="@color/ourGray"
+            android:textSize="15dp"
+            android:text="Add Average Money Spent A Week"
+            android:textColor="@color/ourPurple"
+            />
+    </RelativeLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="7dp"
+        android:background="@color/ourGray"
+        android:textSize="15dp"
+        android:text="Receive Notifications?"
+        android:textColor="@color/ourPurple"
+        />
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <RadioButton android:id="@+id/radio_yes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Yes"
+            />
+        <RadioButton android:id="@+id/radio_no"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No"
+            />
+    </RadioGroup>
+    <Button
+        android:id="@+id/submit_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Submit"/>
 
 </LinearLayout>
 
