@@ -7,17 +7,30 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 public class EnterDataFragment extends Fragment {
     private Button btnSumbit;
+    private LinearLayout lengthOfSobriety;
+    private RadioButton radioYes;
     @Nullable
     //@Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
         View view = inflater.inflate(R.layout.enter_data_frag,container, false);
         btnSumbit = view.findViewById(R.id.submit_btn);
+        lengthOfSobriety = (LinearLayout) view.findViewById(R.id.lengthOfSobriety);
+        radioYes = view.findViewById(R.id.radio_yes);
+        lengthOfSobriety.setVisibility(View.GONE);
+        radioYes.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                lengthOfSobriety.setVisibility((View.VISIBLE));
+            }
+        });
         btnSumbit.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
