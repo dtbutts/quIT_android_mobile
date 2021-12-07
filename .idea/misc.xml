@@ -3,15 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-<!--&#45;&#45;<<<<<<< Updated upstream-->
-        <entry key="app/src/main/res/drawable/boarder.xml" value="0.28888888888888886" />
-<!--&#45;&#45;=======-->
         <entry key="..\:/Users/isaia/AndroidStudioProjects/SeniorDesign/senior_design_the_addicts/app/src/main/res/drawable-anydpi/ic_money.xml" value="0.1" />
         <entry key="..\:/Users/isaia/AndroidStudioProjects/SeniorDesign/senior_design_the_addicts/app/src/main/res/drawable/ic_baseline_attach_money_24.xml" value="0.1" />
         <entry key="..\:/Users/isaia/AndroidStudioProjects/SeniorDesign/senior_design_the_addicts/app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.1" />
         <entry key="..\:/Users/isaia/AndroidStudioProjects/SeniorDesign/senior_design_the_addicts/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
         <entry key="..\:/Users/isaia/AndroidStudioProjects/SeniorDesign/senior_design_the_addicts/app/src/main/res/layout/activity_main.xml" value="0.14666666666666667" />
         <entry key="..\:/Users/isaia/AndroidStudioProjects/SeniorDesign/senior_design_the_addicts/app/src/main/res/layout/addiction_selection_frag.xml" value="0.1" />
+        <entry key="..\:/Users/isaia/AndroidStudioProjects/SeniorDesign/senior_design_the_addicts/app/src/main/res/layout/enter_data_frag.xml" value="0.22" />
         <entry key="..\:/Users/isaia/AndroidStudioProjects/SeniorDesign/senior_design_the_addicts/app/src/main/res/layout/goals_frag.xml" value="0.14583333333333334" />
         <entry key="..\:/Users/isaia/AndroidStudioProjects/SeniorDesign/senior_design_the_addicts/app/src/main/res/layout/health_frag.xml" value="0.14583333333333334" />
         <entry key="..\:/Users/isaia/AndroidStudioProjects/SeniorDesign/senior_design_the_addicts/app/src/main/res/layout/home_frag.xml" value="0.12" />
@@ -21,10 +19,8 @@
         <entry key="..\:/Users/isaia/AndroidStudioProjects/SeniorDesign/senior_design_the_addicts/app/src/main/res/layout/social_frag.xml" value="0.14583333333333334" />
         <entry key="..\:/Users/isaia/AndroidStudioProjects/SeniorDesign/senior_design_the_addicts/app/src/main/res/layout/test.xml" value="0.15208333333333332" />
         <entry key="..\:/Users/isaia/AndroidStudioProjects/SeniorDesign/senior_design_the_addicts/app/src/main/res/menu/bottom_navigation.xml" value="0.3333333333333333" />
-<!--&ndash;&gt;>>>>>> Stashed changes-->
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/addiction_selection_frag.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/enter_data_frag.xml" value="0.335" />
         <entry key="app/src/main/res/layout/loading_frag.xml" value="0.25" />
       </map>
     </option>

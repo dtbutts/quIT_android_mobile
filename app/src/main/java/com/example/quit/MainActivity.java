@@ -23,16 +23,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.loading_frag);
-        //if sharedpreferences()
-        //setcontentView to create account fragment
-        //then when the sumbit button is clicked
-        //have it run the below operations
-        //else run this below stuff
+
         setContentView(R.layout.activity_main);
         bottomNav = findViewById(R.id.bottom_navigation);
-        //new
         prefs = getSharedPreferences("prefs", MODE_PRIVATE);
+
         firstStart = prefs.getBoolean("firstStart", true);
+        //check to see if it is the first time the user has opened the app for
+        //initialization and create account info
         if(firstStart){
             fragmentManager = getSupportFragmentManager();
             if(findViewById(R.id.fragment_container)!=null){
@@ -55,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
         //new
 //        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
 //                new HomeFragment()).commit();
+        //create bottom navigation for each fragment. It will display in the main activity's
+        //fragment_container
         bottomNav.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
