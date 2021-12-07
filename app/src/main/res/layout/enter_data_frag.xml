@@ -402,6 +402,7 @@
         android:textColor="@color/ourPurple"
         />
     <CheckBox
+        android:id="@+id/termsConditions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 

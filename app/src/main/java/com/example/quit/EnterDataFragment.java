@@ -1,5 +1,6 @@
 package com.example.quit;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -16,6 +18,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -36,7 +39,18 @@ public class EnterDataFragment extends Fragment {
     soberYear, soberMonth, soberDay;
     private LinearLayout lengthOfSobriety;
     private RadioButton radioYes;
+    private CheckBox checkBox;
     FirebaseFirestore db;
+    protected Activity mActivity;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        if (context instanceof Activity){
+            mActivity =(Activity) context;
+        }
+    }
     @Nullable
     //@Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
@@ -57,6 +71,7 @@ public class EnterDataFragment extends Fragment {
         soberYear = view.findViewById(R.id.yearOfSobriety);
         soberMonth = view.findViewById(R.id.monthOfSobriety);
         soberDay = view.findViewById(R.id.dayOfSobriety);
+        checkBox = view.findViewById(R.id.termsConditions);
 
         //if the person is already sober, then show the edit text boxes for length of sobriety
         radioYes.setOnClickListener(new View.OnClickListener(){
@@ -68,12 +83,18 @@ public class EnterDataFragment extends Fragment {
         //after submit button is clicked, replace the frame with the bottom navigation and
         // Home fragment. Also sets the first Start to false so that create account doesn't
         //come up again.
-        Log.d("Location", "Here0");
         btnSubmit.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Log.d("Location", "Here1");
+                if(!checkBox.isSelected()){
+                    Toast.makeText(mActivity, "You must agree to the terms and conditions", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 String Username = username.getText().toString();
+                if(Username==null){
+                    //makeToast (required)
+                    //return;
+                }
                 String Age = age.getText().toString();
                 String Height = height.getText().toString();
                 String Weight = weight.getText().toString();
@@ -129,25 +150,30 @@ public class EnterDataFragment extends Fragment {
                 userAccount.put("Money Spent", Money);
                 userAccount.put("Total Time Addicted", TotalAddicted);
                 userAccount.put("Initial Total Time Sober", TotalSober);
-                Log.d("Location", "Here2");
 
-                checkIfAccountAlreadyExists(Username, db);
-                db.collection("userAccount")
-                        .add(userAccount)
-                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                            @Override
-                            public void onSuccess(DocumentReference documentReference) {
-                                //Toast.makeText(getActivity(), "Account Created Successfully", Toast.LENGTH_SHORT).show();
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        //Toast.makeText(getActivity(), "Account Error", Toast.LENGTH_SHORT).show();
-                    }
-                });
-                Log.d("Location", "Here3");
-                MainActivity.fragmentManager.beginTransaction().replace(R.id.fragment_container,new HomeFragment()).commit();
-                MainActivity.bottomNav.setVisibility(View.VISIBLE);
+                int existsVal=checkIfAccountAlreadyExists(Username, db,userAccount);
+                Log.d("EXISTSVAL", String.valueOf(existsVal));
+//                if(existsVal==1){
+//
+//                }
+//                else{
+//                    db.collection("userAccount")
+//                            .add(userAccount)
+//                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+//                                @Override
+//                                public void onSuccess(DocumentReference documentReference) {
+//                                    Toast.makeText(mActivity, "Account Created Successfully", Toast.LENGTH_SHORT).show();
+//                                }
+//                            }).addOnFailureListener(new OnFailureListener() {
+//                        @Override
+//                        public void onFailure(@NonNull Exception e) {
+//                            Toast.makeText(getActivity(), "Account Error", Toast.LENGTH_SHORT).show();
+//                        }
+//                    });
+//                }
+
+//                MainActivity.fragmentManager.beginTransaction().replace(R.id.fragment_container,new HomeFragment()).commit();
+//                MainActivity.bottomNav.setVisibility(View.VISIBLE);
 //                SharedPreferences prefs = getActivity().getSharedPreferences("prefs", Context.MODE_PRIVATE);
 //                SharedPreferences.Editor editor = prefs.edit();
 //                editor.putBoolean("firstStart", false);
@@ -156,8 +182,12 @@ public class EnterDataFragment extends Fragment {
         });
         return view;
     }
-    private void checkIfAccountAlreadyExists(final String usernameToCompare, FirebaseFirestore db){
+    //checks if an account with the current username already exists. But this happens in the
+    //background so will need to probably create functions for what to do at the end of the oncomplete
+    //instead of having the code after this function's call in onCreateView()
+    private int checkIfAccountAlreadyExists(final String usernameToCompare, FirebaseFirestore db,Map<String, Object> userAccount){
         final Query mQuery = db.collection("userAccount").whereEqualTo("Username", usernameToCompare);
+        final int[] returnVal = {-1};
         mQuery.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -168,7 +198,8 @@ public class EnterDataFragment extends Fragment {
                         String userNames = ds.getString("Username");
                         if (userNames.equals(usernameToCompare)) {
                             Log.d("UsernameCheck", "checkingIfusernameExist: FOUND A MATCH -username already exists");
-                            //Toast.makeText(getActivity(), "username already exists", Toast.LENGTH_SHORT).show();
+                            returnVal[0] =1;
+                            Toast.makeText(mActivity, "username already exists", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }
@@ -177,7 +208,27 @@ public class EnterDataFragment extends Fragment {
                     try{
 
                         Log.d("UsernameCheck", "onComplete: MATCH NOT FOUND - username is available");
-                        //Toast.makeText(getActivity(), "username changed", Toast.LENGTH_SHORT).show();
+                        returnVal[0] =0;
+                        Toast.makeText(mActivity, "username changed", Toast.LENGTH_SHORT).show();
+                        db.collection("userAccount")
+                                .add(userAccount)
+                                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                    @Override
+                                    public void onSuccess(DocumentReference documentReference) {
+                                        Toast.makeText(mActivity, "Account Created Successfully", Toast.LENGTH_SHORT).show();
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(mActivity, "Account Error", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                        MainActivity.fragmentManager.beginTransaction().replace(R.id.fragment_container,new HomeFragment()).commit();
+                        MainActivity.bottomNav.setVisibility(View.VISIBLE);
+                        //SharedPreferences prefs = getActivity().getSharedPreferences("prefs", Context.MODE_PRIVATE);
+                        //SharedPreferences.Editor editor = prefs.edit();
+                        //editor.putBoolean("firstStart", false);
+                        //editor.apply();
                         //Updating new username............
 
 
@@ -187,5 +238,6 @@ public class EnterDataFragment extends Fragment {
                 }
             }
         });
+        return returnVal[0];
     }
 }
