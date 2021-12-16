@@ -86,7 +86,7 @@ public class EnterDataFragment extends Fragment {
         btnSubmit.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                if(!checkBox.isSelected()){
+                if(!checkBox.isChecked()){
                     Toast.makeText(mActivity, "You must agree to the terms and conditions", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -182,9 +182,8 @@ public class EnterDataFragment extends Fragment {
         });
         return view;
     }
-    //checks if an account with the current username already exists. But this happens in the
-    //background so will need to probably create functions for what to do at the end of the oncomplete
-    //instead of having the code after this function's call in onCreateView()
+    //checks if an account with the current username already exists. If it does not exist,
+    //it adds the account to the database. Else return -1
     private int checkIfAccountAlreadyExists(final String usernameToCompare, FirebaseFirestore db,Map<String, Object> userAccount){
         final Query mQuery = db.collection("userAccount").whereEqualTo("Username", usernameToCompare);
         final int[] returnVal = {-1};
@@ -225,12 +224,12 @@ public class EnterDataFragment extends Fragment {
                         });
                         MainActivity.fragmentManager.beginTransaction().replace(R.id.fragment_container,new HomeFragment()).commit();
                         MainActivity.bottomNav.setVisibility(View.VISIBLE);
+
+                        //uncomment below code to allow create account to only show up for first time
                         //SharedPreferences prefs = getActivity().getSharedPreferences("prefs", Context.MODE_PRIVATE);
                         //SharedPreferences.Editor editor = prefs.edit();
                         //editor.putBoolean("firstStart", false);
                         //editor.apply();
-                        //Updating new username............
-
 
                     }catch (NullPointerException e){
                         Log.e("UsernameCheck", "NullPointerException: " + e.getMessage() );
