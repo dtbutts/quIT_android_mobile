@@ -24,9 +24,13 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -35,12 +39,14 @@ import java.util.Map;
 
 public class EnterDataFragment extends Fragment {
     private Button btnSubmit;
-    private EditText username,age, height, weight, moneySpent,addictedYear, addictedMonth, addictedDay,
+    private EditText username,password,age, height, weight, moneySpent,addictedYear, addictedMonth, addictedDay,
     soberYear, soberMonth, soberDay;
     private LinearLayout lengthOfSobriety;
     private RadioButton radioYes;
     private CheckBox checkBox;
     FirebaseFirestore db;
+    FirebaseAuth mAuth;
+
     protected Activity mActivity;
 
     @Override
@@ -57,10 +63,12 @@ public class EnterDataFragment extends Fragment {
         View view = inflater.inflate(R.layout.enter_data_frag,container, false);
         btnSubmit = view.findViewById(R.id.submit_btn);
         db = FirebaseFirestore.getInstance();
+        mAuth = FirebaseAuth.getInstance();
         lengthOfSobriety = (LinearLayout) view.findViewById(R.id.lengthOfSobriety);
         radioYes = view.findViewById(R.id.radio_yes);
         lengthOfSobriety.setVisibility(View.GONE);
         username = view.findViewById(R.id.userName);
+        password = view.findViewById(R.id.password);
         age = view.findViewById(R.id.age);
         height = view.findViewById(R.id.height);
         weight = view.findViewById(R.id.weight);
@@ -95,6 +103,7 @@ public class EnterDataFragment extends Fragment {
                     //makeToast (required)
                     //return;
                 }
+                String Password = password.getText().toString();
                 String Age = age.getText().toString();
                 String Height = height.getText().toString();
                 String Weight = weight.getText().toString();
@@ -143,13 +152,14 @@ public class EnterDataFragment extends Fragment {
                 int totalSober = (soberYearInt*31536000)+(soberDayInt*86400);
                 String TotalSober = String.valueOf(soberDayInt+soberMonthInt+soberYearInt);
                 Map<String, Object> userAccount = new HashMap<>();
-                userAccount.put("Username", Username);
-                userAccount.put("Age", Age);
-                userAccount.put("Height", Height);
-                userAccount.put("Weight", Weight);
-                userAccount.put("Money Spent", Money);
-                userAccount.put("Total Time Addicted", TotalAddicted);
-                userAccount.put("Initial Total Time Sober", TotalSober);
+                userAccount.put("username", Username);
+                userAccount.put("password", Password);
+                userAccount.put("age", Age);
+                userAccount.put("height", Height);
+                userAccount.put("weight", Weight);
+                userAccount.put("moneySpent", Money);
+                userAccount.put("timeAddicted", TotalAddicted);
+                userAccount.put("timeSober", TotalSober);
 
                 int existsVal=checkIfAccountAlreadyExists(Username, db,userAccount);
                 Log.d("EXISTSVAL", String.valueOf(existsVal));
@@ -214,6 +224,7 @@ public class EnterDataFragment extends Fragment {
                                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                     @Override
                                     public void onSuccess(DocumentReference documentReference) {
+
                                         Toast.makeText(mActivity, "Account Created Successfully", Toast.LENGTH_SHORT).show();
                                     }
                                 }).addOnFailureListener(new OnFailureListener() {
@@ -222,6 +233,20 @@ public class EnterDataFragment extends Fragment {
                                 Toast.makeText(mActivity, "Account Error", Toast.LENGTH_SHORT).show();
                             }
                         });
+                        //create authorization of user for retrieving current user later on
+                        mAuth.createUserWithEmailAndPassword((String)userAccount.get("username"), (String) userAccount.get("password"))
+                                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<AuthResult> task) {
+                                        if(task.isSuccessful()){
+                                            Toast.makeText(mActivity, "auth worked", Toast.LENGTH_LONG).show();
+                                        }
+                                        else{
+                                            Toast.makeText(mActivity, "Auth Bad", Toast.LENGTH_LONG).show();
+                                        }
+                                    }
+                                }
+                                );
                         MainActivity.fragmentManager.beginTransaction().replace(R.id.fragment_container,new HomeFragment()).commit();
                         MainActivity.bottomNav.setVisibility(View.VISIBLE);
 
