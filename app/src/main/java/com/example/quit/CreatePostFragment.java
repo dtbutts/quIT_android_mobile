@@ -88,7 +88,7 @@ public class CreatePostFragment extends Fragment {
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         Log.d("SSSSSSSSSSSSSSSSSS", firebaseUser.getUid());
         post.put("publisher", firebaseUser.getUid());
-        DocumentReference key = db.collection("userAccount").document();
+        //DocumentReference key = db.collection("userAccount").document();
         Log.i("thePost", "Third");
 
         db.collection("Posts")

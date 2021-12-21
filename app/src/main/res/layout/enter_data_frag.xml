@@ -18,12 +18,12 @@
         android:layout_height="60dp">
 
         <EditText
-            android:id="@+id/userName"
+            android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="15dp"
             android:background="@drawable/boarder"
-            android:hint="username"
+            android:hint="email"
             android:paddingLeft="10dp"
 
             android:textSize="14dp"
@@ -38,7 +38,7 @@
             android:layout_marginTop="7dp"
             android:background="@color/ourGray"
             android:textSize="15dp"
-            android:text="Create Username"
+            android:text="Email*"
             android:textColor="@color/ourPurple"
             />
     </RelativeLayout>
@@ -67,22 +67,24 @@
             android:layout_marginTop="7dp"
             android:background="@color/ourGray"
             android:textSize="15dp"
-            android:text="Create Password"
+            android:text="Email Password*"
             android:textColor="@color/ourPurple"
             />
     </RelativeLayout>
+
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="60dp">
 
         <EditText
-            android:id="@+id/age"
+            android:id="@+id/userName"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="15dp"
             android:background="@drawable/boarder"
-            android:hint="age"
+            android:hint="username"
             android:paddingLeft="10dp"
+
             android:textSize="14dp"
             android:textColor="@color/black"
 
@@ -95,66 +97,117 @@
             android:layout_marginTop="7dp"
             android:background="@color/ourGray"
             android:textSize="15dp"
-            android:text="Add Age"
+            android:text="Create Username*"
             android:textColor="@color/ourPurple"
             />
     </RelativeLayout>
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="60dp">
 
-        <EditText
-            android:id="@+id/height"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/boarder"
-            android:hint="height"
-            android:paddingLeft="10dp"
-            android:textSize="14dp"
-            android:textColor="@color/black"
-
-            />
-
-        <TextView
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/biometrics"
+        >
+        <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="7dp"
-            android:background="@color/ourGray"
-            android:textSize="15dp"
-            android:text="Add Height"
-            android:textColor="@color/ourPurple"
-            />
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="60dp">
-
-        <EditText
-            android:id="@+id/weight"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/boarder"
-            android:hint="weight"
+            android:layout_height="60dp"
+            android:layout_weight="1"
             android:paddingLeft="10dp"
-            android:textSize="14dp"
-            android:textColor="@color/black"
+            android:paddingRight="10dp"
+            >
 
-            />
+            <EditText
+                android:id="@+id/age"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/boarder"
+                android:textSize="14dp"
+                android:hint="years"
+                android:gravity="center"
+                android:textColor="@color/black"
 
-        <TextView
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="7dp"
+                android:background="@color/ourGray"
+                android:text="Age*"
+                android:textColor="@color/ourPurple"
+                android:textSize="15dp" />
+
+        </RelativeLayout>
+        <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="7dp"
-            android:background="@color/ourGray"
-            android:textSize="15dp"
-            android:text="Add Weight"
-            android:textColor="@color/ourPurple"
-            />
-    </RelativeLayout>
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            >
+
+            <EditText
+                android:id="@+id/height"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="15dp"
+                android:hint="inches"
+                android:background="@drawable/boarder"
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:textSize="14dp"
+
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="7dp"
+                android:background="@color/ourGray"
+                android:text="Height*"
+                android:textColor="@color/ourPurple"
+                android:textSize="15dp" />
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            >
+
+            <EditText
+                android:id="@+id/weight"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/boarder"
+                android:textColor="@color/black"
+                android:hint="lbs"
+                android:gravity="center"
+                android:textSize="14dp"
+
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="7dp"
+                android:background="@color/ourGray"
+                android:textSize="15dp"
+                android:text="Weight*"
+                android:textColor="@color/ourPurple"
+                />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="60dp">
@@ -179,7 +232,7 @@
             android:layout_marginTop="7dp"
             android:background="@color/ourGray"
             android:textSize="15dp"
-            android:text="Add Average Money Spent A Week"
+            android:text="Add Average Money Spent A Week*"
             android:textColor="@color/ourPurple"
             />
     </RelativeLayout>
@@ -193,105 +246,36 @@
         android:text="How long have you been struggling with addiction?"
         android:textColor="@color/ourPurple"
         />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:id="@+id/lengthOfAddiction"
-        >
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="60dp"
-            android:layout_weight="1"
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:id="@+id/lengthOfAddiction">
+
+        <EditText
+            android:id="@+id/daysOfAddiction"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/boarder"
+            android:hint="days"
             android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            >
 
-            <EditText
-                android:id="@+id/yearOfAddiction"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/boarder"
-                android:textSize="14dp"
-                android:textColor="@color/black"
+            android:textSize="14dp"
+            android:textColor="@color/black"
 
-                />
+            />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="7dp"
-                android:background="@color/ourGray"
-                android:text="Years"
-                android:textColor="@color/ourPurple"
-                android:textSize="15dp" />
-
-        </RelativeLayout>
-        <RelativeLayout
+        <TextView
             android:layout_width="wrap_content"
-            android:layout_height="60dp"
-            android:layout_weight="1"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            >
-
-            <EditText
-                android:id="@+id/monthOfAddiction"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/boarder"
-                android:textColor="@color/black"
-                android:textSize="14dp"
-
-                />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="7dp"
-                android:background="@color/ourGray"
-                android:text="Months"
-                android:textColor="@color/ourPurple"
-                android:textSize="15dp" />
-
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="60dp"
-            android:layout_weight="1"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            >
-
-            <EditText
-                android:id="@+id/dayOfAddiction"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/boarder"
-                android:textColor="@color/black"
-                android:textSize="14dp"
-
-                />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="7dp"
-                android:background="@color/ourGray"
-                android:textSize="15dp"
-                android:text="Days"
-                android:textColor="@color/ourPurple"
-                />
-
-        </RelativeLayout>
-
-    </LinearLayout>
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="7dp"
+            android:background="@color/ourGray"
+            android:textSize="15dp"
+            android:text="Days*"
+            android:textColor="@color/ourPurple"
+            />
+    </RelativeLayout>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -319,107 +303,37 @@
             android:text="No"
             />
     </RadioGroup>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
         android:id="@+id/lengthOfSobriety">
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="60dp"
-            android:layout_weight="1"
+
+        <EditText
+            android:id="@+id/daysOfSobriety"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/boarder"
+            android:hint="days"
             android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            >
 
-            <EditText
-                android:id="@+id/yearOfSobriety"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/boarder"
-                android:paddingLeft="10dp"
-                android:textSize="14dp"
-                android:textColor="@color/black"
+            android:textSize="14dp"
+            android:textColor="@color/black"
 
-                />
+            />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="7dp"
-                android:background="@color/ourGray"
-                android:textSize="15dp"
-                android:text="Years"
-                android:textColor="@color/ourPurple"
-                />
-
-        </RelativeLayout>
-        <RelativeLayout
+        <TextView
             android:layout_width="wrap_content"
-            android:layout_height="60dp"
-            android:layout_weight="1"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            >
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="7dp"
+            android:background="@color/ourGray"
+            android:textSize="15dp"
+            android:text="Days Sober"
+            android:textColor="@color/ourPurple"
+            />
+    </RelativeLayout>
 
-            <EditText
-                android:id="@+id/monthOfSobriety"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/boarder"
-                android:paddingLeft="10dp"
-                android:textColor="@color/black"
-                android:textSize="14dp"
-
-                />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="7dp"
-                android:background="@color/ourGray"
-                android:textSize="15dp"
-                android:text="Months"
-                android:textColor="@color/ourPurple"
-                />
-
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="60dp"
-            android:layout_weight="1"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            >
-
-            <EditText
-                android:id="@+id/dayOfSobriety"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/boarder"
-                android:paddingLeft="10dp"
-                android:textColor="@color/black"
-                android:textSize="14dp"
-
-                />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="7dp"
-                android:background="@color/ourGray"
-                android:textSize="15dp"
-                android:text="Days"
-                android:textColor="@color/ourPurple"
-                />
-        </RelativeLayout>
-    </LinearLayout>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

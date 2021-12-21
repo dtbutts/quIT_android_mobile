@@ -13,6 +13,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -39,9 +40,8 @@ import java.util.Map;
 
 public class EnterDataFragment extends Fragment {
     private Button btnSubmit;
-    private EditText username,password,age, height, weight, moneySpent,addictedYear, addictedMonth, addictedDay,
-    soberYear, soberMonth, soberDay;
-    private LinearLayout lengthOfSobriety;
+    private EditText email, username,password,age, height, weight, moneySpent,dayOfAddiction, dayOfSobriety;
+    private RelativeLayout lengthOfSobriety;
     private RadioButton radioYes;
     private CheckBox checkBox;
     FirebaseFirestore db;
@@ -64,21 +64,18 @@ public class EnterDataFragment extends Fragment {
         btnSubmit = view.findViewById(R.id.submit_btn);
         db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
-        lengthOfSobriety = (LinearLayout) view.findViewById(R.id.lengthOfSobriety);
+        lengthOfSobriety = (RelativeLayout) view.findViewById(R.id.lengthOfSobriety);
         radioYes = view.findViewById(R.id.radio_yes);
         lengthOfSobriety.setVisibility(View.GONE);
+        email = view.findViewById(R.id.email);
         username = view.findViewById(R.id.userName);
         password = view.findViewById(R.id.password);
         age = view.findViewById(R.id.age);
         height = view.findViewById(R.id.height);
         weight = view.findViewById(R.id.weight);
         moneySpent = view.findViewById(R.id.moneySpent);
-        addictedYear= view.findViewById(R.id.yearOfAddiction);
-        addictedMonth = view.findViewById(R.id.monthOfAddiction);
-        addictedDay = view.findViewById(R.id.dayOfAddiction);
-        soberYear = view.findViewById(R.id.yearOfSobriety);
-        soberMonth = view.findViewById(R.id.monthOfSobriety);
-        soberDay = view.findViewById(R.id.dayOfSobriety);
+        dayOfAddiction = view.findViewById(R.id.daysOfAddiction);
+        dayOfSobriety = view.findViewById(R.id.daysOfSobriety);
         checkBox = view.findViewById(R.id.termsConditions);
 
         //if the person is already sober, then show the edit text boxes for length of sobriety
@@ -98,71 +95,52 @@ public class EnterDataFragment extends Fragment {
                     Toast.makeText(mActivity, "You must agree to the terms and conditions", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                String Email = email.getText().toString();
                 String Username = username.getText().toString();
-                if(Username==null){
-                    //makeToast (required)
-                    //return;
-                }
+
                 String Password = password.getText().toString();
                 String Age = age.getText().toString();
                 String Height = height.getText().toString();
                 String Weight = weight.getText().toString();
                 String Money = moneySpent.getText().toString();
-                String AddictedYear = addictedYear.getText().toString();
-                String AddictedMonth = addictedMonth.getText().toString();
-                String AddictedDay = addictedDay.getText().toString();
-                int addictedDayInt=0, addictedMonthInt=0, addictedYearInt=0;
-                try{
-                    addictedYearInt = Integer.parseInt(AddictedYear);
-                }catch(NumberFormatException ex){
-
-                }
-                try{
-                    addictedMonthInt = Integer.parseInt(AddictedMonth);
-                }catch(NumberFormatException ex){
-
-                }
-                try{
-                    addictedDayInt = Integer.parseInt(AddictedDay);
-                }catch(NumberFormatException ex){
-
+                String DaysOfAddicted = dayOfAddiction.getText().toString();
+                String DaysOfSobriety = dayOfSobriety.getText().toString();
+                if(Username.isEmpty() || Email.isEmpty() ||Password.isEmpty() ||
+                        Age.isEmpty() ||Height.isEmpty() ||Weight.isEmpty() ||
+                        Money.isEmpty() ||DaysOfAddicted.isEmpty() ){
+                    //makeToast (required)
+                    Toast.makeText(mActivity, "Make sure to fill out all required (*) fields", Toast.LENGTH_LONG).show();
+                    return;
+                    //return;
                 }
 
-                String TotalAddicted = String.valueOf(addictedDayInt+addictedMonthInt+addictedYearInt);
-
-                String SoberYear = soberYear.getText().toString();
-                String SoberMonth = soberMonth.getText().toString();
-                String SoberDay = soberDay.getText().toString();
-                int soberYearInt=0, soberMonthInt=0,soberDayInt=0;
-                try{
-                    soberYearInt = Integer.parseInt(SoberYear);
-                }catch(NumberFormatException ex){
-
-                }
-                try{
-                    soberMonthInt = Integer.parseInt(SoberMonth);
-                }catch(NumberFormatException ex){
-
-                }
-                try{
-                    soberDayInt = Integer.parseInt(SoberDay);
-                }catch(NumberFormatException ex) {
-
-                }
-                int totalSober = (soberYearInt*31536000)+(soberDayInt*86400);
-                String TotalSober = String.valueOf(soberDayInt+soberMonthInt+soberYearInt);
                 Map<String, Object> userAccount = new HashMap<>();
-                userAccount.put("username", Username);
+                userAccount.put("email", Email);
                 userAccount.put("password", Password);
+                userAccount.put("username", Username);
                 userAccount.put("age", Age);
                 userAccount.put("height", Height);
                 userAccount.put("weight", Weight);
                 userAccount.put("moneySpent", Money);
-                userAccount.put("timeAddicted", TotalAddicted);
-                userAccount.put("timeSober", TotalSober);
+                userAccount.put("timeAddicted", DaysOfAddicted);
+                userAccount.put("timeSober", DaysOfSobriety);
 
-                int existsVal=checkIfAccountAlreadyExists(Username, db,userAccount);
-                Log.d("EXISTSVAL", String.valueOf(existsVal));
+                checkIfAccountAlreadyExists(Username, db,userAccount);
+
+//                if(existsVal!=-1){
+//                        MainActivity.fragmentManager.beginTransaction().replace(R.id.fragment_container,new HomeFragment()).commit();
+//                        MainActivity.bottomNav.setVisibility(View.VISIBLE);
+//
+//                        //uncomment below code to allow create account to only show up for first time
+//                        //SharedPreferences prefs = getActivity().getSharedPreferences("prefs", Context.MODE_PRIVATE);
+//                        //SharedPreferences.Editor editor = prefs.edit();
+//                        //editor.putBoolean("firstStart", false);
+//                        //editor.apply();
+//
+//                }
+//                else {
+//                    return;
+//                }
 //                if(existsVal==1){
 //
 //                }
@@ -194,9 +172,8 @@ public class EnterDataFragment extends Fragment {
     }
     //checks if an account with the current username already exists. If it does not exist,
     //it adds the account to the database. Else return -1
-    private int checkIfAccountAlreadyExists(final String usernameToCompare, FirebaseFirestore db,Map<String, Object> userAccount){
-        final Query mQuery = db.collection("userAccount").whereEqualTo("Username", usernameToCompare);
-        final int[] returnVal = {-1};
+    private void checkIfAccountAlreadyExists(final String usernameToCompare, FirebaseFirestore db,Map<String, Object> userAccount){
+        final Query mQuery = db.collection("userAccount").whereEqualTo("username", usernameToCompare);
         mQuery.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -204,10 +181,9 @@ public class EnterDataFragment extends Fragment {
 
                 if (task.isSuccessful()){
                     for (DocumentSnapshot ds: task.getResult()){
-                        String userNames = ds.getString("Username");
+                        String userNames = ds.getString("username");
                         if (userNames.equals(usernameToCompare)) {
                             Log.d("UsernameCheck", "checkingIfusernameExist: FOUND A MATCH -username already exists");
-                            returnVal[0] =1;
                             Toast.makeText(mActivity, "username already exists", Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -217,51 +193,60 @@ public class EnterDataFragment extends Fragment {
                     try{
 
                         Log.d("UsernameCheck", "onComplete: MATCH NOT FOUND - username is available");
-                        returnVal[0] =0;
                         Toast.makeText(mActivity, "username changed", Toast.LENGTH_SHORT).show();
-                        db.collection("userAccount")
-                                .add(userAccount)
-                                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                    @Override
-                                    public void onSuccess(DocumentReference documentReference) {
 
-                                        Toast.makeText(mActivity, "Account Created Successfully", Toast.LENGTH_SHORT).show();
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(mActivity, "Account Error", Toast.LENGTH_SHORT).show();
-                            }
-                        });
                         //create authorization of user for retrieving current user later on
-                        mAuth.createUserWithEmailAndPassword((String)userAccount.get("username"), (String) userAccount.get("password"))
+                        mAuth.createUserWithEmailAndPassword((String)userAccount.get("email"), (String) userAccount.get("password"))
                                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                     @Override
                                     public void onComplete(@NonNull Task<AuthResult> task) {
                                         if(task.isSuccessful()){
                                             Toast.makeText(mActivity, "auth worked", Toast.LENGTH_LONG).show();
+                                            FirebaseUser firebaseUser = mAuth.getCurrentUser();
+                                            String userid = firebaseUser.getUid();
+
+                                            db.collection("userAccount")
+                                                    .document(userid)
+                                                    .set(userAccount)
+                                                    .addOnSuccessListener(new OnSuccessListener() {
+                                                        @Override
+                                                        public void onSuccess(Object o) {
+                                                            Toast.makeText(mActivity, "Account Created Successfully", Toast.LENGTH_SHORT).show();
+                                                            MainActivity.fragmentManager.beginTransaction().replace(R.id.fragment_container,new HomeFragment()).commit();
+                                                            MainActivity.bottomNav.setVisibility(View.VISIBLE);
+                                                            //uncomment below code to allow create account to only show up for first time
+                                                            //SharedPreferences prefs = getActivity().getSharedPreferences("prefs", Context.MODE_PRIVATE);
+                                                            //SharedPreferences.Editor editor = prefs.edit();
+                                                            //editor.putBoolean("firstStart", false);
+                                                            //editor.apply();
+                                                        }
+
+//                                                        @Override
+//                                                        public void onSuccess(DocumentReference documentReference) {
+//
+//                                                            Toast.makeText(mActivity, "Account Created Successfully", Toast.LENGTH_SHORT).show();
+//                                                        }
+//                                                    }).addOnFailureListener(new OnFailureListener() {
+//                                                        @Override
+//                                                        public void onFailure(@NonNull Exception e) {
+//                                                            Toast.makeText(mActivity, "Account Error", Toast.LENGTH_SHORT).show();
+//                                                        }
+                                            });
+
                                         }
                                         else{
-                                            Toast.makeText(mActivity, "Auth Bad", Toast.LENGTH_LONG).show();
+                                           // Toast.makeText(mActivity, "Incorrect email or password", Toast.LENGTH_LONG).show();
+                                            Toast.makeText(mActivity, "Incorrect email or password", Toast.LENGTH_LONG).show();
                                         }
                                     }
                                 }
                                 );
-                        MainActivity.fragmentManager.beginTransaction().replace(R.id.fragment_container,new HomeFragment()).commit();
-                        MainActivity.bottomNav.setVisibility(View.VISIBLE);
-
-                        //uncomment below code to allow create account to only show up for first time
-                        //SharedPreferences prefs = getActivity().getSharedPreferences("prefs", Context.MODE_PRIVATE);
-                        //SharedPreferences.Editor editor = prefs.edit();
-                        //editor.putBoolean("firstStart", false);
-                        //editor.apply();
-
                     }catch (NullPointerException e){
                         Log.e("UsernameCheck", "NullPointerException: " + e.getMessage() );
                     }
                 }
             }
         });
-        return returnVal[0];
+        return;
     }
 }
