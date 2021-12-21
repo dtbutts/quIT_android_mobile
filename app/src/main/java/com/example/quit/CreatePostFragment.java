@@ -90,12 +90,15 @@ public class CreatePostFragment extends Fragment {
         post.put("publisher", firebaseUser.getUid());
         //DocumentReference key = db.collection("userAccount").document();
         Log.i("thePost", "Third");
+        DocumentReference key = db.collection("Posts").document();
+        post.put("postuid", key.getId());
 
         db.collection("Posts")
-                .add(post)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                .document(key.getId())
+                .set(post)
+                .addOnSuccessListener(new OnSuccessListener() {
                     @Override
-                    public void onSuccess(DocumentReference documentReference) {
+                    public void onSuccess(Object o) {
                         Toast.makeText(v.getContext(),
                                 "Post Successful!",
                                 Toast.LENGTH_LONG).show();
@@ -103,14 +106,14 @@ public class CreatePostFragment extends Fragment {
                         return;
                     }
                 }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(v.getContext(),
-                        "Post failed!",
-                        Toast.LENGTH_LONG).show();
-                Log.i("thePost", "Fifth");
-                return;
-            }
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(v.getContext(),
+                                "Post failed!",
+                                Toast.LENGTH_LONG).show();
+                        Log.i("thePost", "Fifth");
+                        return;
+                    }
         });
 
     }
