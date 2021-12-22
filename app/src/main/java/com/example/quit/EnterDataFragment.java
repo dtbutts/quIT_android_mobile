@@ -215,10 +215,10 @@ public class EnterDataFragment extends Fragment {
                                                             MainActivity.fragmentManager.beginTransaction().replace(R.id.fragment_container,new HomeFragment()).commit();
                                                             MainActivity.bottomNav.setVisibility(View.VISIBLE);
                                                             //uncomment below code to allow create account to only show up for first time
-                                                            //SharedPreferences prefs = getActivity().getSharedPreferences("prefs", Context.MODE_PRIVATE);
-                                                            //SharedPreferences.Editor editor = prefs.edit();
-                                                            //editor.putBoolean("firstStart", false);
-                                                            //editor.apply();
+//                                                            SharedPreferences prefs = getActivity().getSharedPreferences("prefs", Context.MODE_PRIVATE);
+//                                                            SharedPreferences.Editor editor = prefs.edit();
+//                                                            editor.putBoolean("firstStart", false);
+//                                                            editor.apply();
                                                         }
 
 //                                                        @Override

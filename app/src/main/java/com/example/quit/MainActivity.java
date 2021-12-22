@@ -29,6 +29,14 @@ public class MainActivity extends AppCompatActivity {
         prefs = getSharedPreferences("prefs", MODE_PRIVATE);
 
         firstStart = prefs.getBoolean("firstStart", true);
+
+//        Bundle intent = getIntent().getExtras();
+//        if(intent!=null){
+//            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+//                    new SocialFragment()).commit();
+//            intent = null;
+//        }
+
         //check to see if it is the first time the user has opened the app for
         //initialization and create account info
         if(firstStart){

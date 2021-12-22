@@ -72,6 +72,7 @@ public class CreatePostFragment extends Fragment {
                         "We got here",
                         Toast.LENGTH_LONG).show();
                 submitPostToDatabase(Title, ThePost, view);
+                //getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new SocialFragment()).commit();
                 MainActivity.fragmentManager.beginTransaction().replace(R.id.fragment_container,new SocialFragment()).commit();
             }
         });

@@ -83,7 +83,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
                                 public void onSuccess(Object o) {
 //                                    findingLikes(post.getPostuid(),holder.likeImage);
 //                                    numberOfLikes(holder.likes, post.getPostuid());
-                                    notifyDataSetChanged();
+                                    notifyItemChanged(holder.getAdapterPosition());
                                     return;
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
@@ -110,7 +110,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
                                             ds.getReference().delete();
 
                                         }
-                                        notifyDataSetChanged();
+                                        //notifyDataSetChanged();
+                                        notifyItemChanged(holder.getAdapterPosition());
                                     }
                                 }
 
@@ -127,7 +128,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
                 intent.putExtra("postid", post.getPostuid());
                 intent.putExtra("publisherid", post.getPublisher());
                 mContext.startActivity(intent);
-                notifyDataSetChanged();
+                //notifyDataSetChanged();
+
+                notifyItemChanged(holder.getAdapterPosition());
             }
         });
         holder.comments.setOnClickListener(new View.OnClickListener() {
@@ -138,7 +141,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
                 intent.putExtra("postid", post.getPostuid());
                 intent.putExtra("publisherid", post.getPublisher());
                 mContext.startActivity(intent);
-                notifyDataSetChanged();
+                //notifyDataSetChanged();
+                notifyItemChanged(holder.getAdapterPosition());
             }
         });
         //notifyDataSetChanged();
