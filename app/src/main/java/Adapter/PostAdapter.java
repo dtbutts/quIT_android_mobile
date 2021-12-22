@@ -1,6 +1,7 @@
 package Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.quit.CommentsActivity;
 import com.example.quit.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -61,6 +63,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
         publisherInfo(holder.username, holder.publisher, post.getPublisher());
         findingLikes(post.getPostuid(),holder.likeImage);
         numberOfLikes(holder.likes, post.getPostuid());
+        numberOfComments(holder.comments, post.getPostuid());
 
         holder.likeImage.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -69,9 +72,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
                 if(holder.likeImage.getTag().equals("like")){
                     Map<String, Object> likes = new HashMap<>();
                     likes.put(firebaseUser.getUid(),true);
+                    likes.put("postid", post.getPostuid());
                     db.collection("Likes")
                             .document(post.getPostuid())
-                            .set(likes)
+                            .collection("Sub")
+                            .add(likes)
+                            //.set(likes)
                             .addOnSuccessListener(new OnSuccessListener() {
                                 @Override
                                 public void onSuccess(Object o) {
@@ -89,28 +95,53 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
                             });
                 }
                 else{
-                    db.collection("Likes").document(post.getPostuid())
-                            .delete()
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    db.collection("Likes")
+                            .document(post.getPostuid())
+                            .collection("Sub")
+                            .whereEqualTo("postid", post.getPostuid())
+                            .whereEqualTo(firebaseUser.getUid(),true)
+                            .get()
+                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                 @Override
-                                public void onSuccess(Void aVoid) {
-                                    notifyDataSetChanged();
-//                                    findingLikes(post.getPostuid(),holder.likeImage);
-//                                    numberOfLikes(holder.likes, post.getPostuid());
-                                    //.d(TAG, "DocumentSnapshot successfully deleted!");
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    if (task.isSuccessful()){
+                                        //should only be a for loop of size 1
+                                        for (DocumentSnapshot ds: task.getResult()){
+                                            ds.getReference().delete();
+
+                                        }
+                                        notifyDataSetChanged();
+                                    }
                                 }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    //Log.w(TAG, "Error deleting document", e);
-                                }
+
                             });
                 }
             }
         }
         );
+        holder.commentImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+                Intent intent = new Intent(mContext, CommentsActivity.class);
+                intent.putExtra("postid", post.getPostuid());
+                intent.putExtra("publisherid", post.getPublisher());
+                mContext.startActivity(intent);
+                notifyDataSetChanged();
+            }
+        });
+        holder.comments.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(mContext, CommentsActivity.class);
+                intent.putExtra("postid", post.getPostuid());
+                intent.putExtra("publisherid", post.getPublisher());
+                mContext.startActivity(intent);
+                notifyDataSetChanged();
+            }
+        });
+        //notifyDataSetChanged();
     }
 
     @Override
@@ -134,47 +165,15 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
             title = itemView.findViewById(R.id.titleDescription);
             comments = itemView.findViewById(R.id.comments);
 
+
         }
     }
 
-    private void findingLikes(String postuid, final ImageView imageView){
-        final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        db.collection("Likes")
+    private void numberOfComments(final TextView comments, String postuid){
+
+        db.collection("Comments")
                 .document(postuid)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if (task.isSuccessful()) {
-                            DocumentSnapshot document = task.getResult();
-                            Log.d("Was Successful findingLikes()", "True "+document.get(firebaseUser.getUid()));
-                            if (document.exists()) {
-                                Log.d("DOCUMENT EXISTS", "True "+document.get(firebaseUser.getUid()));
-                                if(document.get(firebaseUser.getUid())!=null){
-                                    imageView.setImageResource(R.drawable.ic_liked);
-                                    imageView.setTag("liked");
-                                }
-                                else{
-                                    imageView.setImageResource(R.drawable.ic_like);
-                                    //Log.d("Set TAG in findingLikes() to like", "like");
-                                    imageView.setTag("like");
-                                }
-                                //Log.d(TAG, "DocumentSnapshot data: " + document.getData());
-                            }
-                            else{
-                                imageView.setImageResource(R.drawable.ic_like);
-                                Log.d("Set TAG in findingLikes() to like", "like");
-                                imageView.setTag("like");
-                            }
-                        }
-
-                    }
-                });
-    }
-
-    private void numberOfLikes(final TextView likes, String postuid){
-
-        db.collection("Likes")
+                .collection("Sub")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -182,11 +181,64 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
                         if (task.isSuccessful()) {
                             int count=0;
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                    if(document.getId().equals(postuid)){
+//                                if(document.getId().equals(postuid)){
+                                    count++;
+                            }
+                            comments.setText("View all "+ count+ " comments");
+                        } else {
+                            //Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+    }
+
+    private void findingLikes(String postuid, final ImageView imageView){
+        final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        db.collection("Likes")
+                .document(postuid)
+                .collection("Sub")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()){
+                            boolean isLiked= false;
+                            for (DocumentSnapshot ds: task.getResult()){
+                                if(ds.get(firebaseUser.getUid())!=null){
+                                    isLiked=true;
+                                    imageView.setImageResource(R.drawable.ic_liked);
+                                    imageView.setTag("liked");
+                                }
+
+                            }
+                            if(!isLiked){
+                                imageView.setImageResource(R.drawable.ic_like);
+                                //Log.d("Set TAG in findingLikes() to like", "like");
+                                imageView.setTag("like");
+                            }
+                        }
+                    }
+                });
+    }
+
+    private void numberOfLikes(final TextView likes, String postuid){
+
+        db.collection("Likes")
+                .document(postuid)
+                .collection("Sub")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            int count=0;
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                    //if(document.getId().equals(postuid)){
                                         count++;
-                                    }
+                                    //}
                             }
                             likes.setText(count+" likes");
+
                         } else {
                             //Log.d(TAG, "Error getting documents: ", task.getException());
                         }

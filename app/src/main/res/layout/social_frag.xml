@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -25,14 +26,13 @@
         />
 
     <ImageView
+        android:id="@+id/compose"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:id="@+id/compose"
+        android:layout_marginStart="355dp"
+        android:layout_marginBottom="24dp"
         android:src="@drawable/ic_compose"
-        android:layout_marginStart="10dp"
         app:layout_constraintBottom_toBottomOf="@id/recycler_view"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintHorizontal_bias=".1">
-    </ImageView>
+        app:layout_constraintStart_toStartOf="parent"></ImageView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
