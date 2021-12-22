@@ -56,6 +56,11 @@ public class MainActivity extends AppCompatActivity {
         else{
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                     new HomeFragment()).commit();
+//            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//            HomeFragment homeFragment = new HomeFragment();
+//            fragmentTransaction.add(R.id.fragment_container, homeFragment, null);
+//            //bottomNav.setVisibility(View.GONE);
+//            fragmentTransaction.commit();
         }
 
         //new

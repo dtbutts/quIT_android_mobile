@@ -37,6 +37,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 public class EnterDataFragment extends Fragment {
     private Button btnSubmit;
@@ -113,6 +114,14 @@ public class EnterDataFragment extends Fragment {
                     return;
                     //return;
                 }
+                Long TotalTimeSober = 0L;
+                Boolean ButtonPressed = false;
+                if(Integer.parseInt(DaysOfSobriety)>0){
+                    TotalTimeSober = TimeUnit.DAYS.toMillis(Integer.parseInt(DaysOfSobriety));
+                    ButtonPressed = true;
+                }
+                Long LastEndTime = 0L;
+
 
                 Map<String, Object> userAccount = new HashMap<>();
                 userAccount.put("email", Email);
@@ -123,7 +132,10 @@ public class EnterDataFragment extends Fragment {
                 userAccount.put("weight", Weight);
                 userAccount.put("moneySpent", Money);
                 userAccount.put("timeAddicted", DaysOfAddicted);
-                userAccount.put("timeSober", DaysOfSobriety);
+                userAccount.put("totalTimeSober", TotalTimeSober);
+                userAccount.put("lastEndTime", LastEndTime);
+                userAccount.put("buttonPressed", ButtonPressed);
+                //userAccount.put("timeSober", DaysOfSobriety);
 
                 checkIfAccountAlreadyExists(Username, db,userAccount);
 
@@ -215,10 +227,10 @@ public class EnterDataFragment extends Fragment {
                                                             MainActivity.fragmentManager.beginTransaction().replace(R.id.fragment_container,new HomeFragment()).commit();
                                                             MainActivity.bottomNav.setVisibility(View.VISIBLE);
                                                             //uncomment below code to allow create account to only show up for first time
-//                                                            SharedPreferences prefs = getActivity().getSharedPreferences("prefs", Context.MODE_PRIVATE);
-//                                                            SharedPreferences.Editor editor = prefs.edit();
-//                                                            editor.putBoolean("firstStart", false);
-//                                                            editor.apply();
+                                                            SharedPreferences prefs = getActivity().getSharedPreferences("prefs", Context.MODE_PRIVATE);
+                                                            SharedPreferences.Editor editor = prefs.edit();
+                                                            editor.putBoolean("firstStart", false);
+                                                            editor.apply();
                                                         }
 
 //                                                        @Override

@@ -1,7 +1,10 @@
 package com.example.quit;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,6 +46,15 @@ public class HomeFragment extends Fragment {
         minCounter= view.findViewById(R.id.minCounter);
         secCounter= view.findViewById(R.id.secCounter);
         timer = new Timer();
+//        getActivity().registerReceiver(new BroadcastReceiver() {
+//            @Override
+//            public void onReceive(Context context, Intent intent) {
+//
+//            }
+//        }, new IntentFilter("bcNewMessage"));
+
+        //set started to whatever db.collection.current user button is
+        //set time variable to db.collection.currentuser total time
 
         startSobriety.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -100,5 +112,10 @@ public class HomeFragment extends Fragment {
     }
     private String formatTime(int time){
         return String.format("%02d", time);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 }

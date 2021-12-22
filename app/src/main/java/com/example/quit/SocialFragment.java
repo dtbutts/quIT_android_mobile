@@ -50,8 +50,8 @@ public class SocialFragment extends Fragment {
         compose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CreatePostFragment()).commit();
-                MainActivity.fragmentManager.beginTransaction().replace(R.id.fragment_container,new CreatePostFragment()).commit();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CreatePostFragment()).commit();
+                //MainActivity.fragmentManager.beginTransaction().replace(R.id.fragment_container,new CreatePostFragment()).commit();
             }
         });
         readPosts();

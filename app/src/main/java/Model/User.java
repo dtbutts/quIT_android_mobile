@@ -1,9 +1,14 @@
 package Model;
 
-public class User {
-    private String email, password, username,age, height, weight, moneySpent, timeAddicted, timeSober;
+import android.text.BoringLayout;
 
-    public User(String username, String password, String age, String height, String weight, String moneySpent, String timeAddicted, String timeSober) {
+public class User {
+    private String email, password, username,age, height, weight, moneySpent, timeAddicted;
+    private Long totalTimeSober, lastEndTime;
+    private Boolean buttonPressed;
+
+    public User(String username, String password, String age, String height, String weight, String moneySpent, String timeAddicted,
+                Long totalTimeSober, Long lastEndTime, Boolean buttonPressed) {
         this.email = email;
         this.password = password;
         this.username = username;
@@ -12,7 +17,9 @@ public class User {
         this.weight = weight;
         this.moneySpent = moneySpent;
         this.timeAddicted = timeAddicted;
-        this.timeSober = timeSober;
+        this.totalTimeSober = totalTimeSober;
+        this.lastEndTime = lastEndTime;
+        this.buttonPressed = buttonPressed;
     }
 
     public User() {
@@ -82,11 +89,27 @@ public class User {
         this.timeAddicted = timeAddicted;
     }
 
-    public String getTimeSober() {
-        return timeSober;
+    public Long getTotalTimeSober() {
+        return totalTimeSober;
     }
 
-    public void setTimeSober(String timeSober) {
-        this.timeSober = timeSober;
+    public void setTotalTimeSober(Long totalTimeSober) {
+        this.totalTimeSober = totalTimeSober;
+    }
+
+    public Long getLastEndTime() {
+        return lastEndTime;
+    }
+
+    public void setLastEndTime(Long lastEndTime) {
+        this.lastEndTime = lastEndTime;
+    }
+
+    public Boolean getButtonPressed() {
+        return buttonPressed;
+    }
+
+    public void setButtonPressed(Boolean buttonPressed) {
+        this.buttonPressed = buttonPressed;
     }
 }
