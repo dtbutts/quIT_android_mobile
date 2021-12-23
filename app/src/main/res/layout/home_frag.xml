@@ -26,8 +26,42 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias=".88"
+        app:layout_constraintVertical_bias=".9"
         />
+
+    <RelativeLayout
+        android:id="@+id/yearsCounterLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:paddingLeft="158dp"
+        android:paddingRight="158dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias=".63">
+
+        <TextView
+            android:id="@+id/yearCounter"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/boarder"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="30dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="7dp"
+            android:background="@color/ourGray"
+            android:text="Years"
+            android:textColor="@color/ourPurple"
+            android:textSize="15dp" />
+
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -38,7 +72,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintVertical_bias=".75"
+        app:layout_constraintVertical_bias=".77"
         >
         <RelativeLayout
             android:layout_width="wrap_content"

@@ -116,12 +116,20 @@ public class EnterDataFragment extends Fragment {
                 }
                 Long TotalTimeSober = 0L;
                 Boolean ButtonPressed = false;
-                if(Integer.parseInt(DaysOfSobriety)>0){
-                    TotalTimeSober = TimeUnit.DAYS.toMillis(Integer.parseInt(DaysOfSobriety));
-                    ButtonPressed = true;
-                }
                 Long LastEndTime = 0L;
+                if(!DaysOfSobriety.equals("")) {
+                    try {
+                        Integer tmp = Integer.parseInt(DaysOfSobriety);
+                        if(tmp>0){
+                            TotalTimeSober = TimeUnit.DAYS.toMillis(Long.parseLong(DaysOfSobriety));
+                            ButtonPressed = true;
+                            LastEndTime = System.currentTimeMillis();
+                        }
+                    }
+                    catch (Exception e){
 
+                    }
+                }
 
                 Map<String, Object> userAccount = new HashMap<>();
                 userAccount.put("email", Email);
