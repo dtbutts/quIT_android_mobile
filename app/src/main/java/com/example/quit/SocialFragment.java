@@ -1,5 +1,7 @@
 package com.example.quit;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,16 +28,20 @@ import Adapter.PostAdapter;
 import Model.Post;
 
 public class SocialFragment extends Fragment {
-    ImageView compose;
+    ImageView compose, myPosts;
     private RecyclerView recyclerView;
     private PostAdapter postAdapter;
     private List<Post> postLists;
     private FirebaseFirestore db;
+    private Context mContext;
+
+
     @Nullable
     //@Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
         View view= inflater.inflate(R.layout.social_frag,container, false);
         compose = view.findViewById(R.id.compose);
+        myPosts = view.findViewById(R.id.my_posts);
         recyclerView = view.findViewById(R.id.recycler_view);
         ((SimpleItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
         recyclerView.getItemAnimator().setChangeDuration(0);
@@ -55,6 +61,14 @@ public class SocialFragment extends Fragment {
             public void onClick(View v) {
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CreatePostFragment()).commit();
                 //MainActivity.fragmentManager.beginTransaction().replace(R.id.fragment_container,new CreatePostFragment()).commit();
+            }
+        });
+        myPosts.setClickable(true);
+        myPosts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), MyPostsActivity.class);
+                getActivity().startActivity(intent);
             }
         });
         readPosts();

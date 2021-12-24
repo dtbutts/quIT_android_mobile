@@ -26,7 +26,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/usernamePost"
+                android:id="@+id/usernameMyPost"
                 android:layout_gravity="center"
                 android:textSize="16dp"
                 android:textStyle="bold"
@@ -39,7 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:id="@+id/titleDescription"
+            android:id="@+id/titleDescriptionMyPost"
             android:text="title description"
             android:textColor="@color/black">
         </TextView>
@@ -48,7 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="THE POST"
-            android:id="@+id/thePostItem"
+            android:id="@+id/myThePostItem"
             android:textColor="@color/black"/>
 
         <RelativeLayout
@@ -59,23 +59,32 @@
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:id="@+id/like"
+                android:id="@+id/myLike"
                 android:src="@drawable/ic_like">
             </ImageView>
 
-            <TextView
-                android:id="@+id/likes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:id="@+id/myRemove"
                 android:layout_marginStart="10dp"
-                android:layout_toEndOf="@+id/like"
-                android:text="10 likes"
-                android:textColor="@color/black"
-                android:layout_centerVertical="true"
-                android:textStyle="bold"></TextView>
+                android:layout_toEndOf="@+id/myLike"
+                android:src="@drawable/ic_my_remove">
+            </ImageView>
 
 
         </RelativeLayout>
+
+        <TextView
+            android:id="@+id/myLikes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/myLike"
+            android:text="10 likes"
+            android:textColor="@color/black"
+            android:layout_centerVertical="true"
+            android:textStyle="bold"></TextView>
 
         <TextView
             android:layout_width="wrap_content"
@@ -83,7 +92,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="10dp"
-            android:id="@+id/comments"
+            android:id="@+id/myComments"
             android:text="View all comments"
             android:textColor="@color/black">
         </TextView>
