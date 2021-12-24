@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.quit.CommentsActivity;
 import com.example.quit.R;
+import com.example.quit.SocialFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -25,6 +26,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import Model.Post;
@@ -34,6 +36,7 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.ViewHolder
     public Context mContext;
     public List<Post> mPost;
     private FirebaseFirestore db;
+    private PostAdapter postAdapter;
 
     private FirebaseUser firebaseUser;
     public MyPostAdapter(Context mContext, List<Post> mPost){
@@ -77,6 +80,8 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.ViewHolder
                                 deleteReferences(post.getPostuid());
                                 mPost.remove(holder.getAdapterPosition());
                                 notifyDataSetChanged();
+
+                                updateSocialFragListofPosts();
                                 break;
 
                             case DialogInterface.BUTTON_NEGATIVE:
@@ -93,6 +98,27 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.ViewHolder
             }
         });
 
+    }
+
+    private void updateSocialFragListofPosts() {
+        List<Post> tmp = new ArrayList<>();
+        db.collection("Posts")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+
+                            for (QueryDocumentSnapshot document : task.getResult()){
+                                tmp.add(document.toObject(Post.class));
+                            }
+                            postAdapter = new PostAdapter(new SocialFragment().getContext(), tmp);
+                            postAdapter.notifyDataSetChanged();
+                        } else {
+                            //Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
     }
 
     private void deleteReferences(String postuid) {
