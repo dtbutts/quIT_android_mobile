@@ -18,11 +18,32 @@
         />
 
     <ImageView
-        android:id="@+id/compose"
+        android:id="@+id/saved"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+
+        android:layout_marginStart="352dp"
+        android:layout_marginBottom="68dp"
+        android:src="@drawable/ic_saved"
+        app:layout_constraintBottom_toBottomOf="@id/recycler_view"
+        app:layout_constraintStart_toStartOf="parent"></ImageView>
+
+    <ImageView
+        android:id="@+id/my_posts"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginStart="355dp"
         android:layout_marginBottom="24dp"
+        android:src="@drawable/ic_my_posts"
+        app:layout_constraintBottom_toBottomOf="@id/recycler_view"
+        app:layout_constraintStart_toStartOf="parent"></ImageView>
+
+    <ImageView
+        android:id="@+id/compose"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="352dp"
+        android:layout_marginBottom="108dp"
         android:src="@drawable/ic_compose"
         app:layout_constraintBottom_toBottomOf="@id/recycler_view"
         app:layout_constraintStart_toStartOf="parent"></ImageView>
