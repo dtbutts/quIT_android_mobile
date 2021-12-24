@@ -4,13 +4,19 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/commentToolbar"
+        android:background="?android:attr/windowBackground"
+        />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_comments"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/bottomComment"
-        android:layout_alignParentTop="true"
+        android:layout_below="@id/commentToolbar"
+        android:layout_above="@id/bottomComment"
          />
     <RelativeLayout
         android:layout_width="match_parent"
@@ -21,6 +27,7 @@
 
         <EditText
             android:layout_width="match_parent"
+            android:layout_toLeftOf="@+id/submitComment"
             android:layout_height="wrap_content"
             android:hint="Make new comment"
             android:id="@+id/newComment"

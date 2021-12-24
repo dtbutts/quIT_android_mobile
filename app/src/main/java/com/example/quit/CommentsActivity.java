@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -52,6 +53,18 @@ public class CommentsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comments);
 
+        Toolbar toolbar = findViewById(R.id.commentToolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Comments");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+
         recyclerView = findViewById(R.id.recycler_view_comments);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -87,11 +100,11 @@ public class CommentsActivity extends AppCompatActivity {
                 }
                 else{
                     addNewComment();
-                    try {
-                        adapter.notifyDataSetChanged();
-                    }catch (NullPointerException nullPointerException){
-
-                    }
+//                    try {
+//                        adapter.notifyDataSetChanged();
+//                    }catch (NullPointerException nullPointerException){
+//
+//                    }
                     finish();
 //                    Intent i=new Intent(view.getContext(), MainActivity.class);
 ////                    i.putExtra("back", "toSocial");

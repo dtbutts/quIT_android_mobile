@@ -130,7 +130,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
                 mContext.startActivity(intent);
                 //notifyDataSetChanged();
 
-                notifyItemChanged(holder.getAdapterPosition());
+                //notifyItemChanged(holder.getAdapterPosition());
             }
         });
         holder.comments.setOnClickListener(new View.OnClickListener() {
@@ -142,7 +142,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
                 intent.putExtra("publisherid", post.getPublisher());
                 mContext.startActivity(intent);
                 //notifyDataSetChanged();
-                notifyItemChanged(holder.getAdapterPosition());
+                //notifyItemChanged(holder.getAdapterPosition());
             }
         });
         //notifyDataSetChanged();

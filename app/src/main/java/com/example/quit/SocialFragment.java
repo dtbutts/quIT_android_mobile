@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SimpleItemAnimator;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -36,6 +37,8 @@ public class SocialFragment extends Fragment {
         View view= inflater.inflate(R.layout.social_frag,container, false);
         compose = view.findViewById(R.id.compose);
         recyclerView = view.findViewById(R.id.recycler_view);
+        ((SimpleItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
+        recyclerView.getItemAnimator().setChangeDuration(0);
 
         db = FirebaseFirestore.getInstance();
         recyclerView.setHasFixedSize(true);
@@ -77,5 +80,12 @@ public class SocialFragment extends Fragment {
                         }
                     }
                 });
+    }
+
+    //this function is used to update the View all "" comments when a comment is submitted
+    @Override
+    public void onResume() {
+        postAdapter.notifyDataSetChanged();
+        super.onResume();
     }
 }
