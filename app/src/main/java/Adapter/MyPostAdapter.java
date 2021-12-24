@@ -81,7 +81,7 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.ViewHolder
                                 mPost.remove(holder.getAdapterPosition());
                                 notifyDataSetChanged();
 
-                                updateSocialFragListofPosts();
+//                                updateSocialFragListofPosts();
                                 break;
 
                             case DialogInterface.BUTTON_NEGATIVE:
@@ -98,28 +98,40 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.ViewHolder
             }
         });
 
+        holder.comments.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(mContext, CommentsActivity.class);
+                intent.putExtra("postid", post.getPostuid());
+                mContext.startActivity(intent);
+                //notifyDataSetChanged();
+                //notifyItemChanged(holder.getAdapterPosition());
+            }
+        });
+
     }
 
-    private void updateSocialFragListofPosts() {
-        List<Post> tmp = new ArrayList<>();
-        db.collection("Posts")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-
-                            for (QueryDocumentSnapshot document : task.getResult()){
-                                tmp.add(document.toObject(Post.class));
-                            }
-                            postAdapter = new PostAdapter(new SocialFragment().getContext(), tmp);
-                            postAdapter.notifyDataSetChanged();
-                        } else {
-                            //Log.d(TAG, "Error getting documents: ", task.getException());
-                        }
-                    }
-                });
-    }
+//    private void updateSocialFragListofPosts() {
+//        List<Post> tmp = new ArrayList<>();
+//        db.collection("Posts")
+//                .get()
+//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                        if (task.isSuccessful()) {
+//
+//                            for (QueryDocumentSnapshot document : task.getResult()){
+//                                tmp.add(document.toObject(Post.class));
+//                            }
+//                            postAdapter = new PostAdapter(new SocialFragment().getContext(), tmp);
+//                            postAdapter.notifyDataSetChanged();
+//                        } else {
+//                            //Log.d(TAG, "Error getting documents: ", task.getException());
+//                        }
+//                    }
+//                });
+//    }
 
     private void deleteReferences(String postuid) {
         db.collection("Posts")
