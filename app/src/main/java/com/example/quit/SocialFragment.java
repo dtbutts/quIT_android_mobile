@@ -28,7 +28,7 @@ import Adapter.PostAdapter;
 import Model.Post;
 
 public class SocialFragment extends Fragment {
-    ImageView compose, myPosts;
+    ImageView compose, myPosts, savedPosts;
     private RecyclerView recyclerView;
     private PostAdapter postAdapter;
     private List<Post> postLists;
@@ -41,6 +41,7 @@ public class SocialFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
         View view= inflater.inflate(R.layout.social_frag,container, false);
         compose = view.findViewById(R.id.compose);
+        savedPosts = view.findViewById(R.id.saved);
         myPosts = view.findViewById(R.id.my_posts);
         recyclerView = view.findViewById(R.id.recycler_view);
         ((SimpleItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
@@ -68,6 +69,14 @@ public class SocialFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), MyPostsActivity.class);
+                getActivity().startActivity(intent);
+            }
+        });
+        savedPosts.setClickable(true);
+        savedPosts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), MySavedPostsActivity.class);
                 getActivity().startActivity(intent);
             }
         });

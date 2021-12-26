@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.quit.CommentsActivity;
+import com.example.quit.MyPostCommentsActivity;
 import com.example.quit.R;
 import com.example.quit.SocialFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -102,13 +103,15 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.ViewHolder
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(mContext, CommentsActivity.class);
+                Intent intent = new Intent(mContext, MyPostCommentsActivity.class);
                 intent.putExtra("postid", post.getPostuid());
                 mContext.startActivity(intent);
                 //notifyDataSetChanged();
                 //notifyItemChanged(holder.getAdapterPosition());
             }
         });
+
+
 
     }
 

@@ -63,6 +63,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
 
         publisherInfo(holder.username, holder.publisher, post.getPublisher());
         findingLikes(post.getPostuid(),holder.likeImage);
+        findingSaves(post.getPostuid(), holder.saveImage);
         numberOfLikes(holder.likes, post.getPostuid());
         numberOfComments(holder.comments, post.getPostuid());
 
@@ -121,6 +122,66 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
             }
         }
         );
+
+        holder.saveImage.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+
+                if(holder.saveImage.getTag().equals("save")){
+                    Map<String, Object> saves = new HashMap<>();
+                    //saves.put(firebaseUser.getUid(),true);
+                    saves.put("postuid", post.getPostuid());
+                    saves.put("publisher",post.getPublisher());
+                    saves.put("thePost", post.getThePost());
+                    saves.put("title", post.getTitle());
+                    db.collection("Saves")
+                            .document(firebaseUser.getUid())
+                            .collection("Sub")
+                            .add(saves)
+                            //.set(likes)
+                            .addOnSuccessListener(new OnSuccessListener() {
+                                @Override
+                                public void onSuccess(Object o) {
+//                                   findingLikes(post.getPostuid(),holder.likeImage);
+//                                   numberOfLikes(holder.likes, post.getPostuid());
+                                    notifyItemChanged(holder.getAdapterPosition());
+                                    return;
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+
+                                    return;
+                                }
+                            });
+                }
+                else{
+                    db.collection("Saves")
+                            .document(firebaseUser.getUid())
+                            .collection("Sub")
+                            .whereEqualTo("postuid", post.getPostuid())
+                            //.whereEqualTo(firebaseUser.getUid(),true)
+                            .get()
+                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    if (task.isSuccessful()){
+                                        //should only be a for loop of size 1
+                                        for (DocumentSnapshot ds: task.getResult()){
+                                            ds.getReference().delete();
+
+                                        }
+                                        //notifyDataSetChanged();
+                                        notifyItemChanged(holder.getAdapterPosition());
+                                    }
+                                }
+
+                            });
+                }
+            }
+        }
+        );
+
         holder.commentImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -220,6 +281,35 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
                                 imageView.setImageResource(R.drawable.ic_like);
                                 //Log.d("Set TAG in findingLikes() to like", "like");
                                 imageView.setTag("like");
+                            }
+                        }
+                    }
+                });
+    }
+
+    private void findingSaves(String postuid, final ImageView saveView){
+        final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        db.collection("Saves")
+                .document(firebaseUser.getUid())
+                .collection("Sub")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()){
+                            boolean isSaved= false;
+                            for (DocumentSnapshot ds: task.getResult()){
+                                if(ds.get("postuid").equals(postuid)){
+                                    isSaved=true;
+                                    saveView.setImageResource(R.drawable.ic_saved);
+                                    saveView.setTag("liked");
+                                }
+
+                            }
+                            if(!isSaved){
+                                saveView.setImageResource(R.drawable.ic_save);
+                                //Log.d("Set TAG in findingLikes() to like", "like");
+                                saveView.setTag("save");
                             }
                         }
                     }

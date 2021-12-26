@@ -1,19 +1,17 @@
 package com.example.quit;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SimpleItemAnimator;
 
+import com.example.quit.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,34 +21,30 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import Adapter.CommentAdapter;
+import Adapter.MyPostAdapter;
 import Adapter.PostAdapter;
-import Model.Comment;
+import Adapter.SavedPostAdapter;
+import Model.Post;
 
-public class MyPostCommentsActivity extends AppCompatActivity {
+public class MySavedPostsActivity extends AppCompatActivity {
+
     private RecyclerView recyclerView;
-    private CommentAdapter commentAdapter;
-    private List<Comment> commentList;
-
-    EditText newComment;
-    TextView submitPost;
-    String postid;
-    String publisherid;
-    FirebaseUser firebaseUser;
-    FirebaseFirestore db;
-    PostAdapter adapter;
+    private SavedPostAdapter savedPostAdapter;
+    private List<Post> postLists;
+    private FirebaseFirestore db;
+    private FirebaseUser firebaseUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_post_comments);
+        setContentView(R.layout.activity_my_saved_posts);
 
-        Toolbar toolbar = findViewById(R.id.myPostCommentToolbar);
+        Toolbar toolbar = findViewById(R.id.mySavedPostsToolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Comments");
+        getSupportActionBar().setTitle("Saved Posts");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,50 +54,36 @@ public class MyPostCommentsActivity extends AppCompatActivity {
         });
 
 
-        recyclerView = findViewById(R.id.recycler_view_my_post_comments);
+        recyclerView = findViewById(R.id.recycler_view_my_saved_posts);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
-        commentList = new ArrayList<>();
-        commentAdapter = new CommentAdapter(this, commentList);
-        recyclerView.setAdapter(commentAdapter);
-
-//        rVPost = findViewById(R.id.recycler_view);
-//        rVPost.setHasFixedSize(true);
-//        LinearLayoutManager linearLayoutManagerPost = new LinearLayoutManager(SocialFragment.getContext());
-//        rVPost.setLayoutManager(linearLayoutManager);
-//        commentList = new ArrayList<>();
-//        commentAdapter = new CommentAdapter(this, commentList);
-//        recyclerView.setAdapter(commentAdapter);
-
+        postLists = new ArrayList<>();
+        savedPostAdapter = new SavedPostAdapter(this, postLists);
+        recyclerView.setAdapter(savedPostAdapter);
         db = FirebaseFirestore.getInstance();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-
-        Intent intent = getIntent();
-        postid = intent.getStringExtra("postid");
-
-        findComments();
+        findSavedPosts();
     }
 
-    private void findComments(){
-        Log.d("findComments", "Gets Ran");
-        db.collection("Comments")
-                .document(postid)
+    private void findSavedPosts(){
+        db.collection("Saves")
+                .document(firebaseUser.getUid())
                 .collection("Sub")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                            commentList.clear();
+                            postLists.clear();
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                Comment comment = document.toObject(Comment.class);
-                                commentList.add(comment);
-                                Log.d("findComments", "In Loop");
-//                                if(document.getId().equals(postuid)){
 
+                                Post post = document.toObject(Post.class);
+                                postLists.add(post);
+
+                                //Log.d(TAG, document.getId() + " => " + document.getData());
                             }
-                            commentAdapter.notifyDataSetChanged();
+                            savedPostAdapter.notifyDataSetChanged();
                         } else {
                             //Log.d(TAG, "Error getting documents: ", task.getException());
                         }
