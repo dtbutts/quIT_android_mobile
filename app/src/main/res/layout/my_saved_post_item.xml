@@ -11,15 +11,32 @@
         android:padding="5dp"
         >
 
-        <TextView
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/usernameSaved"
-            android:textSize="16dp"
-            android:textStyle="bold"
-            android:textColor="@color/white"
-            android:text="username">
-        </TextView>
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_margin="10dp"
+                android:id="@+id/profile_image"
+
+                android:src="@drawable/ic_profile">
+            </ImageView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/usernameSaved"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_gravity="center"
+                android:text="username">
+            </TextView>
+        </LinearLayout>
+
 
         <TextView
             android:layout_width="wrap_content"
