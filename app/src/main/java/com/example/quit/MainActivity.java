@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         bottomNav = findViewById(R.id.bottom_navigation);
         prefs = getSharedPreferences("prefs", MODE_PRIVATE);
 
-        firstStart = prefs.getBoolean("firstStart", true);
+        //firstStart = prefs.getBoolean("firstStart", true);
 
 //        Bundle intent = getIntent().getExtras();
 //        if(intent!=null){
@@ -39,21 +39,21 @@ public class MainActivity extends AppCompatActivity {
 
         //check to see if it is the first time the user has opened the app for
         //initialization and create account info
-        if(firstStart){
-            fragmentManager = getSupportFragmentManager();
-            if(findViewById(R.id.fragment_container)!=null){
-                if(savedInstanceState !=null){
-                    return;
-                }
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                EnterDataFragment enterDataFragment = new EnterDataFragment();
-                fragmentTransaction.add(R.id.fragment_container, enterDataFragment, null);
-                bottomNav.setVisibility(View.GONE);
-                fragmentTransaction.commit();
-            }
-        }
-
-        else{
+//        if(firstStart){
+//            fragmentManager = getSupportFragmentManager();
+//            if(findViewById(R.id.fragment_container)!=null){
+//                if(savedInstanceState !=null){
+//                    return;
+//                }
+//                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//                EnterDataFragment enterDataFragment = new EnterDataFragment();
+//                fragmentTransaction.add(R.id.fragment_container, enterDataFragment, null);
+//                bottomNav.setVisibility(View.GONE);
+//                fragmentTransaction.commit();
+//            }
+//        }
+//
+//        else{
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                     new HomeFragment()).commit();
 //            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
 //            fragmentTransaction.add(R.id.fragment_container, homeFragment, null);
 //            //bottomNav.setVisibility(View.GONE);
 //            fragmentTransaction.commit();
-        }
+        //}
 
         //new
 //        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,

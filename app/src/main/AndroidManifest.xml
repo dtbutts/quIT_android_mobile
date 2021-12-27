@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
         <activity
-            android:name=".MainActivity"
+            android:name=".StartActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,12 +19,20 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.NOTFIRST" />
+
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".CommentsActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.COMMENTS" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
+
             </intent-filter>
         </activity>
         <activity
@@ -33,7 +41,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MYPOSTS" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
+
             </intent-filter>
         </activity>
         <activity
@@ -42,7 +50,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MYPOSTCOMMENTS" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
+
             </intent-filter>
         </activity>
         <activity
@@ -51,7 +59,16 @@
             <intent-filter>
                 <action android:name="android.intent.action.MYSAVEDPOSTS" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
+
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".RegisterActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.REGISTER" />
+
+
             </intent-filter>
         </activity>
     </application>

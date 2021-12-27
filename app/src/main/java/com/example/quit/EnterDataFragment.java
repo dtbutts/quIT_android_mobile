@@ -39,6 +39,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+//THIS IS NO LONGER USED!!!!!!!!!!!!!
 public class EnterDataFragment extends Fragment {
     private Button btnSubmit;
     private EditText email, username,password,age, height, weight, moneySpent,dayOfAddiction, dayOfSobriety;
