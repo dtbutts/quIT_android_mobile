@@ -144,6 +144,7 @@ public class EnterDataFragment extends Fragment {
                 userAccount.put("totalTimeSober", TotalTimeSober);
                 userAccount.put("lastEndTime", LastEndTime);
                 userAccount.put("buttonPressed", ButtonPressed);
+                userAccount.put("imageUri", "");
 
                 //userAccount.put("timeSober", DaysOfSobriety);
 

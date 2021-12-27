@@ -139,6 +139,7 @@ public class RegisterActivity extends AppCompatActivity {
                 userAccount.put("totalTimeSober", TotalTimeSober);
                 userAccount.put("lastEndTime", LastEndTime);
                 userAccount.put("buttonPressed", ButtonPressed);
+                userAccount.put("imageUri", "");
                 //userAccount.put("timeSober", DaysOfSobriety);
 
                 checkIfAccountAlreadyExists(Username, db,userAccount);

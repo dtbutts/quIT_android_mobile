@@ -1,54 +1,142 @@
 package com.example.quit;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.MimeTypeMap;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SimpleItemAnimator;
 
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.StorageTask;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import Adapter.PostAdapter;
 import Model.Post;
+import Model.User;
 
 public class SocialFragment extends Fragment {
-    ImageView compose, myPosts, savedPosts;
+    ImageView compose, myPosts, savedPosts, profileImage;
     private RecyclerView recyclerView;
     private PostAdapter postAdapter;
     private List<Post> postLists;
     private FirebaseFirestore db;
+    private FirebaseUser firebaseUser;
+    private StorageTask uploadTask;
+    StorageReference storageReference;
+    private Uri mImageUri;
     private Context mContext;
+    private Activity mActivity;
 
+//    @Override
+//    public void onAttach(Context context) {
+//        super.onAttach(context);
+//
+//        if (context instanceof Activity){
+//            mActivity =(Activity) context;
+//        }
+//        ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
+//                new ActivityResultContracts.StartActivityForResult(),
+//                new ActivityResultCallback<ActivityResult>() {
+//                    @Override
+//                    public void onActivityResult(ActivityResult result) {
+//                        Log.d("INITIAL", "entered function");
+//                        if (result.getResultCode() == Activity.RESULT_OK){// && result.== CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+//                            // There are no request codes
+//                            Log.d("INITIAL", "entered if statement");
+//                            Intent data = result.getData();
+//                            //doSomeOperations();
+//                            CropImage.ActivityResult res = CropImage.getActivityResult(data);
+//                            mImageUri = res.getUri();
+//
+//                            uploadProfileImage();
+//
+//                        }
+//                        else{
+//                            Toast.makeText(getActivity(), "Something went wrong", Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                });
+//    }
 
     @Nullable
     //@Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
         View view= inflater.inflate(R.layout.social_frag,container, false);
+
+//        ActivityResultLauncher<Intent> someActivityResultLauncher =
+        registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                new ActivityResultCallback<ActivityResult>() {
+                    @Override
+                    public void onActivityResult(ActivityResult result) {
+                        Log.d("INITIAL", "entered function");
+                        if (result.getResultCode() == Activity.RESULT_OK){// && result.== CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+                            // There are no request codes
+                            Log.d("INITIAL", "entered if statement");
+                            Intent data = result.getData();
+                            //doSomeOperations();
+                            CropImage.ActivityResult res = CropImage.getActivityResult(data);
+                            mImageUri = res.getUri();
+                            
+                            uploadProfileImage();
+                            
+                        }
+                        else{
+                            Toast.makeText(getActivity(), "Something went wrong", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+
         compose = view.findViewById(R.id.compose);
         savedPosts = view.findViewById(R.id.saved);
         myPosts = view.findViewById(R.id.my_posts);
+        profileImage = view.findViewById(R.id.profile_image);
         recyclerView = view.findViewById(R.id.recycler_view);
         ((SimpleItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
         recyclerView.getItemAnimator().setChangeDuration(0);
 
         db = FirebaseFirestore.getInstance();
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        storageReference = FirebaseStorage.getInstance().getReference("uploads");
+
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setReverseLayout(true);
@@ -81,6 +169,38 @@ public class SocialFragment extends Fragment {
                 getActivity().startActivity(intent);
             }
         });
+
+        db.collection("userAccount")
+                .document(firebaseUser.getUid())
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            User user = task.getResult().toObject(User.class);
+                            Glide.with(getContext()).load(user.getImageURL());
+                        } else {
+                            // Log.d(TAG, "get failed with ", task.getException());
+                        }
+                    }
+                });
+
+
+        profileImage.setClickable(true);
+        profileImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                CropImage.activity()
+                        .setAspectRatio(1, 1)
+                        .setCropShape(CropImageView.CropShape.OVAL)
+                        .start(getActivity());//this may cause problems
+//                Intent intent = new Intent(getActivity(), MainActivity.class);
+//                someActivityResultLauncher.launch(intent);
+
+            }
+        });
+
         readPosts();
         return view;
     }
@@ -106,6 +226,45 @@ public class SocialFragment extends Fragment {
                     }
                 });
     }
+
+    private String getFileExtension(Uri uri){
+        ContentResolver contentResolver = getActivity().getApplicationContext().getContentResolver();
+        MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
+        return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
+    }
+
+    private void uploadProfileImage(){
+        if(mImageUri != null){
+            StorageReference fileRef = storageReference.child(System.currentTimeMillis()
+            +"."+getFileExtension(mImageUri));
+
+            uploadTask = fileRef.putFile(mImageUri);
+            uploadTask.continueWithTask(new Continuation() {
+                @Override
+                public Object then(@NonNull Task task) throws Exception {
+                    if(task.isSuccessful()){
+                        throw task.getException();
+                    }
+                    return fileRef.getDownloadUrl();
+                }
+            }).addOnCompleteListener(new OnCompleteListener() {
+                @Override
+                public void onComplete(@NonNull Task task) {
+                    if(task.isSuccessful()){
+                        Uri downloadUri = (Uri) task.getResult();
+                        String myUrl = downloadUri.toString();
+
+                        db.collection("userAccount")
+                                .document(firebaseUser.getUid())
+                                .update("imageUri", myUrl);
+
+                    }
+                }
+            });
+
+        }
+    }
+
 
     //this function is used to update the View all "" comments when a comment is submitted
     @Override
