@@ -63,66 +63,44 @@ public class SocialFragment extends Fragment {
     private Uri mImageUri;
     private Context mContext;
     private Activity mActivity;
+    private ActivityResultLauncher<Intent> activityResultLauncher;
 
-//    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
-//
-//        if (context instanceof Activity){
-//            mActivity =(Activity) context;
-//        }
-//        ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
-//                new ActivityResultContracts.StartActivityForResult(),
-//                new ActivityResultCallback<ActivityResult>() {
-//                    @Override
-//                    public void onActivityResult(ActivityResult result) {
-//                        Log.d("INITIAL", "entered function");
-//                        if (result.getResultCode() == Activity.RESULT_OK){// && result.== CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
-//                            // There are no request codes
-//                            Log.d("INITIAL", "entered if statement");
-//                            Intent data = result.getData();
-//                            //doSomeOperations();
-//                            CropImage.ActivityResult res = CropImage.getActivityResult(data);
-//                            mImageUri = res.getUri();
-//
-//                            uploadProfileImage();
-//
-//                        }
-//                        else{
-//                            Toast.makeText(getActivity(), "Something went wrong", Toast.LENGTH_SHORT).show();
-//                        }
-//                    }
-//                });
-//    }
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        if (context instanceof Activity){
+            mActivity =(Activity) context;
+        }
+    }
 
     @Nullable
     //@Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
         View view= inflater.inflate(R.layout.social_frag,container, false);
 
-//        ActivityResultLauncher<Intent> someActivityResultLauncher =
-        registerForActivityResult(
+        activityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 new ActivityResultCallback<ActivityResult>() {
                     @Override
                     public void onActivityResult(ActivityResult result) {
-                        Log.d("INITIAL", "entered function");
                         if (result.getResultCode() == Activity.RESULT_OK){// && result.== CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
                             // There are no request codes
+
                             Log.d("INITIAL", "entered if statement");
                             Intent data = result.getData();
-                            //doSomeOperations();
                             CropImage.ActivityResult res = CropImage.getActivityResult(data);
                             mImageUri = res.getUri();
-                            
+
                             uploadProfileImage();
-                            
+
                         }
                         else{
                             Toast.makeText(getActivity(), "Something went wrong", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
+
 
 
         compose = view.findViewById(R.id.compose);
@@ -178,7 +156,8 @@ public class SocialFragment extends Fragment {
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         if (task.isSuccessful()) {
                             User user = task.getResult().toObject(User.class);
-                            Glide.with(getContext()).load(user.getImageURL());
+
+                            Glide.with(getActivity()).load(user.getImageUri()).into(profileImage);
                         } else {
                             // Log.d(TAG, "get failed with ", task.getException());
                         }
@@ -191,12 +170,14 @@ public class SocialFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                CropImage.activity()
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                intent.setType("image/*");
+                Intent cropIntent= CropImage.activity()
                         .setAspectRatio(1, 1)
                         .setCropShape(CropImageView.CropShape.OVAL)
-                        .start(getActivity());//this may cause problems
-//                Intent intent = new Intent(getActivity(), MainActivity.class);
-//                someActivityResultLauncher.launch(intent);
+                        .getIntent(getContext());
+                activityResultLauncher.launch(cropIntent);
 
             }
         });
@@ -242,8 +223,9 @@ public class SocialFragment extends Fragment {
             uploadTask.continueWithTask(new Continuation() {
                 @Override
                 public Object then(@NonNull Task task) throws Exception {
-                    if(task.isSuccessful()){
+                    if(!task.isSuccessful()){
                         throw task.getException();
+
                     }
                     return fileRef.getDownloadUrl();
                 }
@@ -253,7 +235,6 @@ public class SocialFragment extends Fragment {
                     if(task.isSuccessful()){
                         Uri downloadUri = (Uri) task.getResult();
                         String myUrl = downloadUri.toString();
-
                         db.collection("userAccount")
                                 .document(firebaseUser.getUid())
                                 .update("imageUri", myUrl);

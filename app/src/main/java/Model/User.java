@@ -3,13 +3,13 @@ package Model;
 import android.text.BoringLayout;
 
 public class User {
-    private String email, password, username,age, height, weight, moneySpent, timeAddicted, imageURL;
+    private String email, password, username,age, height, weight, moneySpent, timeAddicted, imageUri;
     private Long totalTimeSober, lastEndTime;
     private Boolean buttonPressed;
 
 
     public User(String username, String password, String age, String height, String weight, String moneySpent, String timeAddicted,
-                Long totalTimeSober, Long lastEndTime, Boolean buttonPressed, String imageURL) {
+                Long totalTimeSober, Long lastEndTime, Boolean buttonPressed, String imageUri) {
         this.email = email;
         this.password = password;
         this.username = username;
@@ -21,7 +21,7 @@ public class User {
         this.totalTimeSober = totalTimeSober;
         this.lastEndTime = lastEndTime;
         this.buttonPressed = buttonPressed;
-        this.imageURL = imageURL;
+        this.imageUri = imageUri;
     }
 
     public User() {
@@ -115,11 +115,11 @@ public class User {
         this.buttonPressed = buttonPressed;
     }
 
-    public String getImageURL() {
-        return imageURL;
+    public String getImageUri() {
+        return imageUri;
     }
 
-    public void setImageURL(String imageURL) {
-        this.imageURL = imageURL;
+    public void setImageUri(String imageUri) {
+        this.imageUri = imageUri;
     }
 }
