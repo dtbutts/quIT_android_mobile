@@ -4,11 +4,11 @@ import android.text.BoringLayout;
 
 public class User {
     private String email, password, username,age, height, weight, moneySpent, timeAddicted;
-    private Long totalTimeSober, lastEndTime;
+    private Long totalTimeSober, lastEndTime, timestamp;
     private Boolean buttonPressed;
 
     public User(String username, String password, String age, String height, String weight, String moneySpent, String timeAddicted,
-                Long totalTimeSober, Long lastEndTime, Boolean buttonPressed) {
+                Long totalTimeSober, Long lastEndTime, Boolean buttonPressed, Long timestamp) {
         this.email = email;
         this.password = password;
         this.username = username;
@@ -20,6 +20,7 @@ public class User {
         this.totalTimeSober = totalTimeSober;
         this.lastEndTime = lastEndTime;
         this.buttonPressed = buttonPressed;
+        this.timestamp = timestamp;
     }
 
     public User() {
@@ -111,5 +112,13 @@ public class User {
 
     public void setButtonPressed(Boolean buttonPressed) {
         this.buttonPressed = buttonPressed;
+    }
+
+    public Long getTimestamp(){
+        return timestamp;
+    }
+
+    public void setTimestamp(Long timestamp){
+        this.timestamp = timestamp;
     }
 }

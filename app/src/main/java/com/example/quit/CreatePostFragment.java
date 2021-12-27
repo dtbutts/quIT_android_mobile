@@ -94,6 +94,8 @@ public class CreatePostFragment extends Fragment {
         Log.i("thePost", "Third");
         DocumentReference key = db.collection("Posts").document();
         post.put("postuid", key.getId());
+        Long Timestamp = System.currentTimeMillis();
+        post.put("timestamp", Timestamp);
 
         db.collection("Posts")
                 .document(key.getId())

@@ -134,6 +134,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
                     saves.put("publisher",post.getPublisher());
                     saves.put("thePost", post.getThePost());
                     saves.put("title", post.getTitle());
+                    Long Timestamp = System.currentTimeMillis();
+                    saves.put("timestamp", Timestamp);
                     db.collection("Saves")
                             .document(firebaseUser.getUid())
                             .collection("Sub")

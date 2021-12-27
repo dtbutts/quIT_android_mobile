@@ -22,6 +22,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -122,6 +123,8 @@ public class CommentsActivity extends AppCompatActivity {
         HashMap<String, Object> comments = new HashMap<>();
         comments.put("comment", newComment.getText().toString());
         comments.put("publisher", firebaseUser.getUid());
+        Long Timestamp = System.currentTimeMillis();
+        comments.put("timestamp", Timestamp);
         db.collection("Comments")
                 .document(postid)
                 .collection("Sub")
@@ -134,6 +137,7 @@ public class CommentsActivity extends AppCompatActivity {
         db.collection("Comments")
                 .document(postid)
                 .collection("Sub")
+                .orderBy("timestamp", Query.Direction.DESCENDING)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override

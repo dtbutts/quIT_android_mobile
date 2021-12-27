@@ -131,7 +131,7 @@ public class EnterDataFragment extends Fragment {
 
                     }
                 }
-
+                Long Timestamp = System.currentTimeMillis();
                 Map<String, Object> userAccount = new HashMap<>();
                 userAccount.put("email", Email);
                 userAccount.put("password", Password);
@@ -144,6 +144,7 @@ public class EnterDataFragment extends Fragment {
                 userAccount.put("totalTimeSober", TotalTimeSober);
                 userAccount.put("lastEndTime", LastEndTime);
                 userAccount.put("buttonPressed", ButtonPressed);
+
                 //userAccount.put("timeSober", DaysOfSobriety);
 
                 checkIfAccountAlreadyExists(Username, db,userAccount);
