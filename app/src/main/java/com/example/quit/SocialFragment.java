@@ -187,7 +187,7 @@ public class SocialFragment extends Fragment {
     }
     private void readPosts(){
         db.collection("Posts")
-                .orderBy("timestamp", Query.Direction.DESCENDING)
+                .orderBy("timestamp", Query.Direction.ASCENDING)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -251,6 +251,7 @@ public class SocialFragment extends Fragment {
     @Override
     public void onResume() {
         db.collection("Posts")
+                .orderBy("timestamp", Query.Direction.ASCENDING)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override

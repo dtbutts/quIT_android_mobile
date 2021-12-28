@@ -6,11 +6,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.quit.MainActivity;
 import com.example.quit.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -54,7 +56,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 
         holder.comment.setText(comment.getComment());
         Log.d("comment in onbindviewholder", holder.comment.getText().toString());
-        getPublisherOfCommentInfo(holder.username, comment.getPublisher());
+        getPublisherOfCommentInfo(holder.username, holder.profileImage, comment.getPublisher());
 
 //        holder.comment.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -74,12 +76,14 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
     public class ViewHolder extends RecyclerView.ViewHolder{
 
         public TextView username, comment;
+        public ImageView profileImage;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             username = itemView.findViewById(R.id.usernameComment);
             comment = itemView.findViewById(R.id.commentItem);
+            profileImage = itemView.findViewById(R.id.profile_image);
             db = FirebaseFirestore.getInstance();
 
         }
@@ -87,7 +91,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 
     }
 
-    private void getPublisherOfCommentInfo(TextView username, String publisherid){
+    private void getPublisherOfCommentInfo(TextView username, ImageView profileImage, String publisherid){
         db.collection("userAccount").document(publisherid)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -98,6 +102,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                             if (document.exists()) {
                                 User user = document.toObject(User.class);
                                 username.setText(user.getUsername());
+                                Glide.with(mContext).load(user.getImageUri()).into(profileImage);
                             } else {
                                 //Log.d(TAG, "No such document");
                             }

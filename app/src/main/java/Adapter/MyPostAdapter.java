@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.quit.CommentsActivity;
 import com.example.quit.MyPostCommentsActivity;
 import com.example.quit.R;
@@ -63,7 +65,7 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.ViewHolder
         holder.title.setText(post.getTitle());
         holder.thePost.setText(post.getThePost());
 
-        publisherInfo(holder.username, post.getPublisher());
+        publisherInfo(holder.username, holder.profileImage, post.getPublisher());
         findingLikes(post.getPostuid(),holder.likeImage);
         numberOfLikes(holder.likes, post.getPostuid());
         numberOfComments(holder.comments, post.getPostuid());
@@ -188,7 +190,7 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.ViewHolder
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        public ImageView likeImage, removeImage;
+        public ImageView likeImage, removeImage, profileImage;
 
         public TextView username, thePost, likes, title, comments;
 
@@ -202,6 +204,7 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.ViewHolder
             likes = itemView.findViewById(R.id.myLikes);
             title = itemView.findViewById(R.id.titleDescriptionMyPost);
             comments = itemView.findViewById(R.id.myComments);
+            profileImage = itemView.findViewById(R.id.profile_image);
             db = FirebaseFirestore.getInstance();
 
         }
@@ -283,7 +286,7 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.ViewHolder
                 });
     }
 
-    private void publisherInfo(TextView username, String user_id){
+    private void publisherInfo(TextView username, ImageView profileImage, String user_id){
         db.collection("userAccount")
                 .document(user_id)
                 .get()
@@ -295,6 +298,7 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.ViewHolder
                             if (document.exists()) {
                                 User user = document.toObject(User.class);
                                 username.setText(user.getUsername());
+                                Glide.with(mContext).load(user.getImageUri()).into(profileImage);
                                 //Log.d(TAG, "DocumentSnapshot data: " + document.getData());
                             } else {
                                 //Log.d(TAG, "No such document");

@@ -29,11 +29,10 @@ public class Comment {
         this.publisher = publisher;
     }
 
-    public Long getTimestamp() {
-        return timestamp;
-    }
+    public Long getTimestamp() { return timestamp; }
 
     public void setTimestamp(Long timestamp) {
         this.timestamp = timestamp;
     }
+
 }

@@ -14,6 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.quit.CommentsActivity;
 import com.example.quit.MyPostCommentsActivity;
 import com.example.quit.R;
@@ -64,7 +65,7 @@ public class SavedPostAdapter extends RecyclerView.Adapter<SavedPostAdapter.View
         holder.title.setText(post.getTitle());
         holder.thePost.setText(post.getThePost());
 
-        publisherInfo(holder.username, post.getPublisher());
+        publisherInfo(holder.username, holder.profileImage, post.getPublisher());
 
 
         holder.removeImage.setOnClickListener(new View.OnClickListener() {
@@ -151,7 +152,7 @@ public class SavedPostAdapter extends RecyclerView.Adapter<SavedPostAdapter.View
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        public ImageView removeImage;
+        public ImageView removeImage, profileImage;
 
         public TextView username, thePost, title;
 
@@ -162,13 +163,14 @@ public class SavedPostAdapter extends RecyclerView.Adapter<SavedPostAdapter.View
             username = itemView.findViewById(R.id.usernameSaved);
             thePost = itemView.findViewById(R.id.postSaved);
             title = itemView.findViewById(R.id.titleSaved);
+            profileImage = itemView.findViewById(R.id.profile_image);
             db = FirebaseFirestore.getInstance();
 
         }
     }
 
 
-    private void publisherInfo(TextView username, String user_id){
+    private void publisherInfo(TextView username, ImageView profileImage, String user_id){
         db.collection("userAccount")
                 .document(user_id)
                 .get()
@@ -180,6 +182,7 @@ public class SavedPostAdapter extends RecyclerView.Adapter<SavedPostAdapter.View
                             if (document.exists()) {
                                 User user = document.toObject(User.class);
                                 username.setText(user.getUsername());
+                                Glide.with(mContext).load(user.getImageUri()).into(profileImage);
                                 //Log.d(TAG, "DocumentSnapshot data: " + document.getData());
                             } else {
                                 //Log.d(TAG, "No such document");

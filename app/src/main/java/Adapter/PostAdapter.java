@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.quit.CommentsActivity;
 import com.example.quit.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -61,7 +62,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
         holder.title.setVisibility(View.VISIBLE);
         holder.thePost.setText(post.getThePost());
 
-        publisherInfo(holder.username, holder.publisher, post.getPublisher());
+        publisherInfo(holder.username, holder.publisher, holder.profileImage, post.getPublisher());
         findingLikes(post.getPostuid(),holder.likeImage);
         findingSaves(post.getPostuid(), holder.saveImage);
         numberOfLikes(holder.likes, post.getPostuid());
@@ -218,7 +219,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        public ImageView likeImage, commentImage, saveImage;
+        public ImageView likeImage, commentImage, saveImage, profileImage;
         public TextView username, thePost, likes, publisher,title, comments;
         public ViewHolder(@NonNull View itemView){
             super(itemView);
@@ -232,7 +233,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
             publisher = itemView.findViewById(R.id.publisher);
             title = itemView.findViewById(R.id.titleDescription);
             comments = itemView.findViewById(R.id.comments);
-
+            profileImage = itemView.findViewById(R.id.profile_image);
 
         }
     }
@@ -343,7 +344,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
                 });
     }
 
-    private void publisherInfo(TextView username, TextView publisher, String user_id){
+    private void publisherInfo(TextView username, TextView publisher, ImageView profileImage, String user_id){
         db.collection("userAccount")
                 .document(user_id)
                 .get()
@@ -356,6 +357,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
                                 User user = document.toObject(User.class);
                                 username.setText(user.getUsername());
                                 publisher.setText(user.getUsername());
+                                Glide.with(mContext).load(user.getImageUri()).into(profileImage);
                                 //Log.d(TAG, "DocumentSnapshot data: " + document.getData());
                             } else {
                                 //Log.d(TAG, "No such document");
