@@ -223,6 +223,7 @@ public class HomeFragment extends Fragment {
 //
 //            }
 //        };
+
         timer.scheduleAtFixedRate(timerTask, 0, 1000);
     }
     private void convertSeconds(Long milliseconds){

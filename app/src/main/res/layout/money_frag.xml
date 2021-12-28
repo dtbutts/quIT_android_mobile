@@ -1,18 +1,193 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/ourTeal">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:background="@color/ourGray"
+    android:layout_gravity="center"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:paddingTop="60dp"
+    android:paddingBottom="20dp"
+    android:orientation="vertical"
+    >
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="70dp">
+
+        <com.cottacush.android.currencyedittext.CurrencyEditText
+            android:id="@+id/edit"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/boarder"
+            android:hint="edit here"
+            android:paddingLeft="10dp"
+
+            android:textSize="14dp"
+            android:textColor="@color/black"
+
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="7dp"
+            android:background="@color/ourGray"
+            android:textSize="15dp"
+            android:text="Average money spent a week"
+            android:textColor="@color/ourPurple"
+            />
+    </RelativeLayout>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="30sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:text="Money Page"/>
+        android:text="Total Savings since Date"
+        android:layout_gravity="center"
+        android:layout_marginTop="45dp"
+        android:textColor="@color/black"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="$0"
+        android:textSize="40dp"
+        android:textColor="@color/black"
+        android:layout_gravity="center"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Current Savings Date"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:layout_marginTop="35dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        >
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Money Saved this Week"
+                android:textColor="@color/black"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/titleWeek"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="$0"
+                android:textSize="20dp"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/titleWeek"
+                />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Money Saved this Month"
+                android:textColor="@color/black"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/titleMonth"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="$0"
+                android:textSize="20dp"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/black"
+                android:layout_below="@id/titleMonth"
+                />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Expected Savings"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:layout_marginTop="40dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        >
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Expected Monthly Savings"
+                android:textColor="@color/black"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/projectedMonthly"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="$0"
+                android:textSize="20dp"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/projectedMonthly"
+                />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Expected Yearly Savings"
+                android:textColor="@color/black"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/projectedYearly"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="$0"
+                android:textSize="20dp"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/black"
+                android:layout_below="@id/projectedYearly"
+                />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text = "Pause \nSavings"
+        android:layout_marginTop="70dp"
+        android:textSize="12dp"
+        android:layout_marginLeft="270dp"/>
+
+</LinearLayout>
