@@ -50,6 +50,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:id="@+id/date"
+            android:text="date"
+            android:textColor="@color/black">
+        </TextView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:id="@+id/titleDescriptionMyPost"
             android:text="title description"
             android:textColor="@color/black">

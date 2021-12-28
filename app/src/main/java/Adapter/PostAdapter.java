@@ -27,6 +27,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -61,8 +63,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
         holder.title.setText(post.getTitle());
         holder.title.setVisibility(View.VISIBLE);
         holder.thePost.setText(post.getThePost());
+        holder.date.setText(post.getDate());
 
-        publisherInfo(holder.username, holder.publisher, holder.profileImage, post.getPublisher());
+        publisherInfo(holder.username,holder.profileImage, post.getPublisher(), holder.getAdapterPosition());
         findingLikes(post.getPostuid(),holder.likeImage);
         findingSaves(post.getPostuid(), holder.saveImage);
         numberOfLikes(holder.likes, post.getPostuid());
@@ -137,6 +140,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
                     saves.put("title", post.getTitle());
                     Long Timestamp = System.currentTimeMillis();
                     saves.put("timestamp", Timestamp);
+                    String Date = new SimpleDateFormat("MMMM dd, yyyy").format(Calendar.getInstance().getTime());
+                    saves.put("date", Date);
                     db.collection("Saves")
                             .document(firebaseUser.getUid())
                             .collection("Sub")
@@ -220,7 +225,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         public ImageView likeImage, commentImage, saveImage, profileImage;
-        public TextView username, thePost, likes, publisher,title, comments;
+        public TextView username, thePost, likes, date,title, comments;
         public ViewHolder(@NonNull View itemView){
             super(itemView);
             db = FirebaseFirestore.getInstance();
@@ -230,7 +235,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
             username = itemView.findViewById(R.id.usernamePost);
             thePost = itemView.findViewById(R.id.thePostItem);
             likes = itemView.findViewById(R.id.likes);
-            publisher = itemView.findViewById(R.id.publisher);
+            date = itemView.findViewById(R.id.date);
+            //publisher = itemView.findViewById(R.id.publisher);
             title = itemView.findViewById(R.id.titleDescription);
             comments = itemView.findViewById(R.id.comments);
             profileImage = itemView.findViewById(R.id.profile_image);
@@ -344,7 +350,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
                 });
     }
 
-    private void publisherInfo(TextView username, TextView publisher, ImageView profileImage, String user_id){
+    private void publisherInfo(TextView username, ImageView profileImage, String user_id, int pos){
         db.collection("userAccount")
                 .document(user_id)
                 .get()
@@ -356,8 +362,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
                             if (document.exists()) {
                                 User user = document.toObject(User.class);
                                 username.setText(user.getUsername());
-                                publisher.setText(user.getUsername());
+                                //publisher.setText(user.getUsername());
                                 Glide.with(mContext).load(user.getImageUri()).into(profileImage);
+                                notifyItemChanged(pos);
                                 //Log.d(TAG, "DocumentSnapshot data: " + document.getData());
                             } else {
                                 //Log.d(TAG, "No such document");

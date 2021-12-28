@@ -1,13 +1,14 @@
 package Model;
 
 public class Post {
-    private String thePost, publisher, title, postuid;
+    private String thePost, publisher, title, postuid, date;
 
-    public Post(String title, String thePost, String publisher, String postuid){
+    public Post(String title, String thePost, String publisher, String postuid, String date){
         this.thePost = thePost;
         this.publisher= publisher;
         this.title= title;
         this.postuid = postuid;
+        this.date = date;
     }
     public Post(){
 
@@ -42,4 +43,11 @@ public class Post {
         this.postuid = postuid;
     }
 
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
 }

@@ -64,6 +64,7 @@ public class SavedPostAdapter extends RecyclerView.Adapter<SavedPostAdapter.View
         holder.title.setVisibility(View.VISIBLE);
         holder.title.setText(post.getTitle());
         holder.thePost.setText(post.getThePost());
+        holder.date.setText(post.getDate());
 
         publisherInfo(holder.username, holder.profileImage, post.getPublisher());
 
@@ -154,7 +155,7 @@ public class SavedPostAdapter extends RecyclerView.Adapter<SavedPostAdapter.View
     public class ViewHolder extends RecyclerView.ViewHolder{
         public ImageView removeImage, profileImage;
 
-        public TextView username, thePost, title;
+        public TextView username, thePost, title, date;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -164,6 +165,7 @@ public class SavedPostAdapter extends RecyclerView.Adapter<SavedPostAdapter.View
             thePost = itemView.findViewById(R.id.postSaved);
             title = itemView.findViewById(R.id.titleSaved);
             profileImage = itemView.findViewById(R.id.profile_image);
+            date = itemView.findViewById(R.id.date);
             db = FirebaseFirestore.getInstance();
 
         }

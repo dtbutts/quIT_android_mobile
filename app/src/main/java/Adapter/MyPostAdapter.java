@@ -64,6 +64,7 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.ViewHolder
         holder.title.setVisibility(View.VISIBLE);
         holder.title.setText(post.getTitle());
         holder.thePost.setText(post.getThePost());
+        holder.date.setText(post.getDate());
 
         publisherInfo(holder.username, holder.profileImage, post.getPublisher());
         findingLikes(post.getPostuid(),holder.likeImage);
@@ -192,7 +193,7 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.ViewHolder
     public class ViewHolder extends RecyclerView.ViewHolder{
         public ImageView likeImage, removeImage, profileImage;
 
-        public TextView username, thePost, likes, title, comments;
+        public TextView username, thePost, likes, title, comments, date;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -205,6 +206,7 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.ViewHolder
             title = itemView.findViewById(R.id.titleDescriptionMyPost);
             comments = itemView.findViewById(R.id.myComments);
             profileImage = itemView.findViewById(R.id.profile_image);
+            date = itemView.findViewById(R.id.date);
             db = FirebaseFirestore.getInstance();
 
         }

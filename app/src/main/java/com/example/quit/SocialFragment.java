@@ -63,7 +63,8 @@ public class SocialFragment extends Fragment {
     private Uri mImageUri;
     private Context mContext;
     private Activity mActivity;
-    private ActivityResultLauncher<Intent> activityResultLauncher;
+    private ActivityResultLauncher<Intent> galleryActivityResultLauncher;
+    private ActivityResultLauncher<Intent> cropActivityResultLauncher;
 
     @Override
     public void onAttach(Context context) {
@@ -72,6 +73,35 @@ public class SocialFragment extends Fragment {
         if (context instanceof Activity){
             mActivity =(Activity) context;
         }
+
+//        galleryActivityResultLauncher = registerForActivityResult(
+//                new ActivityResultContracts.StartActivityForResult(),
+//                new ActivityResultCallback<ActivityResult>() {
+//                    @Override
+//                    public void onActivityResult(ActivityResult result) {
+//
+//                        CropImage.activity()
+//                                .setAspectRatio(1, 1)
+//                                .setCropShape(CropImageView.CropShape.OVAL)
+//                                .start(getContext(), SocialFragment.this);
+//
+//                        //cropActivityResultLauncher.launch(cropIntent);
+//                        if (result.getResultCode() == Activity.RESULT_OK){// && result.== CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+//                            // There are no request codes
+//                            Log.d("INITIAL", "entered if statement");
+//                            Intent data = result.getData();
+//                            CropImage.ActivityResult res = CropImage.getActivityResult(data);
+//                            mImageUri = res.getUri();
+//
+//                            uploadProfileImage();
+//
+//
+//                        }
+//                        else{
+//                            Toast.makeText(getActivity(), "Something went wrong", Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                });
     }
 
     @Nullable
@@ -79,7 +109,7 @@ public class SocialFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
         View view= inflater.inflate(R.layout.social_frag,container, false);
 
-        activityResultLauncher = registerForActivityResult(
+        cropActivityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 new ActivityResultCallback<ActivityResult>() {
                     @Override
@@ -173,11 +203,12 @@ public class SocialFragment extends Fragment {
                 Intent intent = new Intent();
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 intent.setType("image/*");
+                //galleryActivityResultLauncher.launch(intent);
                 Intent cropIntent= CropImage.activity()
                         .setAspectRatio(1, 1)
                         .setCropShape(CropImageView.CropShape.OVAL)
                         .getIntent(getContext());
-                activityResultLauncher.launch(cropIntent);
+                cropActivityResultLauncher.launch(cropIntent);
 
             }
         });
@@ -238,7 +269,7 @@ public class SocialFragment extends Fragment {
                         db.collection("userAccount")
                                 .document(firebaseUser.getUid())
                                 .update("imageUri", myUrl);
-
+                        Glide.with(getActivity()).load(myUrl).into(profileImage);
                     }
                 }
             });
@@ -250,6 +281,7 @@ public class SocialFragment extends Fragment {
     //this function is used to update the View all "" comments when a comment is submitted
     @Override
     public void onResume() {
+        Log.d("ONRESUME", "isCalled");
         db.collection("Posts")
                 .orderBy("timestamp", Query.Direction.ASCENDING)
                 .get()
@@ -271,6 +303,8 @@ public class SocialFragment extends Fragment {
                     }
                 });
         //postAdapter.notifyDataSetChanged();
+
+
         super.onResume();
     }
 }

@@ -20,6 +20,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -96,6 +98,8 @@ public class CreatePostFragment extends Fragment {
         post.put("postuid", key.getId());
         Long Timestamp = System.currentTimeMillis();
         post.put("timestamp", Timestamp);
+        String Date = new SimpleDateFormat("MMMM dd, yyyy").format(Calendar.getInstance().getTime());
+        post.put("date", Date);
 
         db.collection("Posts")
                 .document(key.getId())
