@@ -21,8 +21,12 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SimpleItemAnimator;
@@ -65,6 +69,7 @@ public class SocialFragment extends Fragment {
     private Activity mActivity;
     private ActivityResultLauncher<Intent> galleryActivityResultLauncher;
     private ActivityResultLauncher<Intent> cropActivityResultLauncher;
+    ConstraintLayout kahuna;
 
     @Override
     public void onAttach(Context context) {
@@ -109,6 +114,8 @@ public class SocialFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
         View view= inflater.inflate(R.layout.social_frag,container, false);
 
+        kahuna = view.findViewById(R.id.kahuna);
+        kahuna.setVisibility(View.GONE);
         cropActivityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 new ActivityResultCallback<ActivityResult>() {
@@ -131,6 +138,9 @@ public class SocialFragment extends Fragment {
                     }
                 });
 
+        Toolbar toolbar = view.findViewById(R.id.postToolbar);
+
+        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
 
 
         compose = view.findViewById(R.id.compose);
@@ -150,6 +160,13 @@ public class SocialFragment extends Fragment {
         linearLayoutManager.setReverseLayout(true);
         linearLayoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(linearLayoutManager);
+
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
+                linearLayoutManager.getOrientation());
+        dividerItemDecoration.setDrawable(ContextCompat.getDrawable(getContext(), R.drawable.divider)) ;
+        recyclerView.addItemDecoration(dividerItemDecoration);
+
+
         postLists= new ArrayList<>();
         postAdapter = new PostAdapter(getContext(), postLists);
         recyclerView.setAdapter(postAdapter);
@@ -235,6 +252,7 @@ public class SocialFragment extends Fragment {
                         } else {
                             //Log.d(TAG, "Error getting documents: ", task.getException());
                         }
+                        kahuna.setVisibility(View.VISIBLE);
                     }
                 });
     }

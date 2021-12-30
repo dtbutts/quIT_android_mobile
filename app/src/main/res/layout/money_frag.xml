@@ -25,10 +25,9 @@
             android:background="@drawable/boarder"
             android:hint="edit here"
             android:paddingLeft="10dp"
-
+            app:currencySymbol="$"
             android:textSize="14dp"
             android:textColor="@color/black"
-
             />
 
         <TextView
@@ -49,14 +48,16 @@
         android:text="Total Savings since Date"
         android:layout_gravity="center"
         android:layout_marginTop="45dp"
-        android:textColor="@color/black"/>
+        android:textColor="@color/black"
+        android:id="@+id/startTime"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="$0"
         android:textSize="40dp"
         android:textColor="@color/black"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        android:id="@+id/total"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -76,47 +77,51 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1">
+
             <TextView
+                android:id="@+id/titleWeek"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Money Saved this Week"
-                android:textColor="@color/black"
                 android:layout_centerHorizontal="true"
-                android:id="@+id/titleWeek"/>
+                android:gravity="center"
+                android:text="Money Saved this Week\n startDate - endDate"
+                android:textColor="@color/black" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="$0"
-                android:textSize="20dp"
-                android:gravity="center"
-                android:textColor="@color/black"
-                android:layout_centerHorizontal="true"
                 android:layout_below="@id/titleWeek"
-                />
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:text="$0"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                android:id="@+id/weekVal"/>
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1">
+
             <TextView
+                android:id="@+id/titleMonth"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Money Saved this Month"
-                android:textColor="@color/black"
                 android:layout_centerHorizontal="true"
-                android:id="@+id/titleMonth"/>
+                android:gravity="center"
+                android:text="Money Saved this Month\n startDate - endDate"
+                android:textColor="@color/black" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="$0"
-                android:textSize="20dp"
-                android:layout_centerHorizontal="true"
-                android:textColor="@color/black"
                 android:layout_below="@id/titleMonth"
-                />
+                android:layout_centerHorizontal="true"
+                android:text="$0"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                android:id="@+id/monthVal"/>
         </RelativeLayout>
     </LinearLayout>
 
@@ -155,6 +160,7 @@
                 android:textColor="@color/black"
                 android:layout_centerHorizontal="true"
                 android:layout_below="@id/projectedMonthly"
+                android:id="@+id/expectedMonthly"
                 />
         </RelativeLayout>
 
@@ -178,6 +184,7 @@
                 android:layout_centerHorizontal="true"
                 android:textColor="@color/black"
                 android:layout_below="@id/projectedYearly"
+                android:id="@+id/expectedYearly"
                 />
         </RelativeLayout>
     </LinearLayout>
@@ -188,6 +195,7 @@
         android:text = "Pause \nSavings"
         android:layout_marginTop="70dp"
         android:textSize="12dp"
-        android:layout_marginLeft="270dp"/>
+        android:layout_marginLeft="270dp"
+        android:id="@+id/pause"/>
 
 </LinearLayout>

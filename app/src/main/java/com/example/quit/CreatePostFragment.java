@@ -7,17 +7,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.SimpleDateFormat;
@@ -25,8 +31,12 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
+import Model.User;
+
 public class CreatePostFragment extends Fragment {
     EditText title, thePost;
+    ImageView profileImage;
+    TextView username;
     Button cancel, post;
     FirebaseFirestore db;
     FirebaseUser firebaseUser;
@@ -38,7 +48,11 @@ public class CreatePostFragment extends Fragment {
         thePost = view.findViewById(R.id.thePost);
         cancel = view.findViewById(R.id.cancelPost);
         post = view.findViewById(R.id.submitPost);
+        username = view.findViewById(R.id.usernameCreate);
+        profileImage = view.findViewById(R.id.profile_image);
         db = FirebaseFirestore.getInstance();
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        publisherInfo(username);
         cancel.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -89,7 +103,6 @@ public class CreatePostFragment extends Fragment {
         //DocumentReference reference;
         //reference = db.collection("userAccount").
 
-        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         Log.d("SSSSSSSSSSSSSSSSSS", firebaseUser.getUid());
         post.put("publisher", firebaseUser.getUid());
         //DocumentReference key = db.collection("userAccount").document();
@@ -124,5 +137,30 @@ public class CreatePostFragment extends Fragment {
                     }
         });
 
+    }
+
+    private void publisherInfo(TextView username){
+        db.collection("userAccount")
+                .document(firebaseUser.getUid())
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            if (document.exists()) {
+                                User user = document.toObject(User.class);
+                                username.setText(user.getUsername());
+                                //publisher.setText(user.getUsername());
+                                Glide.with(getContext()).load(user.getImageUri()).into(profileImage);
+                                //Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                            } else {
+                                //Log.d(TAG, "No such document");
+                            }
+                        } else {
+                            // Log.d(TAG, "get failed with ", task.getException());
+                        }
+                    }
+                });
     }
 }

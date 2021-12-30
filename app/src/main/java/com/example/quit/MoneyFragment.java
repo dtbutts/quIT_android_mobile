@@ -1,17 +1,289 @@
 package com.example.quit;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import Model.Money;
 
 public class MoneyFragment extends Fragment {
+    EditText avgMoneySpentWeekly;
+    FirebaseFirestore db;
+    FirebaseUser firebaseUser;
+    TextView total, expectedMonthly, expectedYearly, startTime, monthVal, weekVal,
+            weekTitle, monthTitle;
+    TimerTask timerTask;
+    Timer timer;
+    Button pause;
+    private static final DecimalFormat df = new DecimalFormat("0.00");
+
+
     @Nullable
     //@Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
-        return inflater.inflate(R.layout.money_frag,container, false);
+
+        View view = inflater.inflate(R.layout.money_frag,container, false);
+
+        timer = new Timer();
+        avgMoneySpentWeekly = view.findViewById(R.id.edit);
+        total = view.findViewById(R.id.total);
+        startTime = view.findViewById(R.id.startTime);
+        expectedMonthly = view.findViewById(R.id.expectedMonthly);
+        expectedYearly = view. findViewById(R.id.expectedYearly);
+        monthVal = view.findViewById(R.id.monthVal);
+        weekVal = view.findViewById(R.id.weekVal);
+        weekTitle = view.findViewById(R.id.titleWeek);
+        monthTitle = view.findViewById(R.id.titleMonth);
+        pause = view.findViewById(R.id.pause);
+
+        pause.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new MoneyFragment()).commit();
+            }
+        });
+
+        db = FirebaseFirestore.getInstance();
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        avgMoneySpentWeekly.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                Double tmp = 0.0;
+                try {
+                    Double tmpD = Double.parseDouble(avgMoneySpentWeekly.getText().toString().substring(1));
+                    Double tmpMonthly = (tmpD/7) * 4.34524;
+                    expectedMonthly.setText("$ "+(df.format(tmpMonthly)));
+                    tmp = tmpD * 52.1429;
+                    expectedYearly.setText("$ "+(df.format(tmp)));
+                    DocumentReference dRef = db.collection("money")
+                            .document(firebaseUser.getUid());
+                    dRef.update("avgWeekly",tmpD);
+
+                }
+                catch(Exception e){
+
+                }
+                //Double tmpD = Double.parseDouble(avgMoneySpentWeekly.getText().toString());
+//                Double tmpMonthly = (tmp/7) * 4.34524;
+//                expectedMonthly.setText(Double.toString(tmpMonthly));
+//                tmp = tmp * 52.1429;
+//                expectedYearly.setText(Double.toString(tmp));
+//                DocumentReference moneyReference = db.collection("money").document(firebaseUser.getUid());
+//                moneyReference.get()
+//                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//                            @Override
+//                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                                if(task.isSuccessful()){
+//                                    DocumentSnapshot document = task.getResult();
+//                                    Long total =0l;
+//                                    Long weeklySpent = Long.parseLong(avgMoneySpentWeekly.getText().toString());
+//                                    Long startTime = System.currentTimeMillis();
+//                                    if (document.exists()) {
+//                                        Money money = document.toObject(Money.class);
+//                                        total = money.getTotal();
+//                                        startTime = money.getStartTime();
+//                                    }
+//                                    setMoneyInfo(total, weeklySpent,startTime);
+//                                }
+//
+//                            }
+//                        });
+            }
+        });
+        getMoneyInfo();
+        return view;
     }
+
+    private void updateTotal() {
+        Long startTime;
+        timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                db.collection("money")
+                        .document(firebaseUser.getUid())
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if(task.isSuccessful())
+                                {
+                                    DocumentSnapshot document = task.getResult();
+                                    if(document.exists()){
+                                        Money money = document.toObject(Money.class);
+                                       // Double tmp = money.getTotal() + (money.getWeeklySpent().doubleValue()/7);
+                                        //total.setText(Double.toString(tmp));
+
+                                    }
+                                }
+                            }
+                        });
+            }
+        };
+//        timerTask = new TimerTask() {
+//            @Override
+//            public void run() {
+//                mActivity.runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                           timeInSeconds++;
+//                           convertSeconds(timeInSeconds);
+//                           dayCounter.setText(formatTime(days));
+//                           hourCounter.setText(formatTime(hours));
+//                           minCounter.setText(formatTime(mins));
+//                           secCounter.setText(formatTime(secs));
+//
+//                    }
+//                }
+//
+//                );
+//
+//            }
+//        };
+
+        //timer.schedule(timerTask, )
+    }
+
+    private void getMoneyInfo() {
+        db.collection("money")
+                .document(firebaseUser.getUid())
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if(task.isSuccessful())
+                        {
+                            DocumentSnapshot document = task.getResult();
+                            if(document.exists()){
+                                boolean updateDB = false;
+                                Money money = document.toObject(Money.class);
+
+                                //update/set currentDate and total if its been 24hrs+
+                                Long diff = (System.currentTimeMillis() - money.getCurrentDate());
+                                Long extraDays= 0l;
+                                if(diff>=86400000){
+                                    updateDB = true;
+                                    extraDays = diff / 86400000;
+                                    Double totalD = (extraDays * (money.getAvgWeekly()/7)) + money.getTotal();
+                                    money.setTotal(totalD);
+                                    total.setText("$ "+(df.format(totalD)));
+                                    //also update currentDate
+                                }
+                                else{
+                                    total.setText("$ "+(df.format(money.getTotal())));
+                                }
+                                //check if week needs to change
+                                Date endOfWeek = money.getEndOfWeekDate();
+                                Date now = new Date();
+//                                if(endOfWeek.before(now)){
+//                                    updateDB = true;
+////                                    Date tmp =updateWeekGUI(money.getEndOfWeekDate(), now,);
+////                                    money.setStartOfWeekDate(money.getEndOfWeekDate());
+////                                    money.setEndOfWeekDate(tmp);
+//
+//                                }else{
+//                                    long diffWeek = now.getTime() - money.getStartOfWeekDate().getTime();//may need to be currentDate() and add it to weekVal
+//                                    long diffDays = diffWeek/(24*60*60*1000);
+//                                    Double tmp = diffDays * (money.getAvgWeekly()/7);
+//                                    weekVal.setText("$ "+df.format(tmp));
+//                                    money.setWeekVal(tmp);
+//                                }
+                                //check if month needs to change
+                                Date endOfMonth = money.getEndOfMonthDate();
+//                                if(endOfMonth.before(now)){
+//                                    updateDB = true;
+////                                    updateMonthGUI();
+////                                    Date tmp =updateMonthGUI(money.getEndOfWeekDate(), now,);
+////                                    money.setStartOfWeekDate(money.getEndOfWeekDate());
+////                                    money.setEndOfWeekDate(tmp);
+//
+//                                }else{
+//                                    long diffMonth = now.getTime() - money.getStartOfMonthDate().getTime();
+//                                    long diffDays = diffMonth/(24*60*60*1000);
+//                                    Double tmp = diffDays * (money.getAvgWeekly()/7);
+//                                    monthVal.setText("$ "+df.format(tmp));
+//                                    money.setMonthVal(tmp);
+//                                }
+
+                                //set start time label with start date
+                                DateFormat simple = new SimpleDateFormat("MMMM dd, yyyy");
+                                Date result = new Date(money.getStartDate());
+                                startTime.setText("Total Money Saved since " + simple.format(result));
+
+                                //set expected monthly and yearly savings
+                                Double tmpD = money.getAvgWeekly();
+                                Double tmpMonthly = (tmpD/7) * 4.34524;
+                                expectedMonthly.setText("$ "+(df.format(tmpMonthly)));
+                                tmpD = tmpD * 52.1429;
+                                expectedYearly.setText("$ "+(df.format(tmpD)));
+
+                                //set edit text box to current avgWeekly
+                                avgMoneySpentWeekly.setText("$ "+(df.format(money.getAvgWeekly())));
+                            }
+                        }
+                    }
+
+                    private void updateMonthGUI() {
+
+                    }
+                });
+    }
+
+    private Date updateWeekGUI(Date oldEndOfWeek, Date now, Money money) {
+
+        DateFormat simple = new SimpleDateFormat("MMMM dd");
+        long diffDaysPastOld = now.getTime() - oldEndOfWeek.getTime();
+        long diffDays = diffDaysPastOld/(24*60*60*1000);
+
+        long mod = diffDays % 7;
+        Double tmp = mod*money.getAvgWeekly();
+        weekVal.setText("$ "+df.format(tmp));
+
+
+        Date newStartWeek = new Date(oldEndOfWeek.getTime()+(86400000*diffDays));
+        long newEndWeek  = (86400000 *7)+ newStartWeek.getTime();
+        Date date = new Date(newEndWeek);
+        startTime.setText("Money Saved this Week\n"+  simple.format(newStartWeek)+" - "+ simple.format(date));
+        return date;
+    }
+
 }

@@ -1,11 +1,14 @@
 package com.example.quit;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +19,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -26,6 +31,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
@@ -43,6 +49,7 @@ public class HomeFragment extends Fragment {
     Long timeInMilliSeconds = 0L;
     long years, days, hours, mins, secs;
     boolean started = false;
+    ConstraintLayout kahuna;
 
     protected Activity mActivity;
     @Override
@@ -66,6 +73,8 @@ public class HomeFragment extends Fragment {
         secCounter= view.findViewById(R.id.secCounter);
         yearsCounterLayout = (RelativeLayout) view.findViewById(R.id.yearsCounterLayout);
         yearsCounterLayout.setVisibility(View.GONE);
+        kahuna = view.findViewById(R.id.kahuna);
+        kahuna.setVisibility(View.GONE);
         timer = new Timer();
 //        getActivity().registerReceiver(new BroadcastReceiver() {
 //            @Override
@@ -92,6 +101,29 @@ public class HomeFragment extends Fragment {
                     startSobriety.setText("Reset Sobriety");
                     started =true;
                     setButtonStatus();
+                    Log.d("SANITY", "DEARGOD");
+                    //Intent alarm = new Intent(getContext(), BackgroundService.class);
+                    //PendingIntent pendingIntent = PendingIntent.getService(this,0,intent,0);
+//                    LocalBroadcastManager.getInstance(getContext()).registerReceiver(
+//                            new BroadcastReceiver() {
+//                                @Override
+//                                public void onReceive(Context context, Intent intent) {
+//                                    double latitude = intent.getDoubleExtra(LocationBroadcastService.EXTRA_LATITUDE, 0);
+//                                    double longitude = intent.getDoubleExtra(LocationBroadcastService.EXTRA_LONGITUDE, 0);
+//                                    textView.setText("Lat: " + latitude + ", Lng: " + longitude);
+//                                }
+//                            }, new IntentFilter(LocationBroadcastService.ACTION_LOCATION_BROADCAST)
+//                    );
+                    Intent alarm = new Intent(getContext(), AlarmReceiver.class);
+//                    boolean alarmRunning = (PendingIntent.getBroadcast(getContext(), 0, alarm, PendingIntent.FLAG_NO_CREATE) != null);
+//                    if(alarmRunning == false) {
+                        Log.d("SERVICELOG", "OG");
+                        PendingIntent pendingIntent = PendingIntent.getBroadcast(getContext(), 0, alarm, PendingIntent.FLAG_UPDATE_CURRENT);
+                        //AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+                        AlarmManager alarmManager = (AlarmManager) mActivity.getSystemService(Context.ALARM_SERVICE);
+                        alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime(), 300000, pendingIntent);
+
+                    //}
                 }
                 else if(started){
                     started =false;
@@ -112,6 +144,7 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
+
     private void setButtonStatus() {
         DocumentReference userReference = db.collection("userAccount")
                 .document(firebaseUser.getUid());
@@ -122,6 +155,8 @@ public class HomeFragment extends Fragment {
         else{
             userReference
                     .update("buttonPressed", false);
+
+            //userReference.update("totalTimeSober", 0);
         }
 
 
@@ -143,6 +178,7 @@ public class HomeFragment extends Fragment {
                                     started = true;
                                     Log.d("THURSDAY", "BUTTON IS PRESSED FROM DB");
                                     startSobriety.setText("Reset Sobriety");
+
                                     startTimer();
                                 }
                                 //Log.d(TAG, "DocumentSnapshot data: " + document.getData());
@@ -185,6 +221,7 @@ public class HomeFragment extends Fragment {
                         } else {
                             //Log.d(TAG, "get failed with ", task.getException());
                         }
+                        kahuna.setVisibility(View.VISIBLE);
                     }
                 });
 
@@ -270,13 +307,31 @@ public class HomeFragment extends Fragment {
 
     @Override
     public void onStop() {
-        Log.d("Checking", "Stop");
         super.onStop();
+        Log.d("Checking", "Destroy");
+        DocumentReference userReference = db.collection("userAccount")
+                .document(firebaseUser.getUid());
+        Long tmpTime = timeInMilliSeconds;
+        userReference
+                .update("totalTimeSober", tmpTime);
+        Long lastEndtime = System.currentTimeMillis();
+        userReference
+                .update("lastEndTime", lastEndtime);
+
     }
 
     @Override
     public void onPause() {
-        Log.d("Checking", "Pause");
+
         super.onPause();
+        Log.d("Checking", "Destroy");
+        DocumentReference userReference = db.collection("userAccount")
+                .document(firebaseUser.getUid());
+        Long tmpTime = timeInMilliSeconds;
+        userReference
+                .update("totalTimeSober", tmpTime);
+        Long lastEndtime = System.currentTimeMillis();
+        userReference
+                .update("lastEndTime", lastEndtime);
     }
 }

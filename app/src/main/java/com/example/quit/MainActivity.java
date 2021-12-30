@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
                         selectedFragment= new HomeFragment();
                         break;
                     case R.id.nav_money:
-                        selectedFragment=new MoneyFragment();
+                        selectedFragment=new MoneyStartFragment();
                         break;
                     case R.id.nav_goals:
                         selectedFragment= new GoalsFragment();
