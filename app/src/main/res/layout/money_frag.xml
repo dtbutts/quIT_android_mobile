@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:background="@color/ourGray"
+    android:background="@color/ourTeal"
     android:layout_gravity="center"
     android:paddingLeft="20dp"
     android:paddingRight="20dp"
@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="15dp"
-            android:background="@drawable/boarder"
+            android:background="@drawable/bordergray"
             android:hint="edit here"
             android:paddingLeft="10dp"
             app:currencySymbol="$"
@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="7dp"
-            android:background="@color/ourGray"
+            android:background = "@color/ourTeal"
             android:textSize="15dp"
             android:text="Average money spent a week"
             android:textColor="@color/ourPurple"
@@ -62,7 +62,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Current Savings Date"
+        android:text="Current Savings This Week"
         android:textColor="@color/black"
         android:textStyle="bold"
         android:layout_marginTop="35dp"/>
@@ -71,58 +71,68 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="0dp"
         >
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
-
             <TextView
                 android:id="@+id/titleWeek"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:gravity="center"
-                android:text="Money Saved this Week\n startDate - endDate"
+                android:layout_weight="1"
+                android:text="startDate - endDate"
                 android:textColor="@color/black" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/titleWeek"
                 android:layout_centerHorizontal="true"
+                android:layout_weight="1"
                 android:gravity="center"
                 android:text="$0"
                 android:textColor="@color/black"
                 android:textSize="20dp"
-                android:id="@+id/weekVal"/>
-        </RelativeLayout>
+                android:id="@+id/weekVal"
+                />
 
-        <RelativeLayout
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Current Savings This Month"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:layout_marginTop="35dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="0dp"
+        >
+        <TextView
+            android:id="@+id/titleMonth"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:text="startDate - endDate"
+            android:textColor="@color/black" />
 
-            <TextView
-                android:id="@+id/titleMonth"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:gravity="center"
-                android:text="Money Saved this Month\n startDate - endDate"
-                android:textColor="@color/black" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="$0"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:id="@+id/monthVal"
+            />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/titleMonth"
-                android:layout_centerHorizontal="true"
-                android:text="$0"
-                android:textColor="@color/black"
-                android:textSize="20dp"
-                android:id="@+id/monthVal"/>
-        </RelativeLayout>
     </LinearLayout>
 
     <TextView
@@ -189,13 +199,5 @@
         </RelativeLayout>
     </LinearLayout>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text = "Pause \nSavings"
-        android:layout_marginTop="70dp"
-        android:textSize="12dp"
-        android:layout_marginLeft="270dp"
-        android:id="@+id/pause"/>
 
 </LinearLayout>

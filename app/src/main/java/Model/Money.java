@@ -3,18 +3,16 @@ package Model;
 import java.util.Date;
 
 public class Money {
-    private Double total, avgWeekly, weekVal, monthVal;
+    private Double total, avgWeekly;
     private Long startDate, currentDate;
     private Date startOfWeekDate, startOfMonthDate, endOfWeekDate, endOfMonthDate;
 
-    public Money(Double total, Double avgWeekly, Long startDate, Double weekVal, Date startOfWeek, Date endOfWeekDate, Double monthVal, Date startOfMonth, Date endOfMonthDate, Long currentDate) {
+    public Money(Double total, Double avgWeekly, Long startDate, Date startOfWeek, Date endOfWeekDate, Date startOfMonth, Date endOfMonthDate, Long currentDate) {
         this.total = total;
         this.avgWeekly = avgWeekly;
         this.startDate = startDate;
-        this.weekVal = weekVal;
         this.startOfWeekDate = startOfWeek;
         this.endOfWeekDate= endOfWeekDate;
-        this.monthVal = monthVal;
         this.startOfMonthDate = startOfMonth;
         this.endOfMonthDate= endOfMonthDate;
         this.currentDate = currentDate;
@@ -22,22 +20,6 @@ public class Money {
 
 
     public Money() {
-    }
-
-    public Double getWeekVal() {
-        return weekVal;
-    }
-
-    public void setWeekVal(Double weekVal) {
-        this.weekVal = weekVal;
-    }
-
-    public Double getMonthVal() {
-        return monthVal;
-    }
-
-    public void setMonthVal(Double monthVal) {
-        this.monthVal = monthVal;
     }
 
     public Double getTotal() {

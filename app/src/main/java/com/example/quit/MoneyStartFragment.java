@@ -99,19 +99,18 @@ public class MoneyStartFragment extends Fragment {
 
                 }
                 Date date = new Date();
-                Long now = System.currentTimeMillis();
                 Double blank = 0.0;
                 Long start = System.currentTimeMillis();
                 money.put("avgWeekly", tmp);
                 money.put("total", blank);
                 money.put("startDate", start);
                 money.put("currentDate", start);
-                money.put("weekVal", blank);
-                money.put("startOfWeek", date);
-                money.put("endOfWeek", getNextWeek(now));
-                money.put("monthVal", blank);
-                money.put("startOfMonth", date);
-                money.put("endOfMonth", getNextMonth(date));
+                //money.put("weekVal", blank);
+                money.put("startOfWeekDate", date);
+                money.put("endOfWeekDate", getNextWeek(start));
+                //money.put("monthVal", blank);
+                money.put("startOfMonthDate", date);
+                money.put("endOfMonthDate", getNextMonth(date));
 
 
                 db.collection("money")
