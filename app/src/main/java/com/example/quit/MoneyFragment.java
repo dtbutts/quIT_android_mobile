@@ -213,21 +213,18 @@ public class MoneyFragment extends Fragment {
 
                                 //check weeks and weekVals
                                 DateFormat simple = new SimpleDateFormat("MMM dd, yyyy");
-                                int count = 0;
                                 Log.d("CHECK", "end of week date "+money.getEndOfWeekDate());
+                                //set end of week date
                                 while(now>money.getEndOfWeekDate().getTime()){
                                     Long tmp = money.getEndOfWeekDate().getTime() + (86400000*7);
                                     Date date = new Date(tmp);
                                     money.setEndOfWeekDate(date);
-                                    count++;
                                 }
-                                while(count>0){
-                                    Long tmp = money.getStartOfWeekDate().getTime() +(86400000*7);
-                                    Date date = new Date(tmp);
-                                    money.setStartOfWeekDate(date);
-                                    count--;
-                                }
-                                count = 0;
+                                //set start of week date
+                                Long tmp = money.getEndOfWeekDate().getTime() - (86400000*7);
+                                Date date = new Date(tmp);
+                                money.setStartOfWeekDate(date);
+
                                 extraDays = (now - money.getStartOfWeekDate().getTime()) /86400000;
                                 Double totalWeek = (extraDays * (money.getAvgWeekly()/7));
                                 weekTitle.setText(""+simple.format(money.getStartOfWeekDate())+" - "+
@@ -236,6 +233,7 @@ public class MoneyFragment extends Fragment {
 
                                 //get month info
                                 Calendar calendar = Calendar.getInstance();
+                                //get end of month date
                                 while(now>money.getEndOfMonthDate().getTime()){
 
                                     calendar.setTime(money.getEndOfMonthDate());
@@ -247,20 +245,16 @@ public class MoneyFragment extends Fragment {
                                         calendar.roll(Calendar.MONTH, true);
                                     }
                                     money.setEndOfWeekDate(calendar.getTime());
-                                    count++;
                                 }
-                                while(count>0){
-                                    calendar.setTime(money.getStartOfMonthDate());
+                                //get start of month
 
-                                    if (calendar.get(Calendar.MONTH) == Calendar.DECEMBER) {
-                                        calendar.set(Calendar.MONTH, Calendar.JANUARY);
-                                        calendar.set(Calendar.YEAR, calendar.get(Calendar.YEAR) + 1);
-                                    } else {
-                                        calendar.roll(Calendar.MONTH, true);
-                                    }
-                                    money.setStartOfWeekDate(calendar.getTime());
-                                    count--;
+                                if (calendar.get(Calendar.MONTH) == Calendar.JANUARY) {
+                                    calendar.set(Calendar.MONTH, Calendar.DECEMBER);
+                                    calendar.set(Calendar.YEAR, calendar.get(Calendar.YEAR) - 1);
+                                } else {
+                                    calendar.set(Calendar.MONTH, calendar.get(Calendar.MONTH) -1);
                                 }
+                                money.setStartOfWeekDate(calendar.getTime());
 
                                 extraDays = (now - money.getStartOfMonthDate().getTime()) /86400000;
                                 Double totalMonth = (extraDays * (money.getAvgWeekly()/7));
