@@ -183,84 +183,93 @@ public class MoneyFragment extends Fragment {
                             if(document.exists()){
                                 boolean updateDB = false;
                                 Money money = document.toObject(Money.class);
-                                Log.d("CHECK", "current date "+money.getCurrentDate());
-                                Log.d("CHECK", "total "+money.getTotal());
-                                Log.d("CHECK", "start month date "+money.getStartOfMonthDate());
-                                Log.d("CHECK", "start week date "+money.getStartOfWeekDate());
-                                Log.d("CHECK", "end week date "+money.getEndOfWeekDate());
-
 
                                 //update/set currentDate and total if its been 24hrs+
                                 Long now = System.currentTimeMillis();
                                 Long diff = (now - money.getCurrentDate());
+                                DateFormat simple = new SimpleDateFormat("MMM dd, yyyy");
                                 Long extraDays= 0l;
-                                if(diff>=86400000){
+                                final long day = 86400000;
+                                if(diff>=day){
                                     updateDB = true;
-                                    extraDays = diff / 86400000;
+                                    extraDays = diff / day;
                                     Double totalD = (extraDays * (money.getAvgWeekly()/7)) + money.getTotal();
                                     money.setTotal(totalD);
                                     total.setText("$ "+(df.format(totalD)));
 
                                     //also update currentDate
-                                    Long current = money.getCurrentDate() + (86400000*extraDays);
+                                    Long current = money.getCurrentDate() + (day*extraDays);
                                     money.setCurrentDate(current);
+
+                                    //check weeks and weekVals
+                                    Log.d("CHECK", "end of week date "+money.getEndOfWeekDate());
+                                    //set end of week date
+                                    while(now>money.getEndOfWeekDate().getTime()){
+                                        Long tmp = money.getEndOfWeekDate().getTime() + (day*7);
+                                        Date date = new Date(tmp);
+                                        money.setEndOfWeekDate(date);
+                                    }
+                                    //set start of week date
+                                    Long tmp = money.getEndOfWeekDate().getTime() - (day*7);
+                                    Date date = new Date(tmp);
+                                    money.setStartOfWeekDate(date);
+
+                                    //compute weekVal and display weekTitle and weekVal
+                                    extraDays = (now - money.getStartOfWeekDate().getTime()) / day;
+                                    Double totalWeek = (extraDays * (money.getAvgWeekly()/7));
+                                    weekTitle.setText(""+simple.format(money.getStartOfWeekDate())+" - "+
+                                            simple.format(money.getEndOfWeekDate()));
+                                    weekVal.setText("$ "+(df.format(totalWeek)));
+
+                                    //get month info
+                                    Calendar calendar = Calendar.getInstance();
+                                    //get end of month date
+                                    while(now>money.getEndOfMonthDate().getTime()){
+
+                                        calendar.setTime(money.getEndOfMonthDate());
+
+                                        if (calendar.get(Calendar.MONTH) == Calendar.DECEMBER) {
+                                            calendar.set(Calendar.MONTH, Calendar.JANUARY);
+                                            calendar.set(Calendar.YEAR, calendar.get(Calendar.YEAR) + 1);
+                                        } else {
+                                            calendar.roll(Calendar.MONTH, true);
+                                        }
+                                        money.setEndOfWeekDate(calendar.getTime());
+                                    }
+
+                                    //get start of month
+                                    if (calendar.get(Calendar.MONTH) == Calendar.JANUARY) {
+                                        calendar.set(Calendar.MONTH, Calendar.DECEMBER);
+                                        calendar.set(Calendar.YEAR, calendar.get(Calendar.YEAR) - 1);
+                                    } else {
+                                        calendar.set(Calendar.MONTH, calendar.get(Calendar.MONTH) -1);
+                                    }
+                                    money.setStartOfWeekDate(calendar.getTime());
+
+                                    extraDays = (now - money.getStartOfMonthDate().getTime()) /day;
+                                    Double totalMonth = (extraDays * (money.getAvgWeekly()/7));
+                                    monthTitle.setText(""+simple.format(money.getStartOfMonthDate())+" - "+
+                                            simple.format(money.getEndOfMonthDate()));
+                                    monthVal.setText("$ "+(df.format(totalMonth)));
                                 }
                                 else{
+                                    //set total savings
                                     total.setText("$ "+(df.format(money.getTotal())));
+
+                                    Double totalWeek = (extraDays * (money.getAvgWeekly()/7));
+                                    weekTitle.setText(""+simple.format(money.getStartOfWeekDate())+" - "+
+                                            simple.format(money.getEndOfWeekDate()));
+                                    weekVal.setText("$ "+(df.format(totalWeek)));
+
+                                    //set monthly stats unchanged
+                                    extraDays = (now - money.getStartOfMonthDate().getTime()) /day;
+                                    Double totalMonth = (extraDays * (money.getAvgWeekly()/7));
+                                    monthTitle.setText(""+simple.format(money.getStartOfMonthDate())+" - "+
+                                            simple.format(money.getEndOfMonthDate()));
+                                    monthVal.setText("$ "+(df.format(totalMonth)));
                                 }
 //
                                 setUpdateTimer(money.getCurrentDate());
-
-                                //check weeks and weekVals
-                                DateFormat simple = new SimpleDateFormat("MMM dd, yyyy");
-                                Log.d("CHECK", "end of week date "+money.getEndOfWeekDate());
-                                //set end of week date
-                                while(now>money.getEndOfWeekDate().getTime()){
-                                    Long tmp = money.getEndOfWeekDate().getTime() + (86400000*7);
-                                    Date date = new Date(tmp);
-                                    money.setEndOfWeekDate(date);
-                                }
-                                //set start of week date
-                                Long tmp = money.getEndOfWeekDate().getTime() - (86400000*7);
-                                Date date = new Date(tmp);
-                                money.setStartOfWeekDate(date);
-
-                                extraDays = (now - money.getStartOfWeekDate().getTime()) /86400000;
-                                Double totalWeek = (extraDays * (money.getAvgWeekly()/7));
-                                weekTitle.setText(""+simple.format(money.getStartOfWeekDate())+" - "+
-                                        simple.format(money.getEndOfWeekDate()));
-                                weekVal.setText("$ "+(df.format(totalWeek)));
-
-                                //get month info
-                                Calendar calendar = Calendar.getInstance();
-                                //get end of month date
-                                while(now>money.getEndOfMonthDate().getTime()){
-
-                                    calendar.setTime(money.getEndOfMonthDate());
-
-                                    if (calendar.get(Calendar.MONTH) == Calendar.DECEMBER) {
-                                        calendar.set(Calendar.MONTH, Calendar.JANUARY);
-                                        calendar.set(Calendar.YEAR, calendar.get(Calendar.YEAR) + 1);
-                                    } else {
-                                        calendar.roll(Calendar.MONTH, true);
-                                    }
-                                    money.setEndOfWeekDate(calendar.getTime());
-                                }
-                                //get start of month
-
-                                if (calendar.get(Calendar.MONTH) == Calendar.JANUARY) {
-                                    calendar.set(Calendar.MONTH, Calendar.DECEMBER);
-                                    calendar.set(Calendar.YEAR, calendar.get(Calendar.YEAR) - 1);
-                                } else {
-                                    calendar.set(Calendar.MONTH, calendar.get(Calendar.MONTH) -1);
-                                }
-                                money.setStartOfWeekDate(calendar.getTime());
-
-                                extraDays = (now - money.getStartOfMonthDate().getTime()) /86400000;
-                                Double totalMonth = (extraDays * (money.getAvgWeekly()/7));
-                                monthTitle.setText(""+simple.format(money.getStartOfMonthDate())+" - "+
-                                        simple.format(money.getEndOfMonthDate()));
-                                monthVal.setText("$ "+(df.format(totalMonth)));
 
                                 //set start time label with start date
                                 Date result = new Date(money.getStartDate());
@@ -268,7 +277,7 @@ public class MoneyFragment extends Fragment {
 
                                 //set expected monthly and yearly savings
                                 Double tmpD = money.getAvgWeekly();
-                                Double tmpMonthly = (tmpD/7) * 4.34524;
+                                Double tmpMonthly = tmpD * 4.34524;
                                 expectedMonthly.setText("$ "+(df.format(tmpMonthly)));
                                 tmpD = tmpD * 52.1429;
                                 expectedYearly.setText("$ "+(df.format(tmpD)));
@@ -312,23 +321,6 @@ public class MoneyFragment extends Fragment {
                 });
     }
 
-    private Date updateWeekGUI(Date oldEndOfWeek, Date now, Money money) {
-
-        DateFormat simple = new SimpleDateFormat("MMMM dd");
-        long diffDaysPastOld = now.getTime() - oldEndOfWeek.getTime();
-        long diffDays = diffDaysPastOld/(24*60*60*1000);
-
-        long mod = diffDays % 7;
-        Double tmp = mod*money.getAvgWeekly();
-        weekVal.setText("$ "+df.format(tmp));
-
-
-        Date newStartWeek = new Date(oldEndOfWeek.getTime()+(86400000*diffDays));
-        long newEndWeek  = (86400000 *7)+ newStartWeek.getTime();
-        Date date = new Date(newEndWeek);
-        startTime.setText("Money Saved this Week\n"+  simple.format(newStartWeek)+" - "+ simple.format(date));
-        return date;
-    }
 
 }
 
