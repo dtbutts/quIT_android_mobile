@@ -117,9 +117,13 @@ public class RegisterActivity extends AppCompatActivity {
                     try {
                         Integer tmp = Integer.parseInt(DaysOfSobriety);
                         if(tmp>0){
-                            TotalTimeSober = TimeUnit.DAYS.toMillis(Long.parseLong(DaysOfSobriety));
-                            ButtonPressed = true;
-                            LastEndTime = System.currentTimeMillis();
+                            try{
+                                TotalTimeSober = TimeUnit.DAYS.toMillis(Long.parseLong(DaysOfSobriety));
+                                ButtonPressed = true;
+                                LastEndTime = System.currentTimeMillis();
+                            }catch (Exception e){
+
+                            }
                         }
                     }
                     catch (Exception e){

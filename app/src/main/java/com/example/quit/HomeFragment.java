@@ -101,27 +101,27 @@ public class HomeFragment extends Fragment {
                     startSobriety.setText("Reset Sobriety");
                     started =true;
                     setButtonStatus();
-                    Log.d("SANITY", "DEARGOD");
-                    //Intent alarm = new Intent(getContext(), BackgroundService.class);
-                    //PendingIntent pendingIntent = PendingIntent.getService(this,0,intent,0);
-//                    LocalBroadcastManager.getInstance(getContext()).registerReceiver(
-//                            new BroadcastReceiver() {
-//                                @Override
-//                                public void onReceive(Context context, Intent intent) {
-//                                    double latitude = intent.getDoubleExtra(LocationBroadcastService.EXTRA_LATITUDE, 0);
-//                                    double longitude = intent.getDoubleExtra(LocationBroadcastService.EXTRA_LONGITUDE, 0);
-//                                    textView.setText("Lat: " + latitude + ", Lng: " + longitude);
-//                                }
-//                            }, new IntentFilter(LocationBroadcastService.ACTION_LOCATION_BROADCAST)
-//                    );
-                    Intent alarm = new Intent(getContext(), AlarmReceiver.class);
-//                    boolean alarmRunning = (PendingIntent.getBroadcast(getContext(), 0, alarm, PendingIntent.FLAG_NO_CREATE) != null);
-//                    if(alarmRunning == false) {
-                        Log.d("SERVICELOG", "OG");
-                        PendingIntent pendingIntent = PendingIntent.getBroadcast(getContext(), 0, alarm, PendingIntent.FLAG_UPDATE_CURRENT);
-                        //AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-                        AlarmManager alarmManager = (AlarmManager) mActivity.getSystemService(Context.ALARM_SERVICE);
-                        alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime(), 300000, pendingIntent);
+//                    Log.d("SANITY", "DEARGOD");
+//                    //Intent alarm = new Intent(getContext(), BackgroundService.class);
+//                    //PendingIntent pendingIntent = PendingIntent.getService(this,0,intent,0);
+////                    LocalBroadcastManager.getInstance(getContext()).registerReceiver(
+////                            new BroadcastReceiver() {
+////                                @Override
+////                                public void onReceive(Context context, Intent intent) {
+////                                    double latitude = intent.getDoubleExtra(LocationBroadcastService.EXTRA_LATITUDE, 0);
+////                                    double longitude = intent.getDoubleExtra(LocationBroadcastService.EXTRA_LONGITUDE, 0);
+////                                    textView.setText("Lat: " + latitude + ", Lng: " + longitude);
+////                                }
+////                            }, new IntentFilter(LocationBroadcastService.ACTION_LOCATION_BROADCAST)
+////                    );
+//                    Intent alarm = new Intent(getContext(), AlarmReceiver.class);
+////                    boolean alarmRunning = (PendingIntent.getBroadcast(getContext(), 0, alarm, PendingIntent.FLAG_NO_CREATE) != null);
+////                    if(alarmRunning == false) {
+//                        Log.d("SERVICELOG", "OG");
+//                        PendingIntent pendingIntent = PendingIntent.getBroadcast(getContext(), 0, alarm, PendingIntent.FLAG_UPDATE_CURRENT);
+//                        //AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+//                        AlarmManager alarmManager = (AlarmManager) mActivity.getSystemService(Context.ALARM_SERVICE);
+//                        alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime(), 300000, pendingIntent);
 
                     //}
                 }

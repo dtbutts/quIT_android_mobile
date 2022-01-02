@@ -291,10 +291,6 @@ public class MoneyFragment extends Fragment {
                             }
                         }
                     }
-
-                    private void updateMonthGUI() {
-
-                    }
                 });
     }
 
