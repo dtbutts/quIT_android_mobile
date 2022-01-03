@@ -2,14 +2,17 @@ package Model;
 
 import android.text.BoringLayout;
 
+import java.util.Date;
+
 public class User {
     private String email, password, username,age, height, weight, moneySpent, timeAddicted, imageUri;
     private Long totalTimeSober, lastEndTime;
+    private Date soberSince;
     private Boolean buttonPressed;
 
 
     public User(String username, String password, String age, String height, String weight, String moneySpent, String timeAddicted,
-                Long totalTimeSober, Long lastEndTime, Boolean buttonPressed, String imageUri) {
+                Long totalTimeSober, Long lastEndTime, Boolean buttonPressed, String imageUri, Date soberSince) {
         this.email = email;
         this.password = password;
         this.username = username;
@@ -22,6 +25,7 @@ public class User {
         this.lastEndTime = lastEndTime;
         this.buttonPressed = buttonPressed;
         this.imageUri = imageUri;
+        this.soberSince = soberSince;
     }
 
     public User() {
@@ -121,5 +125,13 @@ public class User {
 
     public void setImageUri(String imageUri) {
         this.imageUri = imageUri;
+    }
+
+    public Date getSoberSince() {
+        return soberSince;
+    }
+
+    public void setSoberSince(Date soberSince) {
+        this.soberSince = soberSince;
     }
 }

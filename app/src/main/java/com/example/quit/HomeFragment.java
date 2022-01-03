@@ -42,8 +42,9 @@ import java.util.concurrent.TimeUnit;
 import Model.User;
 
 public class HomeFragment extends Fragment {
-    Button startSobriety;
+    Button startSobriety, signOut;
     Timer timer;
+    Activity activity;
     TimerTask timerTask;
     TextView yearCounter, dayCounter, hourCounter, minCounter, secCounter, soberSince;
     RelativeLayout yearsCounterLayout;
@@ -69,6 +70,7 @@ public class HomeFragment extends Fragment {
         Log.d("Checking", "onCreateView");
         View view =inflater.inflate(R.layout.home_frag,container, false);
         startSobriety = view.findViewById(R.id.startSobriety);
+        signOut = view.findViewById(R.id.signOut);
         yearCounter = view.findViewById(R.id.yearCounter);
         dayCounter= view.findViewById(R.id.dayCounter);
         hourCounter= view.findViewById(R.id.hourCounter);
@@ -96,6 +98,18 @@ public class HomeFragment extends Fragment {
 //        if(started){
 //            startSobriety.setText("Reset Sobriety");
 //        }
+
+        signOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
+                activity = getActivity();
+                if(activity!=null){
+                    Intent intent = new Intent(activity, StartActivity.class);
+                    activity.startActivity(intent);
+                }
+            }
+        });
 
         startSobriety.setOnClickListener(new View.OnClickListener(){
             @Override
