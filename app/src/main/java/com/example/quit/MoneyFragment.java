@@ -220,7 +220,11 @@ public class MoneyFragment extends Fragment {
                                     }
                                     //set start of week date
                                     Long tmp = money.getEndOfWeekDate().getTime() - (day*7);
+                                    Log.d("NOT WORKING", "endOfWeekDate.getTime() "+money.getEndOfWeekDate().getTime());
+                                    Log.d("NOT WORKING", "endOfWeekDate "+money.getEndOfWeekDate());
+                                    Log.d("NOT WORKING", "long "+tmp);
                                     Date date = new Date(tmp);
+                                    Log.d("NOT WORKING", "date "+date);
                                     money.setStartOfWeekDate(date);
 
                                     //compute weekVal and display weekTitle and weekVal
@@ -243,7 +247,7 @@ public class MoneyFragment extends Fragment {
                                         } else {
                                             calendar.roll(Calendar.MONTH, true);
                                         }
-                                        money.setEndOfWeekDate(calendar.getTime());
+                                        money.setEndOfMonthDate(calendar.getTime());
                                     }
 
                                     //get start of month
@@ -253,7 +257,7 @@ public class MoneyFragment extends Fragment {
                                     } else {
                                         calendar.set(Calendar.MONTH, calendar.get(Calendar.MONTH) -1);
                                     }
-                                    money.setStartOfWeekDate(calendar.getTime());
+                                    money.setStartOfMonthDate(calendar.getTime());
 
                                     extraDays = (now - money.getStartOfMonthDate().getTime()) /day;
                                     Double totalMonth = (extraDays * (money.getAvgWeekly()/7));
@@ -265,6 +269,7 @@ public class MoneyFragment extends Fragment {
                                     //set total savings
                                     total.setText("$ "+(df.format(money.getTotal())));
 
+                                    extraDays = (now - money.getStartOfWeekDate().getTime()) /day;
                                     Double totalWeek = (extraDays * (money.getAvgWeekly()/7));
                                     weekTitle.setText(""+simple.format(money.getStartOfWeekDate())+" - "+
                                             simple.format(money.getEndOfWeekDate()));
