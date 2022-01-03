@@ -1,5 +1,6 @@
 package com.example.quit;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
@@ -28,7 +30,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -42,6 +48,7 @@ public class RegisterActivity extends AppCompatActivity {
     private CheckBox checkBox;
     FirebaseFirestore db;
     FirebaseAuth mAuth;
+    final Calendar myCalendar= Calendar.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -65,6 +72,22 @@ public class RegisterActivity extends AppCompatActivity {
         dayOfSobriety = findViewById(R.id.daysOfSobriety);
         checkBox = findViewById(R.id.termsConditions);
         alreadyUser = findViewById(R.id.alreadyUser);
+
+        DatePickerDialog.OnDateSetListener date =new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int day) {
+                myCalendar.set(Calendar.YEAR, year);
+                myCalendar.set(Calendar.MONTH,month);
+                myCalendar.set(Calendar.DAY_OF_MONTH,day);
+                updateLabel();
+            }
+        };
+        dayOfSobriety.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new DatePickerDialog(RegisterActivity.this,date,myCalendar.get(Calendar.YEAR),myCalendar.get(Calendar.MONTH),myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
 
         alreadyUser.setClickable(true);
         alreadyUser.setOnClickListener(new View.OnClickListener(){
@@ -102,6 +125,8 @@ public class RegisterActivity extends AppCompatActivity {
                 String Money = moneySpent.getText().toString();
                 String DaysOfAddicted = dayOfAddiction.getText().toString();
                 String DaysOfSobriety = dayOfSobriety.getText().toString();
+                Date date = null;
+
                 if(Username.isEmpty() || Email.isEmpty() ||Password.isEmpty() ||
                         Age.isEmpty() ||Height.isEmpty() ||Weight.isEmpty() ||
                         Money.isEmpty() ||DaysOfAddicted.isEmpty() ){
@@ -113,23 +138,31 @@ public class RegisterActivity extends AppCompatActivity {
                 Long TotalTimeSober = 0L;
                 Boolean ButtonPressed = false;
                 Long LastEndTime = 0L;
-                if(!DaysOfSobriety.equals("")) {
-                    try {
-                        Integer tmp = Integer.parseInt(DaysOfSobriety);
-                        if(tmp>0){
-                            try{
-                                TotalTimeSober = TimeUnit.DAYS.toMillis(Long.parseLong(DaysOfSobriety));
-                                ButtonPressed = true;
-                                LastEndTime = System.currentTimeMillis();
-                            }catch (Exception e){
-
-                            }
-                        }
-                    }
-                    catch (Exception e){
-
-                    }
+                if(!DaysOfSobriety.equals("") && myCalendar!=null) {
+                    ButtonPressed = true;
+                    TotalTimeSober = System.currentTimeMillis() - myCalendar.getTime().getTime();
+                    LastEndTime = System.currentTimeMillis();
+                    date = myCalendar.getTime();
+//                    try {
+//                        Integer tmp = Integer.parseInt(DaysOfSobriety);
+//                        if(tmp>0){
+//                            try{
+//                                TotalTimeSober = TimeUnit.DAYS.toMillis(Long.parseLong(DaysOfSobriety));
+//
+//                                ButtonPressed = true;
+//                                LastEndTime = System.currentTimeMillis();
+//                            }catch (Exception e){
+//
+//                            }
+//                        }
+//                    }
+//                    catch (Exception e){
+//
+//                    }
                 }
+
+
+
 
                 Map<String, Object> userAccount = new HashMap<>();
                 userAccount.put("email", Email);
@@ -144,6 +177,7 @@ public class RegisterActivity extends AppCompatActivity {
                 userAccount.put("lastEndTime", LastEndTime);
                 userAccount.put("buttonPressed", ButtonPressed);
                 userAccount.put("imageUri", "https://firebasestorage.googleapis.com/v0/b/quit-a645b.appspot.com/o/profile-icon-png-898.png?alt=media&token=a6f5dcb6-722a-4ac3-b89a-0a0823a0ed5e");
+                userAccount.put("soberSince", date);
                 //userAccount.put("timeSober", DaysOfSobriety);
 
                 checkIfAccountAlreadyExists(Username, db,userAccount);
@@ -224,5 +258,11 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
         return;
+    }
+
+    private void updateLabel(){
+        String myFormat="MM/dd/yy";
+        SimpleDateFormat dateFormat=new SimpleDateFormat(myFormat, Locale.US);
+        dayOfSobriety.setText(dateFormat.format(myCalendar.getTime()));
     }
 }

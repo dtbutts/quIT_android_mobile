@@ -311,7 +311,7 @@
 
         <EditText
             android:id="@+id/daysOfSobriety"
-            android:layout_width="100dp"
+            android:layout_width="170dp"
             android:layout_height="match_parent"
             android:layout_marginTop="15dp"
             android:background="@drawable/boarder"
@@ -330,7 +330,7 @@
             android:layout_marginTop="7dp"
             android:background="@color/ourGray"
             android:textSize="15dp"
-            android:text="Days Sober"
+            android:text="Choose Sobriety Date"
             android:textColor="@color/ourPurple"
             />
     </RelativeLayout>

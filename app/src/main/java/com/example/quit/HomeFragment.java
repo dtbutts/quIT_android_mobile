@@ -31,7 +31,10 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
@@ -42,7 +45,7 @@ public class HomeFragment extends Fragment {
     Button startSobriety;
     Timer timer;
     TimerTask timerTask;
-    TextView yearCounter, dayCounter, hourCounter, minCounter, secCounter;
+    TextView yearCounter, dayCounter, hourCounter, minCounter, secCounter, soberSince;
     RelativeLayout yearsCounterLayout;
     FirebaseFirestore db;
     FirebaseUser firebaseUser;
@@ -71,6 +74,7 @@ public class HomeFragment extends Fragment {
         hourCounter= view.findViewById(R.id.hourCounter);
         minCounter= view.findViewById(R.id.minCounter);
         secCounter= view.findViewById(R.id.secCounter);
+        soberSince = view.findViewById(R.id.soberSince);
         yearsCounterLayout = (RelativeLayout) view.findViewById(R.id.yearsCounterLayout);
         yearsCounterLayout.setVisibility(View.GONE);
         kahuna = view.findViewById(R.id.kahuna);
@@ -151,10 +155,17 @@ public class HomeFragment extends Fragment {
         if(started){
             userReference
                     .update("buttonPressed", true);
+
+            Date date = new Date(System.currentTimeMillis());
+            userReference.update("soberSince", date);
+            DateFormat simple = new SimpleDateFormat("MMM dd, yyyy");
+            soberSince.setText("Sober since "+simple.format(date));
         }
         else{
             userReference
                     .update("buttonPressed", false);
+            userReference.update("soberSince", null);
+            soberSince.setText("");
 
             //userReference.update("totalTimeSober", 0);
         }
@@ -204,6 +215,14 @@ public class HomeFragment extends Fragment {
                             DocumentSnapshot document = task.getResult();
                             if (document.exists()) {
                                 User user =document.toObject(User.class);
+                                if(user.getSoberSince()!=null)
+                                {
+                                    DateFormat simple = new SimpleDateFormat("MMM dd, yyyy");
+                                    soberSince.setText("Sober since "+simple.format(user.getSoberSince()));
+                                }
+                                else{
+                                    soberSince.setText("");
+                                }
                                 if(user.getTotalTimeSober()==0){
                                     timeInMilliSeconds =0L;
                                 }
