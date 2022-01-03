@@ -55,14 +55,14 @@
                     android:textSize="16dp"
                     android:textStyle="bold"
                     android:textColor="@color/black"
-                    android:text="username">
+                    android:text="">
                 </TextView>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/date"
                     android:textColor="@color/black"
-                    android:text="date"/>
+                    android:text=""/>
             </LinearLayout>
 
         </LinearLayout>
@@ -84,7 +84,7 @@
             android:textStyle="bold"
             android:layout_marginStart="8dp"
             android:textColor="@color/black"
-            android:text="title">
+            android:text="">
         </TextView>
 
         <TextView
@@ -92,7 +92,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:id="@+id/postSaved"
-            android:text="saved post"
+            android:text=""
             android:textSize="16dp"
             android:textColor="@color/black"
             >

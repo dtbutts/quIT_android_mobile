@@ -68,6 +68,7 @@ public class MyPostsActivity extends AppCompatActivity {
 
         postLists = new ArrayList<>();
         myPostAdapter = new MyPostAdapter(this, postLists);
+        myPostAdapter.setHasStableIds(true);
         recyclerView.setAdapter(myPostAdapter);
         db = FirebaseFirestore.getInstance();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();

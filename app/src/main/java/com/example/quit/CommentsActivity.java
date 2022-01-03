@@ -81,6 +81,7 @@ public class CommentsActivity extends AppCompatActivity {
 
         commentList = new ArrayList<>();
         commentAdapter = new CommentAdapter(this, commentList);
+        commentAdapter.setHasStableIds(true);
         recyclerView.setAdapter(commentAdapter);
 
 //        rVPost = findViewById(R.id.recycler_view);

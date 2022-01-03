@@ -69,6 +69,7 @@ public class MySavedPostsActivity extends AppCompatActivity {
 
         postLists = new ArrayList<>();
         savedPostAdapter = new SavedPostAdapter(this, postLists);
+        savedPostAdapter.setHasStableIds(true);
         recyclerView.setAdapter(savedPostAdapter);
         db = FirebaseFirestore.getInstance();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();

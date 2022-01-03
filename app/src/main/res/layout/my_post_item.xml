@@ -53,7 +53,7 @@
                     android:textSize="16dp"
                     android:textStyle="bold"
                     android:textColor="@color/black"
-                    android:text="username">
+                    android:text="">
                 </TextView>
                 <TextView
                     android:layout_width="wrap_content"
@@ -80,7 +80,7 @@
             android:layout_marginStart="8dp"
             android:textStyle="bold"
             android:id="@+id/titleDescriptionMyPost"
-            android:text="title description"
+            android:text=""
             android:textColor="@color/black">
         </TextView>
 
@@ -88,7 +88,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="THE POST"
+            android:text=""
             android:id="@+id/myThePostItem"
             android:textColor="@color/black"/>
 
