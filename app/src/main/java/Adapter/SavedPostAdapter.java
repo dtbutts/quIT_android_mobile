@@ -65,6 +65,11 @@ public class SavedPostAdapter extends RecyclerView.Adapter<SavedPostAdapter.View
         holder.thePost.setText(post.getThePost());
         holder.date.setText(post.getDate());
 
+        if(post.getImageUri()!= "" && post.getImageUri() != null){
+            holder.uploadImage.setVisibility(View.VISIBLE);
+            Glide.with(mContext).load(post.getImageUri()).into(holder.uploadImage);
+        }
+
         publisherInfo(holder.username, holder.profileImage, post.getPublisher());
 
 
@@ -152,7 +157,7 @@ public class SavedPostAdapter extends RecyclerView.Adapter<SavedPostAdapter.View
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        public ImageView removeImage, profileImage;
+        public ImageView removeImage, profileImage, uploadImage;
 
         public TextView username, thePost, title, date;
 
@@ -166,6 +171,7 @@ public class SavedPostAdapter extends RecyclerView.Adapter<SavedPostAdapter.View
             profileImage = itemView.findViewById(R.id.profile_image);
             date = itemView.findViewById(R.id.date);
             db = FirebaseFirestore.getInstance();
+            uploadImage = itemView.findViewById(R.id.savedPostImage);
 
         }
     }

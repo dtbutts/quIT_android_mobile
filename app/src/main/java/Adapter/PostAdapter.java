@@ -7,10 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -46,6 +48,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
     public PostAdapter(Context mContext, List<Post> mPost){
         this.mContext = mContext;
         this.mPost = mPost;
+        //notifyDataSetChanged();
     }
     @NonNull
     @Override
@@ -64,6 +67,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
         holder.title.setVisibility(View.VISIBLE);
         holder.thePost.setText(post.getThePost());
         holder.date.setText(post.getDate());
+        if(post.getImageUri()!= "" && post.getImageUri() != null){
+            holder.uploadImage.setVisibility(View.VISIBLE);
+            Glide.with(mContext).load(post.getImageUri()).into(holder.uploadImage);
+        }
 
         publisherInfo(holder.username,holder.profileImage, post.getPublisher(), holder.getAdapterPosition());
         findingLikes(post.getPostuid(),holder.likeImage);
@@ -142,6 +149,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
                     saves.put("timestamp", Timestamp);
                     String Date = new SimpleDateFormat("MMMM dd, yyyy").format(Calendar.getInstance().getTime());
                     saves.put("date", Date);
+                    saves.put("imageUri", post.getImageUri());
                     db.collection("Saves")
                             .document(firebaseUser.getUid())
                             .collection("Sub")
@@ -230,7 +238,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        public ImageView likeImage, commentImage, saveImage, profileImage;
+        public ImageView likeImage, commentImage, saveImage, profileImage, uploadImage;
         public TextView username, thePost, likes, date,title, comments;
         public ViewHolder(@NonNull View itemView){
             super(itemView);
@@ -246,7 +254,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
             title = itemView.findViewById(R.id.titleDescription);
             comments = itemView.findViewById(R.id.comments);
             profileImage = itemView.findViewById(R.id.profile_image);
-
+            uploadImage = itemView.findViewById(R.id.postImage);
         }
     }
 
@@ -272,6 +280,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
                     }
                 });
     }
+
 
     private void findingLikes(String postuid, final ImageView imageView){
         final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();

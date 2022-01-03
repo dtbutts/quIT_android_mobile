@@ -323,34 +323,33 @@ public class SocialFragment extends Fragment {
         }
     }
 
-
     //this function is used to update the View all "" comments when a comment is submitted
-    @Override
-    public void onResume() {
-        Log.d("ONRESUME", "isCalled");
-        db.collection("Posts")
-                .orderBy("timestamp", Query.Direction.ASCENDING)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            postLists.clear();
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-
-                                Post post = document.toObject(Post.class);
-                                postLists.add(post);
-                                //Log.d(TAG, document.getId() + " => " + document.getData());
-                            }
-                            postAdapter.notifyDataSetChanged();
-                        } else {
-                            //Log.d(TAG, "Error getting documents: ", task.getException());
-                        }
-                    }
-                });
-        //postAdapter.notifyDataSetChanged();
-
-
-        super.onResume();
-    }
+//    @Override
+//    public void onResume() {
+//        Log.d("ONRESUME", "isCalled");
+//        db.collection("Posts")
+//                .orderBy("timestamp", Query.Direction.ASCENDING)
+//                .get()
+//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                        if (task.isSuccessful()) {
+//                            postLists.clear();
+//                            for (QueryDocumentSnapshot document : task.getResult()) {
+//
+//                                Post post = document.toObject(Post.class);
+//                                postLists.add(post);
+//                                //Log.d(TAG, document.getId() + " => " + document.getData());
+//                            }
+//                            postAdapter.notifyDataSetChanged();
+//                        } else {
+//                            //Log.d(TAG, "Error getting documents: ", task.getException());
+//                        }
+//                    }
+//                });
+//        //postAdapter.notifyDataSetChanged();
+//
+//
+//        super.onResume();
+//    }
 }

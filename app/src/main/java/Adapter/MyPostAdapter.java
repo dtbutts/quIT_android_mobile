@@ -65,6 +65,11 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.ViewHolder
         holder.thePost.setText(post.getThePost());
         holder.date.setText(post.getDate());
 
+        if(post.getImageUri()!= "" && post.getImageUri() != null){
+            holder.uploadImage.setVisibility(View.VISIBLE);
+            Glide.with(mContext).load(post.getImageUri()).into(holder.uploadImage);
+        }
+
         publisherInfo(holder.username, holder.profileImage, post.getPublisher());
         findingLikes(post.getPostuid(),holder.likeImage);
         numberOfLikes(holder.likes, post.getPostuid());
@@ -190,7 +195,7 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.ViewHolder
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        public ImageView likeImage, removeImage, profileImage;
+        public ImageView likeImage, removeImage, profileImage, uploadImage;
 
         public TextView username, thePost, likes, title, comments, date;
 
@@ -207,7 +212,7 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.ViewHolder
             profileImage = itemView.findViewById(R.id.profile_image);
             date = itemView.findViewById(R.id.date);
             db = FirebaseFirestore.getInstance();
-
+            uploadImage = itemView.findViewById(R.id.myPostImage);
         }
     }
     private void numberOfComments(final TextView comments, String postuid){
