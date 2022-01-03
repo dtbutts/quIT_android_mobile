@@ -65,6 +65,7 @@ public class MyPostsActivity extends AppCompatActivity {
         dividerItemDecoration.setDrawable(ContextCompat.getDrawable(this, R.drawable.divider)) ;
         recyclerView.addItemDecoration(dividerItemDecoration);
 
+
         postLists = new ArrayList<>();
         myPostAdapter = new MyPostAdapter(this, postLists);
         recyclerView.setAdapter(myPostAdapter);

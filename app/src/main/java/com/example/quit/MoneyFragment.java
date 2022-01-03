@@ -1,5 +1,6 @@
 package com.example.quit;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -46,6 +48,8 @@ public class MoneyFragment extends Fragment {
     TimerTask timerTask;
     Timer timer;
     Button pause;
+    LinearLayout wholeShabang;
+    Activity activity;
     private static final DecimalFormat df = new DecimalFormat("0.00");
 
 
@@ -65,6 +69,8 @@ public class MoneyFragment extends Fragment {
         weekVal = view.findViewById(R.id.weekVal);
         weekTitle = view.findViewById(R.id.titleWeek);
         monthTitle = view.findViewById(R.id.titleMonth);
+        wholeShabang = view.findViewById(R.id.wholeShabang);
+        wholeShabang.setVisibility(View.GONE);
 
 //        pause.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -143,7 +149,10 @@ public class MoneyFragment extends Fragment {
         timerTask = new TimerTask() {
             @Override
             public void run() {
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new MoneyFragment()).commit();
+                activity = getActivity();
+                if(activity!=null){
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new MoneyFragment()).commit();
+                }
             }
         };
 //        timerTask = new TimerTask() {
@@ -288,6 +297,7 @@ public class MoneyFragment extends Fragment {
                                 if(updateDB){
                                     updateDB(money);
                                 }
+                                wholeShabang.setVisibility(View.VISIBLE);
                             }
                         }
                     }

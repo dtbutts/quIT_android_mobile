@@ -1,5 +1,6 @@
 package com.example.quit;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -39,6 +40,7 @@ public class MoneyStartFragment extends Fragment {
     TextView message;
     RelativeLayout editLayout;
     LinearLayout wholeShambo;
+    Activity activity;
 
     @Override
     public void onStart(){
@@ -60,7 +62,10 @@ public class MoneyStartFragment extends Fragment {
                 if(task.isSuccessful()){
                     if(task.getResult().exists())
                     {
-                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new MoneyFragment()).commit();
+                        activity = getActivity();
+                        if(activity!=null){
+                            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new MoneyFragment()).commit();
+                        }
                     }
                     else{
                         wholeShambo.setVisibility(View.VISIBLE);
@@ -87,7 +92,10 @@ public class MoneyStartFragment extends Fragment {
             public void onClick(View view) {
                 String Edit = edit.getText().toString();
                 if(Edit.isEmpty()){
-                    Toast.makeText(getActivity(), "Choose an average value of money spent each week", Toast.LENGTH_LONG).show();
+                    activity = getActivity();
+                    if(activity!=null){
+                        Toast.makeText(activity, "Choose an average value of money spent each week", Toast.LENGTH_LONG).show();
+                    }
                     return;
                 }
                 Map<String, Object> money = new HashMap<>();
@@ -119,7 +127,10 @@ public class MoneyStartFragment extends Fragment {
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void unused) {
-                                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new MoneyFragment()).commit();
+                                activity = getActivity();
+                                if(activity!=null){
+                                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new MoneyFragment()).commit();
+                                }
                             }
                         });
             }

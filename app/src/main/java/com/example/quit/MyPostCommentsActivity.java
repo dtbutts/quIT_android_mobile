@@ -15,6 +15,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SimpleItemAnimator;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -43,7 +44,6 @@ public class MyPostCommentsActivity extends AppCompatActivity {
     String publisherid;
     FirebaseUser firebaseUser;
     FirebaseFirestore db;
-    PostAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +71,7 @@ public class MyPostCommentsActivity extends AppCompatActivity {
                 linearLayoutManager.getOrientation());
         dividerItemDecoration.setDrawable(ContextCompat.getDrawable(this, R.drawable.divider)) ;
         recyclerView.addItemDecoration(dividerItemDecoration);
+
 
         commentList = new ArrayList<>();
         commentAdapter = new CommentAdapter(this, commentList);

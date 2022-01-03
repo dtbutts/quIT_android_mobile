@@ -223,6 +223,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
         return mPost.size();
     }
 
+    @Override
+    public long getItemId(int pos){
+        return pos;
+
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder{
         public ImageView likeImage, commentImage, saveImage, profileImage;
         public TextView username, thePost, likes, date,title, comments;

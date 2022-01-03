@@ -1,5 +1,6 @@
 package com.example.quit;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -40,6 +41,8 @@ public class CreatePostFragment extends Fragment {
     Button cancel, post;
     FirebaseFirestore db;
     FirebaseUser firebaseUser;
+    Activity activity;
+
     @Nullable
     //@Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
@@ -56,7 +59,10 @@ public class CreatePostFragment extends Fragment {
         cancel.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new SocialFragment()).commit();
+                activity = getActivity();
+                if(activity!=null){
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new SocialFragment()).commit();
+                }
                 //MainActivity.fragmentManager.beginTransaction().replace(R.id.fragment_container,new SocialFragment()).commit();
             }
         });
@@ -89,7 +95,11 @@ public class CreatePostFragment extends Fragment {
                         "We got here",
                         Toast.LENGTH_LONG).show();
                 submitPostToDatabase(Title, ThePost, view);
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new SocialFragment()).commit();
+
+                activity = getActivity();
+                if(activity!=null){
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new SocialFragment()).commit();
+                }
                 //MainActivity.fragmentManager.beginTransaction().replace(R.id.fragment_container,new SocialFragment()).commit();
             }
         });

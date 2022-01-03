@@ -39,7 +39,6 @@ public class SavedPostAdapter extends RecyclerView.Adapter<SavedPostAdapter.View
     public Context mContext;
     public List<Post> mPost;
     private FirebaseFirestore db;
-    private PostAdapter postAdapter;
 
     private FirebaseUser firebaseUser;
 

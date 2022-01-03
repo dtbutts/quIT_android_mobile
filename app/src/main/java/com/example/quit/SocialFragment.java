@@ -70,6 +70,7 @@ public class SocialFragment extends Fragment {
     private ActivityResultLauncher<Intent> galleryActivityResultLauncher;
     private ActivityResultLauncher<Intent> cropActivityResultLauncher;
     ConstraintLayout kahuna;
+    private Activity activity;
 
     @Override
     public void onAttach(Context context) {
@@ -133,14 +134,21 @@ public class SocialFragment extends Fragment {
 
                         }
                         else{
-                            Toast.makeText(getActivity(), "Something went wrong", Toast.LENGTH_SHORT).show();
+                            activity = getActivity();
+                            if(activity!=null){
+                                Toast.makeText(activity, "Something went wrong", Toast.LENGTH_SHORT).show();
+                            }
                         }
                     }
                 });
 
         Toolbar toolbar = view.findViewById(R.id.postToolbar);
 
-        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+        activity = getActivity();
+        if(activity!=null){
+            ((AppCompatActivity)activity).setSupportActionBar(toolbar);
+
+        }
 
 
         compose = view.findViewById(R.id.compose);
@@ -166,15 +174,20 @@ public class SocialFragment extends Fragment {
         dividerItemDecoration.setDrawable(ContextCompat.getDrawable(getContext(), R.drawable.divider)) ;
         recyclerView.addItemDecoration(dividerItemDecoration);
 
+        //recyclerView.getItemAnimator().setChangeDuration(0);
 
         postLists= new ArrayList<>();
         postAdapter = new PostAdapter(getContext(), postLists);
+        postAdapter.setHasStableIds(true);
         recyclerView.setAdapter(postAdapter);
         compose.setClickable(true);
         compose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CreatePostFragment()).commit();
+                activity = getActivity();
+                if(activity!=null){
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CreatePostFragment()).commit();
+                }
                 //MainActivity.fragmentManager.beginTransaction().replace(R.id.fragment_container,new CreatePostFragment()).commit();
             }
         });
@@ -182,16 +195,22 @@ public class SocialFragment extends Fragment {
         myPosts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), MyPostsActivity.class);
-                getActivity().startActivity(intent);
+                activity = getActivity();
+                if(activity!=null){
+                    Intent intent = new Intent(activity, MyPostsActivity.class);
+                    activity.startActivity(intent);
+                }
             }
         });
         savedPosts.setClickable(true);
         savedPosts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), MySavedPostsActivity.class);
-                getActivity().startActivity(intent);
+                activity = getActivity();
+                if(activity!=null){
+                    Intent intent = new Intent(activity, MySavedPostsActivity.class);
+                    activity.startActivity(intent);
+                }
             }
         });
 
@@ -203,8 +222,10 @@ public class SocialFragment extends Fragment {
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         if (task.isSuccessful()) {
                             User user = task.getResult().toObject(User.class);
-
-                            Glide.with(getActivity()).load(user.getImageUri()).into(profileImage);
+                            activity = getActivity();
+                            if(activity!=null){
+                                Glide.with(activity).load(user.getImageUri()).into(profileImage);
+                            }
                         } else {
                             // Log.d(TAG, "get failed with ", task.getException());
                         }
@@ -258,9 +279,13 @@ public class SocialFragment extends Fragment {
     }
 
     private String getFileExtension(Uri uri){
-        ContentResolver contentResolver = getActivity().getApplicationContext().getContentResolver();
-        MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
-        return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
+        activity = getActivity();
+        if(activity!=null){
+            ContentResolver contentResolver = activity.getApplicationContext().getContentResolver();
+            MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
+            return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
+        }
+        return null;
     }
 
     private void uploadProfileImage(){
@@ -287,7 +312,10 @@ public class SocialFragment extends Fragment {
                         db.collection("userAccount")
                                 .document(firebaseUser.getUid())
                                 .update("imageUri", myUrl);
-                        Glide.with(getActivity()).load(myUrl).into(profileImage);
+                        activity = getActivity();
+                        if(activity!=null){
+                            Glide.with(activity).load(myUrl).into(profileImage);
+                        }
                     }
                 }
             });
