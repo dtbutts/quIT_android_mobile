@@ -233,20 +233,29 @@ public class HomeFragment extends Fragment {
                                 {
                                     DateFormat simple = new SimpleDateFormat("MMM dd, yyyy");
                                     soberSince.setText("Sober since "+simple.format(user.getSoberSince()));
-                                }
-                                else{
-                                    soberSince.setText("");
-                                }
-                                if(user.getTotalTimeSober()==0){
-                                    timeInMilliSeconds =0L;
-                                }
-                                else{
-                                    timeInMilliSeconds = user.getTotalTimeSober() + (System.currentTimeMillis() - user.getLastEndTime());
+
+                                    timeInMilliSeconds = System.currentTimeMillis() - user.getSoberSince().getTime();
+                                    //timeInMilliSeconds = user.getTotalTimeSober() + (System.currentTimeMillis() - user.getLastEndTime());
                                     Long year = 31540000000l;
                                     if(timeInMilliSeconds>=year){
                                         yearsCounterLayout.setVisibility(View.VISIBLE);
                                     }
                                 }
+                                else{
+                                    soberSince.setText("");
+                                    timeInMilliSeconds =0L;
+                                }
+//                                if(user.getTotalTimeSober()==0){
+//                                    timeInMilliSeconds =0L;
+//                                }
+//                                else{
+//                                    timeInMilliSeconds = System.currentTimeMillis() - user.getSoberSince().getTime();
+//                                    //timeInMilliSeconds = user.getTotalTimeSober() + (System.currentTimeMillis() - user.getLastEndTime());
+//                                    Long year = 31540000000l;
+//                                    if(timeInMilliSeconds>=year){
+//                                        yearsCounterLayout.setVisibility(View.VISIBLE);
+//                                    }
+//                                }
                                 //Log.d(TAG, "DocumentSnapshot data: " + document.getData());
                             } else {
                                 //Log.d(TAG, "No such document");
@@ -324,47 +333,47 @@ public class HomeFragment extends Fragment {
         return String.format("%02d", time);
     }
 
-    @Override
-    public void onDestroy() {
-        Log.d("Checking", "Destroy");
-        DocumentReference userReference = db.collection("userAccount")
-                .document(firebaseUser.getUid());
-        Long tmpTime = timeInMilliSeconds;
-        userReference
-                .update("totalTimeSober", tmpTime);
-        Long lastEndtime = System.currentTimeMillis();
-        userReference
-                .update("lastEndTime", lastEndtime);
-        super.onDestroy();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        Log.d("Checking", "Destroy");
-        DocumentReference userReference = db.collection("userAccount")
-                .document(firebaseUser.getUid());
-        Long tmpTime = timeInMilliSeconds;
-        userReference
-                .update("totalTimeSober", tmpTime);
-        Long lastEndtime = System.currentTimeMillis();
-        userReference
-                .update("lastEndTime", lastEndtime);
-
-    }
-
-    @Override
-    public void onPause() {
-
-        super.onPause();
-        Log.d("Checking", "Destroy");
-        DocumentReference userReference = db.collection("userAccount")
-                .document(firebaseUser.getUid());
-        Long tmpTime = timeInMilliSeconds;
-        userReference
-                .update("totalTimeSober", tmpTime);
-        Long lastEndtime = System.currentTimeMillis();
-        userReference
-                .update("lastEndTime", lastEndtime);
-    }
+//    @Override
+//    public void onDestroy() {
+//        Log.d("Checking", "Destroy");
+//        DocumentReference userReference = db.collection("userAccount")
+//                .document(firebaseUser.getUid());
+//        Long tmpTime = timeInMilliSeconds;
+//        userReference
+//                .update("totalTimeSober", tmpTime);
+//        Long lastEndtime = System.currentTimeMillis();
+//        userReference
+//                .update("lastEndTime", lastEndtime);
+//        super.onDestroy();
+//    }
+//
+//    @Override
+//    public void onStop() {
+//        super.onStop();
+//        Log.d("Checking", "Destroy");
+//        DocumentReference userReference = db.collection("userAccount")
+//                .document(firebaseUser.getUid());
+//        Long tmpTime = timeInMilliSeconds;
+//        userReference
+//                .update("totalTimeSober", tmpTime);
+//        Long lastEndtime = System.currentTimeMillis();
+//        userReference
+//                .update("lastEndTime", lastEndtime);
+//
+//    }
+//
+//    @Override
+//    public void onPause() {
+//
+//        super.onPause();
+//        Log.d("Checking", "Destroy");
+//        DocumentReference userReference = db.collection("userAccount")
+//                .document(firebaseUser.getUid());
+//        Long tmpTime = timeInMilliSeconds;
+//        userReference
+//                .update("totalTimeSober", tmpTime);
+//        Long lastEndtime = System.currentTimeMillis();
+//        userReference
+//                .update("lastEndTime", lastEndtime);
+//    }
 }

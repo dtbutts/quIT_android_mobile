@@ -135,13 +135,13 @@ public class RegisterActivity extends AppCompatActivity {
                     return;
                     //return;
                 }
-                Long TotalTimeSober = 0L;
+               // Long TotalTimeSober = 0L;
                 Boolean ButtonPressed = false;
-                Long LastEndTime = 0L;
+                //Long LastEndTime = 0L;
                 if(!DaysOfSobriety.equals("") && myCalendar!=null) {
                     ButtonPressed = true;
-                    TotalTimeSober = System.currentTimeMillis() - myCalendar.getTime().getTime();
-                    LastEndTime = System.currentTimeMillis();
+                    //TotalTimeSober = System.currentTimeMillis() - myCalendar.getTime().getTime();
+                    //LastEndTime = System.currentTimeMillis();
                     date = myCalendar.getTime();
 //                    try {
 //                        Integer tmp = Integer.parseInt(DaysOfSobriety);
@@ -173,8 +173,8 @@ public class RegisterActivity extends AppCompatActivity {
                 userAccount.put("weight", Weight);
                 userAccount.put("moneySpent", Money);
                 userAccount.put("timeAddicted", DaysOfAddicted);
-                userAccount.put("totalTimeSober", TotalTimeSober);
-                userAccount.put("lastEndTime", LastEndTime);
+                //userAccount.put("totalTimeSober", TotalTimeSober);
+                //userAccount.put("lastEndTime", LastEndTime);
                 userAccount.put("buttonPressed", ButtonPressed);
                 userAccount.put("imageUri", "https://firebasestorage.googleapis.com/v0/b/quit-a645b.appspot.com/o/profile-icon-png-898.png?alt=media&token=a6f5dcb6-722a-4ac3-b89a-0a0823a0ed5e");
                 userAccount.put("soberSince", date);
