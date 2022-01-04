@@ -3,17 +3,49 @@ package com.example.quit;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SimpleItemAnimator;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import Adapter.GoalAdapter;
+import Adapter.PostAdapter;
+import Model.Comment;
+import Model.Goal;
+import Model.Post;
 
 public class GoalsFragment extends Fragment {
     private ImageView addGoal;
     private Activity activity;
+    private RecyclerView recyclerView;
+    private FirebaseFirestore db;
+    private FirebaseUser firebaseUser;
+    private GoalAdapter goalAdapter;
+    private List<Goal> goalLists;
+
     @Nullable
     //@Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
@@ -33,6 +65,65 @@ public class GoalsFragment extends Fragment {
             }
         });
 
+        recyclerView = view.findViewById(R.id.recycler_view_goals);
+        ((SimpleItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
+        recyclerView.getItemAnimator().setChangeDuration(0);
+
+        db = FirebaseFirestore.getInstance();
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        recyclerView.setHasFixedSize(true);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        //linearLayoutManager.setReverseLayout(true);
+        //linearLayoutManager.setStackFromEnd(true);
+        recyclerView.setLayoutManager(linearLayoutManager);
+
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
+                linearLayoutManager.getOrientation());
+        dividerItemDecoration.setDrawable(ContextCompat.getDrawable(getContext(), R.drawable.divider)) ;
+        recyclerView.addItemDecoration(dividerItemDecoration);
+
+        //recyclerView.getItemAnimator().setChangeDuration(0);
+
+        goalLists= new ArrayList<>();
+        goalAdapter = new GoalAdapter(getContext(), goalLists);
+        goalAdapter.setHasStableIds(true);
+        recyclerView.setAdapter(goalAdapter);
+
+        readGoals();
+
         return view;
+    }
+
+    private void readGoals(){
+        db.collection("Goals")
+                .document(firebaseUser.getUid())
+                .collection("Sub")
+                .orderBy("timestamp", Query.Direction.DESCENDING)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            goalLists.clear();
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Goal goal = document.toObject(Goal.class);
+                                goalLists.add(goal);
+                                Log.d("findComments", "In Loop");
+//                                if(document.getId().equals(postuid)){
+
+                            }
+                            goalAdapter.notifyDataSetChanged();
+                        } else {
+                            //Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        readGoals();
     }
 }

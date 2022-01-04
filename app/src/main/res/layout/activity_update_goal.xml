@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/ourPurple"
-    android:id="@+id/goalRelativeLayout">
+    android:id="@+id/goalRelativeLayout"
+    >
 
     <TextView
         android:layout_width="match_parent"
@@ -13,7 +14,7 @@
         android:textColor="@color/black"
         android:gravity="center"
         android:id="@+id/theGoal"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="40dp"
         />
 
     <TextView
@@ -48,6 +49,43 @@
         android:gravity="center"
         android:text="percentage complete"
         android:id="@+id/percentComplete"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/progressBar1"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:id="@+id/arrowLayout"
+        >
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/ic_arrow_down"
+            android:id="@+id/arrowDown"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0 hours"
+            android:layout_toRightOf="@id/arrowDown"
+            android:id="@+id/currentUpdate"
+            android:layout_centerVertical="true"/>
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/ic_arrow_up"
+            android:layout_toRightOf="@id/currentUpdate"
+            android:id="@+id/arrowUp"/>
+
+    </RelativeLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Update"
+        android:layout_below="@id/arrowLayout"
+        android:id="@+id/updateButton"
+        android:layout_centerHorizontal="true"/>
 
 
 </RelativeLayout>

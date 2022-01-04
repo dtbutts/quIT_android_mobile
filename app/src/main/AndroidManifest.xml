@@ -85,6 +85,15 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".UpdateGoalActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.UPDATE_GOAL" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
 

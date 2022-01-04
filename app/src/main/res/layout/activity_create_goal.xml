@@ -18,6 +18,7 @@
         android:layout_height="wrap_content"
         android:hint="Create a goal"
         android:background="#909090"
+        android:id="@+id/theGoal"
         />
 
     <TextView
@@ -125,6 +126,7 @@
         android:layout_height="wrap_content"
         android:text="add goal"
         android:layout_gravity="center"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="10dp"
+        android:id="@+id/submitGoal"/>
 
 </LinearLayout>
