@@ -309,13 +309,12 @@
         android:layout_height="60dp"
         android:id="@+id/lengthOfSobriety">
 
-        <EditText
+        <TextView
             android:id="@+id/daysOfSobriety"
             android:layout_width="170dp"
             android:layout_height="match_parent"
             android:layout_marginTop="15dp"
             android:background="@drawable/boarder"
-            android:hint="days"
             android:paddingLeft="10dp"
 
             android:textSize="14dp"

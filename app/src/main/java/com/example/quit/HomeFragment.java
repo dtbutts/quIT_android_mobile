@@ -173,7 +173,7 @@ public class HomeFragment extends Fragment {
             Date date = new Date(System.currentTimeMillis());
             userReference.update("soberSince", date);
             DateFormat simple = new SimpleDateFormat("MMM dd, yyyy");
-            soberSince.setText("Sober since "+simple.format(date));
+            soberSince.setText("Sober since\n"+simple.format(date));
         }
         else{
             userReference
@@ -232,7 +232,7 @@ public class HomeFragment extends Fragment {
                                 if(user.getSoberSince()!=null)
                                 {
                                     DateFormat simple = new SimpleDateFormat("MMM dd, yyyy");
-                                    soberSince.setText("Sober since "+simple.format(user.getSoberSince()));
+                                    soberSince.setText("Sober since\n"+simple.format(user.getSoberSince()));
 
                                     timeInMilliSeconds = System.currentTimeMillis() - user.getSoberSince().getTime();
                                     //timeInMilliSeconds = user.getTotalTimeSober() + (System.currentTimeMillis() - user.getLastEndTime());

@@ -41,7 +41,8 @@ import java.util.concurrent.TimeUnit;
 public class RegisterActivity extends AppCompatActivity {
 
     private Button btnSubmit;
-    private EditText email, username,password,age, height, weight, moneySpent,dayOfAddiction, dayOfSobriety;
+    private EditText email, username,password,age, height, weight, moneySpent,dayOfAddiction;
+    private TextView dayOfSobriety;
     private RelativeLayout lengthOfSobriety;
     private TextView alreadyUser;
     private RadioButton radioYes;
@@ -82,6 +83,7 @@ public class RegisterActivity extends AppCompatActivity {
                 updateLabel();
             }
         };
+        dayOfSobriety.setClickable(true);
         dayOfSobriety.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
