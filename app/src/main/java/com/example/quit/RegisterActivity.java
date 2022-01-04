@@ -41,7 +41,7 @@ import java.util.concurrent.TimeUnit;
 public class RegisterActivity extends AppCompatActivity {
 
     private Button btnSubmit;
-    private EditText email, username,password,age, height, weight, moneySpent,dayOfAddiction;
+    private EditText email, username,password,age, height, weight,dayOfAddiction;
     private TextView dayOfSobriety;
     private RelativeLayout lengthOfSobriety;
     private TextView alreadyUser;
@@ -68,7 +68,6 @@ public class RegisterActivity extends AppCompatActivity {
         age = findViewById(R.id.age);
         height = findViewById(R.id.height);
         weight = findViewById(R.id.weight);
-        moneySpent = findViewById(R.id.moneySpent);
         dayOfAddiction = findViewById(R.id.daysOfAddiction);
         dayOfSobriety = findViewById(R.id.daysOfSobriety);
         checkBox = findViewById(R.id.termsConditions);
@@ -124,24 +123,24 @@ public class RegisterActivity extends AppCompatActivity {
                 String Age = age.getText().toString();
                 String Height = height.getText().toString();
                 String Weight = weight.getText().toString();
-                String Money = moneySpent.getText().toString();
+                //String Money = moneySpent.getText().toString();
                 String DaysOfAddicted = dayOfAddiction.getText().toString();
                 String DaysOfSobriety = dayOfSobriety.getText().toString();
                 Date date = null;
 
                 if(Username.isEmpty() || Email.isEmpty() ||Password.isEmpty() ||
                         Age.isEmpty() ||Height.isEmpty() ||Weight.isEmpty() ||
-                        Money.isEmpty() ||DaysOfAddicted.isEmpty() ){
+                        DaysOfAddicted.isEmpty() ){
                     //makeToast (required)
                     Toast.makeText(getApplicationContext(), "Make sure to fill out all required (*) fields", Toast.LENGTH_LONG).show();
                     return;
                     //return;
                 }
                // Long TotalTimeSober = 0L;
-                Boolean ButtonPressed = false;
+                //Boolean ButtonPressed = false;
                 //Long LastEndTime = 0L;
                 if(!DaysOfSobriety.equals("") && myCalendar!=null) {
-                    ButtonPressed = true;
+                    //ButtonPressed = true;
                     //TotalTimeSober = System.currentTimeMillis() - myCalendar.getTime().getTime();
                     //LastEndTime = System.currentTimeMillis();
                     date = myCalendar.getTime();
@@ -173,11 +172,11 @@ public class RegisterActivity extends AppCompatActivity {
                 userAccount.put("age", Age);
                 userAccount.put("height", Height);
                 userAccount.put("weight", Weight);
-                userAccount.put("moneySpent", Money);
+                //userAccount.put("moneySpent", Money);
                 userAccount.put("timeAddicted", DaysOfAddicted);
                 //userAccount.put("totalTimeSober", TotalTimeSober);
                 //userAccount.put("lastEndTime", LastEndTime);
-                userAccount.put("buttonPressed", ButtonPressed);
+                //userAccount.put("buttonPressed", ButtonPressed);
                 userAccount.put("imageUri", "https://firebasestorage.googleapis.com/v0/b/quit-a645b.appspot.com/o/profile-icon-png-898.png?alt=media&token=a6f5dcb6-722a-4ac3-b89a-0a0823a0ed5e");
                 userAccount.put("soberSince", date);
                 //userAccount.put("timeSober", DaysOfSobriety);

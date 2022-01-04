@@ -8,11 +8,11 @@ public class User {
     private String email, password, username,age, height, weight, moneySpent, timeAddicted, imageUri;
 //    private Long totalTimeSober, lastEndTime;
     private Date soberSince;
-    private Boolean buttonPressed;
+   // private Boolean buttonPressed;
 
 
     public User(String username, String password, String age, String height, String weight, String moneySpent, String timeAddicted,
-                 Boolean buttonPressed, String imageUri, Date soberSince) {
+                String imageUri, Date soberSince) {
         this.email = email;
         this.password = password;
         this.username = username;
@@ -23,7 +23,7 @@ public class User {
         this.timeAddicted = timeAddicted;
 //        this.totalTimeSober = totalTimeSober;
 //        this.lastEndTime = lastEndTime;
-        this.buttonPressed = buttonPressed;
+        ///this.buttonPressed = buttonPressed;
         this.imageUri = imageUri;
         this.soberSince = soberSince;
     }
@@ -111,13 +111,13 @@ public class User {
 //        this.lastEndTime = lastEndTime;
 //    }
 
-    public Boolean getButtonPressed() {
-        return buttonPressed;
-    }
-
-    public void setButtonPressed(Boolean buttonPressed) {
-        this.buttonPressed = buttonPressed;
-    }
+//    public Boolean getButtonPressed() {
+//        return buttonPressed;
+//    }
+//
+//    public void setButtonPressed(Boolean buttonPressed) {
+//        this.buttonPressed = buttonPressed;
+//    }
 
     public String getImageUri() {
         return imageUri;

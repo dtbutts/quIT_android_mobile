@@ -269,6 +269,7 @@ public class MoneyFragment extends Fragment {
                                     //set total savings
                                     total.setText("$ "+(df.format(money.getTotal())));
 
+                                    //set weekly stats
                                     extraDays = (now - money.getStartOfWeekDate().getTime()) /day;
                                     Double totalWeek = (extraDays * (money.getAvgWeekly()/7));
                                     weekTitle.setText(""+simple.format(money.getStartOfWeekDate())+" - "+

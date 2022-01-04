@@ -94,7 +94,7 @@ public class HomeFragment extends Fragment {
         db = FirebaseFirestore.getInstance();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         getTotalTimeElapsed();
-        getButtonStatus();
+        //getButtonStatus();
 //        if(started){
 //            startSobriety.setText("Reset Sobriety");
 //        }
@@ -118,7 +118,8 @@ public class HomeFragment extends Fragment {
                     startTimer();
                     startSobriety.setText("Reset Sobriety");
                     started =true;
-                    setButtonStatus();
+                    setSoberSinceStatus(started);
+                    //setButtonStatus();
 //                    Log.d("SANITY", "DEARGOD");
 //                    //Intent alarm = new Intent(getContext(), BackgroundService.class);
 //                    //PendingIntent pendingIntent = PendingIntent.getService(this,0,intent,0);
@@ -144,10 +145,11 @@ public class HomeFragment extends Fragment {
                     //}
                 }
                 else if(started){
-                    started =false;
                     timeInMilliSeconds=0L;
                     timerTask.cancel();
-                    setButtonStatus();
+                    started =false;
+                    setSoberSinceStatus(started);
+                    //setButtonStatus();
                     yearCounter.setText(formatTime(0l));
                     dayCounter.setText(formatTime(0l));
                     hourCounter.setText(formatTime(0l));
@@ -163,12 +165,12 @@ public class HomeFragment extends Fragment {
     }
 
 
-    private void setButtonStatus() {
+    private void setSoberSinceStatus(boolean started) {
         DocumentReference userReference = db.collection("userAccount")
                 .document(firebaseUser.getUid());
         if(started){
-            userReference
-                    .update("buttonPressed", true);
+//            userReference
+//                    .update("buttonPressed", true);
 
             Date date = new Date(System.currentTimeMillis());
             userReference.update("soberSince", date);
@@ -176,8 +178,8 @@ public class HomeFragment extends Fragment {
             soberSince.setText("Sober since\n"+simple.format(date));
         }
         else{
-            userReference
-                    .update("buttonPressed", false);
+//            userReference
+//                    .update("buttonPressed", false);
             userReference.update("soberSince", null);
             soberSince.setText("");
 
@@ -187,35 +189,35 @@ public class HomeFragment extends Fragment {
 
     }
 
-    private void getButtonStatus() {
-
-        db.collection("userAccount")
-                .document(firebaseUser.getUid())
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if (task.isSuccessful()) {
-                            DocumentSnapshot document = task.getResult();
-                            if (document.exists()) {
-                                User user =document.toObject(User.class);
-                                if(user.getButtonPressed()){
-                                    started = true;
-                                    Log.d("THURSDAY", "BUTTON IS PRESSED FROM DB");
-                                    startSobriety.setText("Reset Sobriety");
-
-                                    startTimer();
-                                }
-                                //Log.d(TAG, "DocumentSnapshot data: " + document.getData());
-                            } else {
-                                //Log.d(TAG, "No such document");
-                            }
-                        } else {
-                            //Log.d(TAG, "get failed with ", task.getException());
-                        }
-                    }
-                });
-    }
+//    private void getButtonStatus() {
+//
+//        db.collection("userAccount")
+//                .document(firebaseUser.getUid())
+//                .get()
+//                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                        if (task.isSuccessful()) {
+//                            DocumentSnapshot document = task.getResult();
+//                            if (document.exists()) {
+//                                User user =document.toObject(User.class);
+//                                if(user.getButtonPressed()){
+//                                    started = true;
+//                                    Log.d("THURSDAY", "BUTTON IS PRESSED FROM DB");
+//                                    startSobriety.setText("Reset Sobriety");
+//
+//                                    startTimer();
+//                                }
+//                                //Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+//                            } else {
+//                                //Log.d(TAG, "No such document");
+//                            }
+//                        } else {
+//                            //Log.d(TAG, "get failed with ", task.getException());
+//                        }
+//                    }
+//                });
+//    }
 
     private void getTotalTimeElapsed() {
 
@@ -234,7 +236,11 @@ public class HomeFragment extends Fragment {
                                     DateFormat simple = new SimpleDateFormat("MMM dd, yyyy");
                                     soberSince.setText("Sober since\n"+simple.format(user.getSoberSince()));
 
+                                    started = true;
+                                    startSobriety.setText("Reset Sobriety");
+
                                     timeInMilliSeconds = System.currentTimeMillis() - user.getSoberSince().getTime();
+                                    startTimer();
                                     //timeInMilliSeconds = user.getTotalTimeSober() + (System.currentTimeMillis() - user.getLastEndTime());
                                     Long year = 31540000000l;
                                     if(timeInMilliSeconds>=year){

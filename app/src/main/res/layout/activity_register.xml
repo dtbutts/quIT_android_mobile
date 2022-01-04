@@ -209,34 +209,34 @@
 
     </LinearLayout>
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="60dp">
+<!--    <RelativeLayout-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="60dp">-->
 
-        <EditText
-            android:id="@+id/moneySpent"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/boarder"
-            android:hint="money spent"
-            android:paddingLeft="10dp"
-            android:textSize="14dp"
-            android:textColor="@color/black"
+<!--        <EditText-->
+<!--            android:id="@+id/moneySpent"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_marginTop="15dp"-->
+<!--            android:background="@drawable/boarder"-->
+<!--            android:hint="money spent"-->
+<!--            android:paddingLeft="10dp"-->
+<!--            android:textSize="14dp"-->
+<!--            android:textColor="@color/black"-->
 
-            />
+<!--            />-->
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="7dp"
-            android:background="@color/ourGray"
-            android:textSize="15dp"
-            android:text="Add Average Money Spent A Week*"
-            android:textColor="@color/ourPurple"
-            />
-    </RelativeLayout>
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginLeft="10dp"-->
+<!--            android:layout_marginTop="7dp"-->
+<!--            android:background="@color/ourGray"-->
+<!--            android:textSize="15dp"-->
+<!--            android:text="Add Average Money Spent A Week*"-->
+<!--            android:textColor="@color/ourPurple"-->
+<!--            />-->
+<!--    </RelativeLayout>-->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -291,12 +291,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <RadioButton android:id="@+id/radio_yes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="false"
             android:text="Yes"
             />
+
         <RadioButton android:id="@+id/radio_no"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -304,6 +306,7 @@
             android:text="No"
             />
     </RadioGroup>
+
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="60dp"
