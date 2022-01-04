@@ -236,10 +236,11 @@ public class MoneyFragment extends Fragment {
 
                                     //get month info
                                     Calendar calendar = Calendar.getInstance();
+                                    calendar.setTime(money.getEndOfMonthDate());
                                     //get end of month date
                                     while(now>money.getEndOfMonthDate().getTime()){
 
-                                        calendar.setTime(money.getEndOfMonthDate());
+//                                        calendar.setTime(money.getEndOfMonthDate());
 
                                         if (calendar.get(Calendar.MONTH) == Calendar.DECEMBER) {
                                             calendar.set(Calendar.MONTH, Calendar.JANUARY);
