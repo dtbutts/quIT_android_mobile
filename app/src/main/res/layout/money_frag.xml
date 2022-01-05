@@ -60,20 +60,28 @@
         android:layout_gravity="center"
         android:id="@+id/total"/>
 
-    <TextView
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Current Savings This Week"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        android:layout_marginTop="35dp"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="0dp"
+        android:background="@drawable/bordergray"
+        android:layout_marginTop="45dp"
         >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/currentWeek"
+            android:textColor="@color/black"
+            android:layout_margin="10dp"
+            android:textStyle="bold"
+            android:id="@+id/title"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp"
+            android:layout_below="@id/title"
+            >
             <TextView
                 android:id="@+id/titleWeek"
                 android:layout_width="wrap_content"
@@ -96,45 +104,58 @@
                 android:id="@+id/weekVal"
                 />
 
-    </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
 
-    <TextView
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Current Savings This Month"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        android:layout_marginTop="35dp"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="0dp"
+        android:background="@drawable/bordergray"
+        android:layout_marginTop="45dp"
         >
         <TextView
-            android:id="@+id/titleMonth"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:gravity="center"
-            android:layout_weight="1"
-            android:text="startDate - endDate"
-            android:textColor="@color/black" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="$0"
+            android:text="@string/currentMonth"
             android:textColor="@color/black"
-            android:textSize="20dp"
-            android:id="@+id/monthVal"
-            />
+            android:textStyle="bold"
+            android:layout_margin="10dp"
+            android:id="@+id/title2"/>
 
-    </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp"
+            android:layout_below="@+id/title2"
+            >
+            <TextView
+                android:id="@+id/titleMonth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:text="startDate - endDate"
+                android:textColor="@color/black"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="$0"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                android:id="@+id/monthVal"
+                />
+
+        </LinearLayout>
+    </RelativeLayout>
+
+
 
     <TextView
         android:layout_width="wrap_content"
@@ -142,7 +163,7 @@
         android:text="Expected Savings"
         android:textColor="@color/black"
         android:textStyle="bold"
-        android:layout_marginTop="40dp"/>
+        android:layout_marginTop="45dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"

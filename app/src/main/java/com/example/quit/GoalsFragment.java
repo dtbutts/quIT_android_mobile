@@ -80,6 +80,13 @@ public class GoalsFragment extends Fragment {
             }
         });
 
+        Toolbar toolbar = view.findViewById(R.id.goalsToolbar);
+        activity = getActivity();
+        if(activity!=null){
+            ((AppCompatActivity)activity).setSupportActionBar(toolbar);
+            ((AppCompatActivity)activity).getSupportActionBar().setTitle("My Saved Goals");
+        }
+
 //        Toolbar toolbar = view.findViewById(R.id.goalToolbar);
 //        activity = getActivity();
 //        if(activity!=null){

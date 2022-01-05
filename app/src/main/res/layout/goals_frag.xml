@@ -3,9 +3,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/goal_top_gradient_background">
+    android:background="@drawable/goal_gradient_background">
 
-<!--    <androidx.appcompat.widget.Toolbar-->
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/goalsToolbar"
+        android:background="?android:attr/windowBackground"
+        android:backgroundTint="@color/ourGray"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <!--    <androidx.appcompat.widget.Toolbar-->
 <!--        android:layout_width="match_parent"-->
 <!--        android:layout_height="wrap_content"-->
 <!--        android:id="@+id/postToolbar"-->
@@ -22,42 +33,42 @@
 <!--            android:id="@+id/toolbar_title" />-->
 <!--    </androidx.appcompat.widget.Toolbar>-->
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="10dp"
+<!--    <RelativeLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        android:layout_marginTop="10dp"-->
 
-        android:id="@+id/relativeLayout">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="30sp"
-            android:text="Goals"
-            android:id="@+id/goalText"
-            android:layout_marginRight="190dp"
-            android:layout_marginLeft="20dp"
-            android:layout_centerVertical="true"
-            />
+<!--        android:id="@+id/relativeLayout">-->
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textSize="30sp"-->
+<!--            android:text="Goals"-->
+<!--            android:id="@+id/goalText"-->
+<!--            android:layout_marginRight="190dp"-->
+<!--            android:layout_marginLeft="20dp"-->
+<!--            android:layout_centerVertical="true"-->
+<!--            />-->
 
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height=".75dp"
-            android:background="@android:color/black"
-            android:layout_marginTop="70dp"
-             />
-    </RelativeLayout>
+<!--        <View-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height=".75dp"-->
+<!--            android:background="@android:color/black"-->
+<!--            android:layout_marginTop="70dp"-->
+<!--             />-->
+<!--    </RelativeLayout>-->
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_goals"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@id/relativeLayout"
-        app:layout_constraintStart_toStartOf="@id/relativeLayout"
-        app:layout_constraintTop_toBottomOf="@id/relativeLayout"
+        app:layout_constraintEnd_toEndOf="@id/goalsToolbar"
+        app:layout_constraintStart_toStartOf="@id/goalsToolbar"
+        app:layout_constraintTop_toBottomOf="@id/goalsToolbar"
         android:background="@drawable/goal_gradient_background"
         >
 
