@@ -89,9 +89,10 @@ public class SavedPostAdapter extends RecyclerView.Adapter<SavedPostAdapter.View
                                 //Yes button clicked
                                 deleteReferences(post.getPostuid());
                                 mPost.remove(holder.getAdapterPosition());
-                                notifyItemRemoved(holder.getAdapterPosition());
-                                notifyItemRangeChanged(holder.getAdapterPosition(), mPost.size());
-                                //notifyDataSetChanged();
+                                ///notifyItemChanged(holder.getAdapterPosition());
+//                                notifyItemRemoved(holder.getAdapterPosition());
+//                                notifyItemRangeChanged(holder.getAdapterPosition(), mPost.size());
+                                notifyDataSetChanged();
 
 //                                updateSocialFragListofPosts();
                                 break;

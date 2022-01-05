@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.Image;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,9 +21,12 @@ import com.example.quit.MyPostCommentsActivity;
 import com.example.quit.R;
 import com.example.quit.SocialFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.SuccessContinuation;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -31,6 +35,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import Model.Post;
 import Model.User;
@@ -93,8 +98,10 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.ViewHolder
 
                                 //notifyItemChanged(holder.getAdapterPosition());
                                 mPost.remove(holder.getAdapterPosition());
-                                notifyItemRemoved(holder.getAdapterPosition());
-                                notifyItemRangeRemoved(holder.getAdapterPosition(), mPost.size());
+                                //notifyItemChanged(holder.getAdapterPosition());
+                                notifyDataSetChanged();
+//                                notifyItemRemoved(holder.getAdapterPosition());
+//                                notifyItemRangeRemoved(holder.getAdapterPosition(), mPost.size());
 
 //                                updateSocialFragListofPosts();
                                 break;
@@ -194,6 +201,32 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.ViewHolder
                     }
                 });
         commentReference.delete();
+
+
+        db.collection("Saves")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()){
+                            for (DocumentSnapshot document : task.getResult().getDocuments()){
+                                document.getReference().collection("Sub")
+                                        .whereEqualTo("postuid", postuid)
+                                        .get()
+                                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                if(task.isSuccessful()){
+                                                    for (QueryDocumentSnapshot document : task.getResult()){
+                                                        document.getReference().delete();
+                                                    }
+                                                }
+                                            }
+                                        });
+                            }
+                        }
+                    }
+                });
     }
 
     @Override

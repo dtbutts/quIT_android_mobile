@@ -149,6 +149,7 @@ public class CreateGoalActivity extends AppCompatActivity {
         DocumentReference key = db.collection("Goals").document(firebaseUser.getUid())
                 .collection("Sub").document();
         goal.put("goalUid", key.getId());
+        goal.put("saved", false);
 
         db.collection("Goals")
                 .document(firebaseUser.getUid())

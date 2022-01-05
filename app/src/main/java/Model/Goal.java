@@ -9,8 +9,10 @@ public class Goal {
     private Integer totalNeeded, current;
     private Date deadline;
     private Long timestamp;
+    private Boolean saved;
 
-    public Goal(String theGoal, String measurement, Integer totalNeeded, Integer current, Date deadline, Long timestamp, String goalUid) {
+    public Goal(String theGoal, String measurement, Integer totalNeeded, Integer current, Date deadline, Long timestamp, String goalUid,
+    Boolean saved) {
         this.theGoal = theGoal;
         this.measurement = measurement;
         this.totalNeeded = totalNeeded;
@@ -18,6 +20,7 @@ public class Goal {
         this.deadline = deadline;
         this.timestamp = timestamp;
         this.goalUid = goalUid;
+        this.saved = saved;
     }
 
     public Goal() {
@@ -78,5 +81,13 @@ public class Goal {
 
     public void setGoalUid(String goalUid) {
         this.goalUid = goalUid;
+    }
+
+    public Boolean getSaved() {
+        return saved;
+    }
+
+    public void setSaved(Boolean saved) {
+        this.saved = saved;
     }
 }

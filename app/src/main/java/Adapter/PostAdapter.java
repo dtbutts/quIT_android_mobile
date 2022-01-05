@@ -24,6 +24,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -145,6 +146,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
 
                 if(holder.saveImage.getTag().equals("save")){
                     Map<String, Object> saves = new HashMap<>();
+                    Map<String, Object> field = new HashMap<>();
+                    field.put("publisher", post.getPublisher());
                     //saves.put(firebaseUser.getUid(),true);
                     saves.put("postuid", post.getPostuid());
                     saves.put("publisher",post.getPublisher());
@@ -155,8 +158,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
                     String Date = new SimpleDateFormat("MMMM dd, yyyy").format(Calendar.getInstance().getTime());
                     saves.put("date", Date);
                     saves.put("imageUri", post.getImageUri());
-                    db.collection("Saves")
-                            .document(firebaseUser.getUid())
+                    DocumentReference documentReference = db.collection("Saves")
+                            .document(firebaseUser.getUid());
+                    documentReference.set(field);
+                    documentReference
                             .collection("Sub")
                             .add(saves)
                             //.set(likes)

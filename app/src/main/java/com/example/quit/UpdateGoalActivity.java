@@ -1,7 +1,10 @@
 package com.example.quit;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -15,10 +18,12 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Locale;
 
 import Model.Goal;
@@ -67,7 +72,7 @@ public class UpdateGoalActivity extends AppCompatActivity {
             public void onClick(View view) {
                 progress++;
                 currentUpdate.setText(progress + " " +measurement);
-                current +=progress;
+                current++;
                 progressBar.setProgress(current);
                 percentComplete.setText(""+current+"/"+total +" "+measurement);
             }
@@ -79,7 +84,7 @@ public class UpdateGoalActivity extends AppCompatActivity {
             public void onClick(View view) {
                 progress--;
                 currentUpdate.setText(progress + " " +measurement);
-                current -= progress;
+                current--;
                 progressBar.setProgress(current);
                 percentComplete.setText(""+current+"/"+total +" "+measurement);
             }
@@ -88,8 +93,42 @@ public class UpdateGoalActivity extends AppCompatActivity {
         updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                updateDB(goalUid);
-                finish();
+                Log.d("COUNTs", "Current: "+current +" Total: "+total);
+                if(current>=total){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(UpdateGoalActivity.this);
+                    builder.setMessage("Congratulations!! You have completed your goal! Would you like" +
+                            " to save or remove this goal?")
+                            .setPositiveButton("Save", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    DocumentReference documentReference = db.collection("Goals")
+                                            .document(firebaseUser.getUid())
+                                            .collection("Sub")
+                                            .document(goalUid);
+                                    Calendar cal = Calendar.getInstance();
+                                    documentReference.update("deadline",cal.getTime());
+                                    documentReference.update("saved", true);
+                                    updateDB(goalUid);
+                                    UpdateGoalActivity.this.finish();
+                                }
+                            })
+                            .setNegativeButton("Remove", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    db.collection("Goals")
+                                            .document(firebaseUser.getUid())
+                                            .collection("Sub")
+                                            .document(goalUid)
+                                            .delete();
+                                    updateDB(goalUid);
+                                    UpdateGoalActivity.this.finish();
+                                }
+                            });
+                    // Create the AlertDialog object and return it
+                    builder.create().show();
+                }
+                else{
+                    updateDB(goalUid);
+                    finish();
+                }
             }
         });
 

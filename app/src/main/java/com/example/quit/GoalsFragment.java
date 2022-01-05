@@ -40,7 +40,7 @@ import Model.Goal;
 import Model.Post;
 
 public class GoalsFragment extends Fragment {
-    private ImageView addGoal;
+    private ImageView addGoal, savedGoals;
     private Activity activity;
     private RecyclerView recyclerView;
     private FirebaseFirestore db;
@@ -54,6 +54,7 @@ public class GoalsFragment extends Fragment {
         View view =  inflater.inflate(R.layout.goals_frag,container, false);
 
         addGoal = view.findViewById(R.id.addGoal);
+        savedGoals = view.findViewById(R.id.savedGoals);
 
         addGoal.setClickable(true);
         addGoal.setOnClickListener(new View.OnClickListener() {
@@ -62,6 +63,18 @@ public class GoalsFragment extends Fragment {
                 activity = getActivity();
                 if(activity!=null){
                     Intent intent = new Intent(activity, CreateGoalActivity.class);
+                    activity.startActivity(intent);
+                }
+            }
+        });
+
+        savedGoals.setClickable(true);
+        savedGoals.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activity = getActivity();
+                if(activity!=null){
+                    Intent intent = new Intent(activity, MySavedGoalsActivity.class);
                     activity.startActivity(intent);
                 }
             }
