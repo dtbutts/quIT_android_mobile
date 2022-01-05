@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -143,7 +144,6 @@ public class SocialFragment extends Fragment {
                 });
 
         Toolbar toolbar = view.findViewById(R.id.postToolbar);
-
         activity = getActivity();
         if(activity!=null){
             ((AppCompatActivity)activity).setSupportActionBar(toolbar);
@@ -165,8 +165,10 @@ public class SocialFragment extends Fragment {
 
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        linearLayoutManager.setReverseLayout(true);
-        linearLayoutManager.setStackFromEnd(true);
+        //linearLayoutManager.setReverseLayout(true);
+        // linearLayoutManager.setStackFromEnd(true);
+        //recyclerView.setLayoutManager(new LinearLayoutManagerWrapper(mContext, LinearLayoutManager.VERTICAL, false));
+        //new WrapContentLinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false));
         recyclerView.setLayoutManager(linearLayoutManager);
 
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
@@ -178,7 +180,7 @@ public class SocialFragment extends Fragment {
 
         postLists= new ArrayList<>();
         postAdapter = new PostAdapter(getContext(), postLists);
-        postAdapter.setHasStableIds(true);
+        //postAdapter.setHasStableIds(true);
         recyclerView.setAdapter(postAdapter);
         compose.setClickable(true);
         compose.setOnClickListener(new View.OnClickListener() {
@@ -256,7 +258,7 @@ public class SocialFragment extends Fragment {
     }
     private void readPosts(){
         db.collection("Posts")
-                .orderBy("timestamp", Query.Direction.ASCENDING)
+                .orderBy("timestamp", Query.Direction.DESCENDING)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -290,6 +292,7 @@ public class SocialFragment extends Fragment {
 
     private void uploadProfileImage(){
         if(mImageUri != null){
+            //kahuna.setVisibility(View.GONE);
             StorageReference fileRef = storageReference.child(System.currentTimeMillis()
             +"."+getFileExtension(mImageUri));
 
@@ -316,6 +319,7 @@ public class SocialFragment extends Fragment {
                         if(activity!=null){
                             Glide.with(activity).load(myUrl).into(profileImage);
                         }
+                        //kahuna.setVisibility(View.VISIBLE);
                     }
                 }
             });
@@ -324,32 +328,57 @@ public class SocialFragment extends Fragment {
     }
 
     //this function is used to update the View all "" comments when a comment is submitted
-//    @Override
-//    public void onResume() {
-//        Log.d("ONRESUME", "isCalled");
-//        db.collection("Posts")
-//                .orderBy("timestamp", Query.Direction.ASCENDING)
-//                .get()
-//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                        if (task.isSuccessful()) {
-//                            postLists.clear();
-//                            for (QueryDocumentSnapshot document : task.getResult()) {
-//
-//                                Post post = document.toObject(Post.class);
-//                                postLists.add(post);
-//                                //Log.d(TAG, document.getId() + " => " + document.getData());
-//                            }
-//                            postAdapter.notifyDataSetChanged();
-//                        } else {
-//                            //Log.d(TAG, "Error getting documents: ", task.getException());
-//                        }
-//                    }
-//                });
-//        //postAdapter.notifyDataSetChanged();
-//
-//
-//        super.onResume();
-//    }
+    @Override
+    public void onResume() {
+        Log.d("ONRESUME", "isCalled");
+        db.collection("Posts")
+                .orderBy("timestamp", Query.Direction.DESCENDING)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            postLists.clear();
+                            //int pos = 0;
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+
+                                Post post = document.toObject(Post.class);
+                                postLists.add(post);
+//                                postAdapter.notifyItemChanged(pos);
+//                                postAdapter.notifyItemRangeChanged(pos, postLists.size());
+//                                pos++;
+                                //Log.d(TAG, document.getId() + " => " + document.getData());
+                            }
+                            //postAdapter.notifyItemRangeChanged(0, postLists.size());
+                            postAdapter.notifyDataSetChanged();
+                        } else {
+                            //Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+        //postAdapter.notifyDataSetChanged();
+
+
+        super.onResume();
+    }
+}
+//for samsung bug
+class LinearLayoutManagerWrapper extends LinearLayoutManager {
+
+    public LinearLayoutManagerWrapper(Context context) {
+        super(context);
+    }
+
+    public LinearLayoutManagerWrapper(Context context, int orientation, boolean reverseLayout) {
+        super(context, orientation, reverseLayout);
+    }
+
+    public LinearLayoutManagerWrapper(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        super(context, attrs, defStyleAttr, defStyleRes);
+    }
+
+    @Override
+    public boolean supportsPredictiveItemAnimations() {
+        return false;
+    }
 }

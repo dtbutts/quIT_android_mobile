@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/ourPurple"
+    android:background="@drawable/goal_gradient_background"
     android:id="@+id/goalRelativeLayout"
     >
 
@@ -17,24 +17,15 @@
         android:layout_marginTop="40dp"
         />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text = "Deadline"
-        android:textColor="@color/black"
-        android:gravity="center"
-        android:layout_below="@id/theGoal"
-        android:id="@+id/deadline"
-        android:layout_marginTop="10dp"/>
 
     <ProgressBar
         android:id="@+id/progressBar1"
         style="?android:attr/progressBarStyleHorizontal"
         android:progressDrawable="@drawable/custom_progress_bar"
-        android:layout_width="250dp"
-        android:layout_height="50dp"
+        android:layout_width="300dp"
+        android:layout_height="75dp"
         android:indeterminate="false"
-        android:layout_below="@id/deadline"
+        android:layout_below="@id/theGoal"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"/>
@@ -42,13 +33,23 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/deadline"
+        android:layout_below="@id/theGoal"
         android:layout_centerVertical="true"
         android:layout_marginTop="24dp"
         android:layout_marginBottom="10dp"
         android:gravity="center"
         android:text="percentage complete"
         android:id="@+id/percentComplete"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text = "Deadline"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:layout_below="@id/theGoal"
+        android:id="@+id/deadline"
+        android:layout_marginTop="50dp"/>
 
     <RelativeLayout
         android:layout_width="match_parent"

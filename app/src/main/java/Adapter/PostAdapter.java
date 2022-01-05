@@ -67,7 +67,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
         holder.title.setVisibility(View.VISIBLE);
         holder.thePost.setText(post.getThePost());
         holder.date.setText(post.getDate());
-        if(post.getImageUri()!= "" && post.getImageUri() != null){
+
+        if(post.getImageUri()== "" || post.getImageUri() == null){
+            holder.uploadImage.setVisibility(View.GONE);
+            //Glide.with(mContext).load(post.getImageUri()).into(holder.uploadImage);
+        }
+        else{
             holder.uploadImage.setVisibility(View.VISIBLE);
             Glide.with(mContext).load(post.getImageUri()).into(holder.uploadImage);
         }

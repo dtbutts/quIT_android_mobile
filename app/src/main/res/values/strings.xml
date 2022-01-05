@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">QuIT</string>
+
     <string-array name="measurements_array">
         <item>Hours</item>
         <item>Days</item>
@@ -9,4 +10,6 @@
         <item>Lbs</item>
         <item>Miles</item>
     </string-array>
+
+    <string name="details"><u>Details</u></string>
 </resources>

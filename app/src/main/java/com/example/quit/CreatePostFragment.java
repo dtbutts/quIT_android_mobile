@@ -14,6 +14,7 @@ import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -62,6 +63,7 @@ public class CreatePostFragment extends Fragment {
     private Uri mImageUri;
     private ActivityResultLauncher<Intent> cropActivityResultLauncher;
     private String myURL;
+    private ProgressBar progressBar;
 
     @Nullable
     //@Override
@@ -76,6 +78,8 @@ public class CreatePostFragment extends Fragment {
         uploadImage = view.findViewById(R.id.uploadImage);
         myURL = "";
         uploadText = view.findViewById(R.id.uploadText);
+        progressBar = view.findViewById(R.id.indeterminateBar);
+        progressBar.setVisibility(View.GONE);
 
         cropActivityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
@@ -84,7 +88,6 @@ public class CreatePostFragment extends Fragment {
                     public void onActivityResult(ActivityResult result) {
                         if (result.getResultCode() == Activity.RESULT_OK) {// && result.== CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
                             // There are no request codes
-
                             Log.d("INITIAL", "entered if statement");
                             Intent data = result.getData();
                             CropImage.ActivityResult res = CropImage.getActivityResult(data);
@@ -270,6 +273,9 @@ public class CreatePostFragment extends Fragment {
     }
 
     private void uploadProfileImage() {
+        Log.d("uploadTime", ""+System.currentTimeMillis());
+        post.setEnabled(false);
+        progressBar.setVisibility(View.VISIBLE);
         if (mImageUri != null) {
             StorageReference fileRef = storageReference.child(System.currentTimeMillis()
                     + "." + getFileExtension(mImageUri));
@@ -297,6 +303,9 @@ public class CreatePostFragment extends Fragment {
                         if (activity != null) {
                             Glide.with(activity).load(myURL).into(uploadImage);
                         }
+                        post.setEnabled(true);
+                        progressBar.setVisibility(View.GONE);
+                        Log.d("uploadTime", ""+System.currentTimeMillis());
                     }
                 }
             });

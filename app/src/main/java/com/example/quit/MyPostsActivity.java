@@ -58,7 +58,8 @@ public class MyPostsActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycler_view_my_posts);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(linearLayoutManager);
+       // recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setLayoutManager(new LinearLayoutManagerWrapper(this, LinearLayoutManager.VERTICAL, false));
 
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
                 linearLayoutManager.getOrientation());
@@ -68,7 +69,7 @@ public class MyPostsActivity extends AppCompatActivity {
 
         postLists = new ArrayList<>();
         myPostAdapter = new MyPostAdapter(this, postLists);
-        myPostAdapter.setHasStableIds(true);
+        //myPostAdapter.setHasStableIds(true);
         recyclerView.setAdapter(myPostAdapter);
         db = FirebaseFirestore.getInstance();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();

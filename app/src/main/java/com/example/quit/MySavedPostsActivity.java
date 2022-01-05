@@ -1,6 +1,8 @@
 package com.example.quit;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -69,7 +71,7 @@ public class MySavedPostsActivity extends AppCompatActivity {
 
         postLists = new ArrayList<>();
         savedPostAdapter = new SavedPostAdapter(this, postLists);
-        savedPostAdapter.setHasStableIds(true);
+        //savedPostAdapter.setHasStableIds(true);
         recyclerView.setAdapter(savedPostAdapter);
         db = FirebaseFirestore.getInstance();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -102,3 +104,4 @@ public class MySavedPostsActivity extends AppCompatActivity {
                 });
     }
 }
+

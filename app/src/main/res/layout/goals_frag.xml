@@ -3,14 +3,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/ourPurple">
+    android:background="@drawable/goal_top_gradient_background">
+
+<!--    <androidx.appcompat.widget.Toolbar-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:id="@+id/postToolbar"-->
+<!--        android:background="?android:attr/windowBackground"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        android:backgroundTint="@color/ourGray"-->
+<!--        >-->
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Goals"-->
+<!--            android:textSize="30dp"-->
+<!--            android:id="@+id/toolbar_title" />-->
+<!--    </androidx.appcompat.widget.Toolbar>-->
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="10dp"
 
         android:id="@+id/relativeLayout">
         <TextView
@@ -21,16 +38,16 @@
             android:id="@+id/goalText"
             android:layout_marginRight="190dp"
             android:layout_marginLeft="20dp"
-            android:layout_centerVertical="true"/>
-
-        <ImageView
-            android:layout_width="75dp"
-            android:layout_height="50dp"
-            android:layout_toRightOf="@id/goalText"
-            android:src="@drawable/ic_add_goal"
-            android:id="@+id/addGoal"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="35dp"/>
+            />
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height=".75dp"
+            android:background="@android:color/black"
+            android:layout_marginTop="70dp"
+             />
     </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -41,8 +58,21 @@
         app:layout_constraintEnd_toEndOf="@id/relativeLayout"
         app:layout_constraintStart_toStartOf="@id/relativeLayout"
         app:layout_constraintTop_toBottomOf="@id/relativeLayout"
-        android:layout_marginTop="20dp"
-        />
+        android:background="@drawable/goal_gradient_background"
+        >
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <ImageView
+        android:id="@+id/addGoal"
+        android:layout_width="75dp"
+        android:layout_height="50dp"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="320dp"
+        android:layout_marginBottom="32dp"
+        android:src="@drawable/ic_add_goal"
+        app:layout_constraintBottom_toBottomOf="@id/recycler_view_goals"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
