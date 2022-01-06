@@ -78,7 +78,10 @@
             android:layout_toRightOf="@id/currentUpdate"
             android:id="@+id/arrowUp"/>
 
+
+
     </RelativeLayout>
+
 
     <Button
         android:layout_width="wrap_content"
@@ -87,6 +90,32 @@
         android:layout_below="@id/arrowLayout"
         android:id="@+id/updateButton"
         android:layout_centerHorizontal="true"/>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/updateButton"
+        android:layout_below="@id/progressBar1">
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="90dp"
+            android:src="@drawable/ic_compose"
+            android:id="@+id/editGoal"/>
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_below="@id/editGoal"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="90dp"
+            android:src="@drawable/ic_my_remove2"
+            android:id="@+id/removeSavedGoal"/>
+    </RelativeLayout>
+
+
 
 
 </RelativeLayout>

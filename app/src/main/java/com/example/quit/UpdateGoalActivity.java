@@ -33,7 +33,7 @@ public class UpdateGoalActivity extends AppCompatActivity {
     private FirebaseFirestore db;
     private FirebaseUser firebaseUser;
     private TextView theGoal, deadline, percentComplete, currentUpdate;
-    private ImageView arrowUp, arrowDown;
+    private ImageView arrowUp, arrowDown, removeSavedGoal, editGoal;
     private int progress;
     private ProgressBar progressBar;
     private String goalUid, measurement;
@@ -53,6 +53,8 @@ public class UpdateGoalActivity extends AppCompatActivity {
         arrowDown = findViewById(R.id.arrowDown);
         progressBar = findViewById(R.id.progressBar1);
         updateButton = findViewById(R.id.updateButton);
+        removeSavedGoal = findViewById(R.id.removeSavedGoal);
+        editGoal = findViewById(R.id.editGoal);
         progress = 0;
         current = 0;
         total = 0;
@@ -118,7 +120,7 @@ public class UpdateGoalActivity extends AppCompatActivity {
                                             .collection("Sub")
                                             .document(goalUid)
                                             .delete();
-                                    updateDB(goalUid);
+                                    //updateDB(goalUid);
                                     UpdateGoalActivity.this.finish();
                                 }
                             });
@@ -132,7 +134,50 @@ public class UpdateGoalActivity extends AppCompatActivity {
             }
         });
 
+        removeSavedGoal.setClickable(true);
+        removeSavedGoal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("WASCLICKED", "YES");
+                DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which){
+                            case DialogInterface.BUTTON_POSITIVE:
+                                //Yes button clicked
+                                db.collection("Goals")
+                                        .document(firebaseUser.getUid())
+                                        .collection("Sub")
+                                        .document(goalUid)
+                                        .delete();
+                                //updateDB(goalUid);
+                                UpdateGoalActivity.this.finish();
+                                break;
 
+                            case DialogInterface.BUTTON_NEGATIVE:
+                                //No button clicked
+                                //do nothing
+                                break;
+                        }
+
+                    }
+                };
+                AlertDialog.Builder builder = new AlertDialog.Builder(UpdateGoalActivity.this);
+                builder.setMessage("Are you sure you want to permanently delete this post?")
+                        .setPositiveButton("Yes", dialogClickListener)
+                        .setNegativeButton("No", dialogClickListener).show();
+            }
+        });
+
+        editGoal.setClickable(true);
+        editGoal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(UpdateGoalActivity.this, EditCurrentGoalActivity.class);
+                intent.putExtra("goaluid", goalUid);
+                UpdateGoalActivity.this.startActivity(intent);
+            }
+        });
 
     }
 
@@ -178,4 +223,9 @@ public class UpdateGoalActivity extends AppCompatActivity {
                 });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getSpecificGoal(goalUid);
+    }
 }
