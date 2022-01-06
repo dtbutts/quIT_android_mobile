@@ -59,13 +59,25 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.ViewHolder>{
         SimpleDateFormat dateFormat=new SimpleDateFormat(myFormat, Locale.US);
         if(goal.getDeadline()!=null){
             holder.deadline.setText("Deadline: "+dateFormat.format(goal.getDeadline()));
+            Long now = System.currentTimeMillis();
+            if(now >goal.getDeadline().getTime() && !goal.getSaved()){
+                holder.pastDue.setVisibility(View.VISIBLE);
+            }
+            else{
+                holder.pastDue.setVisibility(View.GONE);
+            }
         }
         else{
             holder.deadline.setVisibility(View.GONE);
+            holder.pastDue.setVisibility(View.GONE);
         }
+
         holder.percentComplete.setText(""+current+"/"+total +" "+goal.getMeasurement());
         holder.progressBar.setProgress(current);
         holder.progressBar.setMax(total);
+
+        int tmpInt = (int) (current.floatValue()/total.floatValue() *100);
+        holder.actualPercent.setText(tmpInt+"%");
 
         holder.goalRelativeLayout.setClickable(true);
         holder.goalRelativeLayout.setOnClickListener(new View.OnClickListener() {
@@ -89,7 +101,7 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.ViewHolder>{
     public class ViewHolder extends RecyclerView.ViewHolder{
         public ProgressBar progressBar;
         public RelativeLayout goalRelativeLayout;
-        public TextView theGoal, deadline, percentComplete;
+        public TextView theGoal, deadline, percentComplete, pastDue, actualPercent;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -98,9 +110,11 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.ViewHolder>{
             deadline = itemView.findViewById(R.id.deadline);
             percentComplete = itemView.findViewById(R.id.percentComplete);
             progressBar = itemView.findViewById(R.id.progressBar1);
+            pastDue = itemView.findViewById(R.id.pastDue);
             db = FirebaseFirestore.getInstance();
             firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
             goalRelativeLayout = itemView.findViewById(R.id.goalRelativeLayout);
+            actualPercent = itemView.findViewById(R.id.actualPercent);
         }
     }
 }

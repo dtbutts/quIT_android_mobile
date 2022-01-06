@@ -32,7 +32,7 @@ public class UpdateGoalActivity extends AppCompatActivity {
 
     private FirebaseFirestore db;
     private FirebaseUser firebaseUser;
-    private TextView theGoal, deadline, percentComplete, currentUpdate;
+    private TextView theGoal, deadline, percentComplete, currentUpdate, actualPercent;
     private ImageView arrowUp, arrowDown, removeSavedGoal, editGoal;
     private int progress;
     private ProgressBar progressBar;
@@ -55,6 +55,7 @@ public class UpdateGoalActivity extends AppCompatActivity {
         updateButton = findViewById(R.id.updateButton);
         removeSavedGoal = findViewById(R.id.removeSavedGoal);
         editGoal = findViewById(R.id.editGoal);
+        actualPercent = findViewById(R.id.actualPercent);
         progress = 0;
         current = 0;
         total = 0;
@@ -77,6 +78,8 @@ public class UpdateGoalActivity extends AppCompatActivity {
                 current++;
                 progressBar.setProgress(current);
                 percentComplete.setText(""+current+"/"+total +" "+measurement);
+                int tmpInt = (int) (current.floatValue()/total.floatValue() *100);
+                actualPercent.setText(tmpInt+"%");
             }
         });
 
@@ -89,6 +92,8 @@ public class UpdateGoalActivity extends AppCompatActivity {
                 current--;
                 progressBar.setProgress(current);
                 percentComplete.setText(""+current+"/"+total +" "+measurement);
+                int tmpInt = (int) (current.floatValue()/total.floatValue() *100);
+                actualPercent.setText(tmpInt+"%");
             }
         });
 
@@ -218,6 +223,8 @@ public class UpdateGoalActivity extends AppCompatActivity {
                             progressBar.setProgress(current);
                             progressBar.setMax(total);
 
+                            int tmpInt = (int) (current.floatValue()/total.floatValue() *100);
+                            actualPercent.setText(tmpInt+"%");
                         }
                     }
                 });

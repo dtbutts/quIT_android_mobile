@@ -67,6 +67,9 @@ public class SavedGoalsAdapter extends RecyclerView.Adapter<SavedGoalsAdapter.Vi
         holder.progressBar.setProgress(current);
         holder.progressBar.setMax(total);
 
+        int tmpInt = (int) (current.floatValue()/total.floatValue() *100);
+        holder.actualPercent.setText(tmpInt+"%");
+
         holder.remove.setClickable(true);
         holder.remove.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,7 +95,7 @@ public class SavedGoalsAdapter extends RecyclerView.Adapter<SavedGoalsAdapter.Vi
         public ProgressBar progressBar;
         public RelativeLayout goalRelativeLayout;
         public ImageView remove;
-        public TextView theGoal, complete, percentComplete;
+        public TextView theGoal, complete, percentComplete, actualPercent;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -105,6 +108,7 @@ public class SavedGoalsAdapter extends RecyclerView.Adapter<SavedGoalsAdapter.Vi
             firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
             goalRelativeLayout = itemView.findViewById(R.id.goalRelativeLayout);
             remove = itemView.findViewById(R.id.removeSavedGoal);
+            actualPercent = itemView.findViewById(R.id.actualPercent);
         }
     }
 }

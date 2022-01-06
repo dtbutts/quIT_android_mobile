@@ -137,7 +137,9 @@ public class GoalsFragment extends Fragment {
                             goalLists.clear();
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Goal goal = document.toObject(Goal.class);
-                                goalLists.add(goal);
+                                if(goal.getSaved()!=true){
+                                    goalLists.add(goal);
+                                }
                                 Log.d("findComments", "In Loop");
 //                                if(document.getId().equals(postuid)){
 

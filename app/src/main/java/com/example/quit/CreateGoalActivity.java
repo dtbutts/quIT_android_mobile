@@ -111,7 +111,7 @@ public class CreateGoalActivity extends AppCompatActivity {
         String Current = current.getText().toString();
         if(measurement.isEmpty()|| Total.isEmpty()||
             TheGoal.isEmpty()||Current.isEmpty()){
-            Toast.makeText(getApplicationContext(), "Make sure to fill out all required (*) fields", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Make sure to fill out all required fields", Toast.LENGTH_LONG).show();
             return;
         }
         Integer totalInt =0;

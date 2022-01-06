@@ -44,6 +44,22 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/theGoal"
         android:layout_centerVertical="true"
+        android:layout_marginTop="35dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="250dp"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:textAlignment="center"
+        android:textColor="@android:color/holo_red_dark"
+        android:text="PAST \nDUE"
+        android:id="@+id/pastDue"/>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/theGoal"
+        android:layout_centerVertical="true"
         android:layout_marginTop="24dp"
         android:layout_marginBottom="10dp"
         android:gravity="center"
@@ -53,12 +69,22 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text = "%"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:layout_below="@id/theGoal"
+        android:id="@+id/actualPercent"
+        android:layout_marginTop="50dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text = "Deadline"
         android:textColor="@color/white"
         android:gravity="center"
         android:layout_below="@id/theGoal"
         android:id="@+id/deadline"
-        android:layout_marginTop="50dp"/>
+        android:layout_marginTop="76dp"/>
 
 
 </RelativeLayout>
