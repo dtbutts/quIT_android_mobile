@@ -58,6 +58,14 @@
             android:textColor="@color/black"
             >
         </TextView>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/commentItem"
+            android:src="@drawable/ic_my_remove"
+            android:id="@+id/removeComment"
+            />
 <!--        <LinearLayout-->
 <!--            android:layout_width="wrap_content"-->
 <!--            android:layout_height="wrap_content"-->
@@ -83,6 +91,8 @@
 <!--                android:text="username">-->
 <!--            </TextView>-->
         </LinearLayout>
+
+
 
 
 </RelativeLayout>
