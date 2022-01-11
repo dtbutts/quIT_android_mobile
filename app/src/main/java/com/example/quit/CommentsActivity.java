@@ -24,6 +24,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -135,11 +136,15 @@ public class CommentsActivity extends AppCompatActivity {
         comments.put("publisher", firebaseUser.getUid());
         Long Timestamp = System.currentTimeMillis();
         comments.put("timestamp", Timestamp);
+        comments.put("postuid", postid);
+        DocumentReference key = db.collection("Posts").document();
+        comments.put("commentuid", key.getId());
         db.collection("Comments")
                 .document(postid)
                 .collection("Sub")
-                //.set(comments);
-                .add(comments);
+                .document(key.getId())
+                .set(comments);
+                //.add(comments);
         newComment.setText("");
     }
     private void findComments(){

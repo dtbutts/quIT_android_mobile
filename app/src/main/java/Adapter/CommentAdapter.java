@@ -54,6 +54,23 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         Comment comment = mComment.get(position);
 
+        if(comment.getPublisher().equals(firebaseUser.getUid())){
+            holder.removeComment.setVisibility(View.VISIBLE);
+            holder.removeComment.setClickable(true);
+            holder.removeComment.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    removeComment(comment.getPostuid(), comment.getCommentuid());
+                    mComment.remove(holder.getAdapterPosition());
+                    //notifyItemChanged(holder.getAdapterPosition());
+                    notifyDataSetChanged();
+                }
+            });
+        }
+        else{
+            holder.removeComment.setVisibility(View.GONE);
+        }
+
         holder.comment.setText(comment.getComment());
         Log.d("comment in onbindviewholder", holder.comment.getText().toString());
         getPublisherOfCommentInfo(holder.username, holder.profileImage, comment.getPublisher());
@@ -68,6 +85,15 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 //        });
     }
 
+    private void removeComment(String postuid, String commentuid) {
+        db.collection("Comments")
+                .document(postuid)
+                .collection("Sub")
+                .document(commentuid)
+                .delete();
+
+    }
+
     @Override
     public int getItemCount() {
         return mComment.size();
@@ -76,7 +102,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
     public class ViewHolder extends RecyclerView.ViewHolder{
 
         public TextView username, comment;
-        public ImageView profileImage;
+        public ImageView profileImage, removeComment;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -84,6 +110,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
             username = itemView.findViewById(R.id.usernameComment);
             comment = itemView.findViewById(R.id.commentItem);
             profileImage = itemView.findViewById(R.id.profile_image);
+            removeComment = itemView.findViewById(R.id.removeComment);
             db = FirebaseFirestore.getInstance();
 
         }
