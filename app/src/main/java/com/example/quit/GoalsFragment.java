@@ -84,7 +84,7 @@ public class GoalsFragment extends Fragment {
         activity = getActivity();
         if(activity!=null){
             ((AppCompatActivity)activity).setSupportActionBar(toolbar);
-            ((AppCompatActivity)activity).getSupportActionBar().setTitle("My Saved Goals");
+            ((AppCompatActivity)activity).getSupportActionBar().setTitle("Goals");
         }
 
 //        Toolbar toolbar = view.findViewById(R.id.goalToolbar);

@@ -1,6 +1,8 @@
 package Adapter;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -74,13 +76,33 @@ public class SavedGoalsAdapter extends RecyclerView.Adapter<SavedGoalsAdapter.Vi
         holder.remove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                db.collection("Goals")
-                        .document(firebaseUser.getUid())
-                        .collection("Sub")
-                        .document(goal.getGoalUid())
-                        .delete();
-                mGoal.remove(holder.getAdapterPosition());
-                notifyDataSetChanged();
+
+                DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which){
+                            case DialogInterface.BUTTON_POSITIVE:
+                                //Yes button clicked
+                                db.collection("Goals")
+                                        .document(firebaseUser.getUid())
+                                        .collection("Sub")
+                                        .document(goal.getGoalUid())
+                                        .delete();
+                                mGoal.remove(holder.getAdapterPosition());
+                                notifyDataSetChanged();
+                                break;
+
+                            case DialogInterface.BUTTON_NEGATIVE:
+                                //No button clicked
+                                break;
+                        }
+                    }
+                };
+                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                builder.setMessage("Are you sure you want to permanently delete this goal?")
+                        .setPositiveButton("Yes", dialogClickListener)
+                        .setNegativeButton("No", dialogClickListener).show();
+
             }
         });
 

@@ -2,9 +2,11 @@ package com.example.quit;
 
 import android.app.Activity;
 import android.app.AlarmManager;
+import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
@@ -145,18 +147,37 @@ public class HomeFragment extends Fragment {
                     //}
                 }
                 else if(started){
-                    timeInMilliSeconds=0L;
-                    timerTask.cancel();
-                    started =false;
-                    setSoberSinceStatus(started);
-                    //setButtonStatus();
-                    yearCounter.setText(formatTime(0l));
-                    dayCounter.setText(formatTime(0l));
-                    hourCounter.setText(formatTime(0l));
-                    minCounter.setText(formatTime(0l));
-                    secCounter.setText(formatTime(0l));
-                    //startTimer();
-                    startSobriety.setText("Start Sobriety");
+                    DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            switch (which){
+                                case DialogInterface.BUTTON_POSITIVE:
+                                    //Yes button clicked
+                                    timeInMilliSeconds=0L;
+                                    timerTask.cancel();
+                                    started =false;
+                                    setSoberSinceStatus(started);
+                                    //setButtonStatus();
+                                    yearCounter.setText(formatTime(0l));
+                                    dayCounter.setText(formatTime(0l));
+                                    hourCounter.setText(formatTime(0l));
+                                    minCounter.setText(formatTime(0l));
+                                    secCounter.setText(formatTime(0l));
+                                    //startTimer();
+                                    startSobriety.setText("Start Sobriety");
+                                    break;
+
+                                case DialogInterface.BUTTON_NEGATIVE:
+                                    //No button clicked
+                                    break;
+                            }
+                        }
+                    };
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                    builder.setMessage("Are you sure you want to reset your sobriety timer?")
+                            .setPositiveButton("Yes", dialogClickListener)
+                            .setNegativeButton("No", dialogClickListener).show();
+
                 }
 
             }
@@ -175,7 +196,7 @@ public class HomeFragment extends Fragment {
             Date date = new Date(System.currentTimeMillis());
             userReference.update("soberSince", date);
             DateFormat simple = new SimpleDateFormat("MMM dd, yyyy");
-            soberSince.setText("Sober since\n"+simple.format(date));
+            soberSince.setText("Sober Since:\n"+simple.format(date));
         }
         else{
 //            userReference

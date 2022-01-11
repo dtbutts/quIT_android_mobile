@@ -155,6 +155,5 @@ public class MoneyStartFragment extends Fragment {
         nowMS = (86400000 *7)+ nowMS;
         Date date = new Date(nowMS);
         return date;
-
     }
 }

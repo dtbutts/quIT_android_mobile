@@ -1,6 +1,8 @@
 package com.example.quit;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -47,7 +49,7 @@ public class MoneyFragment extends Fragment {
             weekTitle, monthTitle;
     TimerTask timerTask;
     Timer timer;
-    Button pause;
+    Button pause, resetMoney;
     LinearLayout wholeShabang;
     Activity activity;
     private static final DecimalFormat df = new DecimalFormat("0.00");
@@ -71,6 +73,7 @@ public class MoneyFragment extends Fragment {
         monthTitle = view.findViewById(R.id.titleMonth);
         wholeShabang = view.findViewById(R.id.wholeShabang);
         wholeShabang.setVisibility(View.GONE);
+        resetMoney = view.findViewById(R.id.resetMoney);
 
 //        pause.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -82,6 +85,33 @@ public class MoneyFragment extends Fragment {
 
         db = FirebaseFirestore.getInstance();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        resetMoney.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which){
+                            case DialogInterface.BUTTON_POSITIVE:
+                                //Yes button clicked
+                                resetMoney();
+                                getMoneyInfo();
+                                break;
+
+                            case DialogInterface.BUTTON_NEGATIVE:
+                                //No button clicked
+                                break;
+                        }
+                    }
+                };
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setMessage("Are you sure you want to reset money saver?")
+                        .setPositiveButton("Yes", dialogClickListener)
+                        .setNegativeButton("No", dialogClickListener).show();
+            }
+        });
+
 
         avgMoneySpentWeekly.addTextChangedListener(new TextWatcher() {
             @Override
@@ -141,6 +171,7 @@ public class MoneyFragment extends Fragment {
         getMoneyInfo();
         return view;
     }
+
 
     //this is just to update the totals if exactly 24 hrs has gone by and you are currently
     //on the savings page so that it updates in realtime. Probably won't ever get called.
@@ -334,6 +365,54 @@ public class MoneyFragment extends Fragment {
                 });
     }
 
+    private void resetMoney() {
+
+        Map<String, Object> money = new HashMap<>();
+        Double tmp = 0.0;
+
+        Date date = new Date();
+        Double blank = 0.0;
+        Long start = System.currentTimeMillis();
+        money.put("avgWeekly", tmp);
+        money.put("total", blank);
+        money.put("startDate", start);
+        money.put("currentDate", start);
+        //money.put("weekVal", blank);
+        money.put("startOfWeekDate", date);
+        money.put("endOfWeekDate", getNextWeek(start));
+        //money.put("monthVal", blank);
+        money.put("startOfMonthDate", date);
+        money.put("endOfMonthDate", getNextMonth(date));
+
+        db.collection("money")
+                .document(firebaseUser.getUid())
+                .set(money)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        //do nothing extra
+                    }
+                });
+    }
+
+    public static Date getNextMonth(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+
+        if (calendar.get(Calendar.MONTH) == Calendar.DECEMBER) {
+        calendar.set(Calendar.MONTH, Calendar.JANUARY);
+        calendar.set(Calendar.YEAR, calendar.get(Calendar.YEAR) + 1);
+        } else {
+        calendar.roll(Calendar.MONTH, true);
+        }
+
+        return calendar.getTime();
+    }
+    public static Date getNextWeek(Long nowMS) {
+        nowMS = (86400000 *7)+ nowMS;
+        Date date = new Date(nowMS);
+        return date;
+    }
 
 }
 
