@@ -19,6 +19,8 @@ public class MainActivity extends AppCompatActivity {
     public static BottomNavigationView bottomNav;
     public static SharedPreferences prefs;
     public static boolean firstStart;
+    public boolean hasSelectedAddiction = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,6 +88,9 @@ public class MainActivity extends AppCompatActivity {
                         selectedFragment= new SocialFragment();
                         break;
                     case R.id.nav_health:
+//                        if (hasSelectedAddiction == false){
+//                            selectedFragment = new AddictionSelectionFragment();
+//                        }
                         selectedFragment= new HealthFragment();
                         break;
                 }

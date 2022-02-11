@@ -1,59 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 
+
+<!--caffiene page
+    this page will be used to show the health affects after quitting caffiene
+    over time
+-->
+
+
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/ourGray">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-    <!--  item one-->
-    <TextView
-        android:id="@+id/title1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="30sp"
-        android:gravity="center"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:text="SectionTitle"/>
+        <!--  item one-->
+        <TextView
+            android:id="@+id/title1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:gravity="center"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="SectionTitleCaffiene"/>               <!-- Change section title here-->
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="15sp"
-        android:gravity="center"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:text="* add facts here \n * Use the new line operator to move down
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:gravity="center"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="* add facts here \n * Use the new line operator to move down
             \n* Continue as needed"
-        />
-    <ProgressBar
-        android:id="@+id/item1progress"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:progressDrawable="@drawable/custom_progress_bar"
-        android:layout_width="350dp"
-        android:layout_height="30dp"
-        android:layout_gravity="center"
-        android:indeterminate="false"
-        android:layout_below="@id/theGoal"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:max="100"
-        android:progress="0"
-        />
+            />                                              <!-- Change section facts above. spots are same for every section-->
+        <ProgressBar
+            android:id="@+id/item1progress"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:progressDrawable="@drawable/custom_progress_bar"
+            android:layout_width="350dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:indeterminate="false"
+            android:layout_below="@id/theGoal"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:max="100"
+            android:progress="0"
+            />
 
-    <Space
-        android:layout_width="1dp"
-        android:layout_height="30dp"/>
+        <Space
+            android:layout_width="1dp"
+            android:layout_height="30dp"/>
 
 
         <!--  item two-->
@@ -288,10 +296,4 @@
 
     </LinearLayout>
 </ScrollView>
-
-
-
-
-
-
 
