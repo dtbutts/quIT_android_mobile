@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
@@ -35,6 +36,7 @@ public class HealthFragAlcohol extends Fragment{
     private ProgressBar item4progress;
     private ProgressBar item5progress;
     private ProgressBar item6progress;
+    private Button changeAddiction;
 
 
     //required empty public constructor
@@ -105,6 +107,22 @@ public class HealthFragAlcohol extends Fragment{
         item4progress = theView.findViewById(R.id.item4progress);
         item5progress = theView.findViewById(R.id.item5progress);
         item6progress = theView.findViewById(R.id.item6progress);
+
+        //set up nav for change addiction button
+        changeAddiction = theView.findViewById(R.id.changeAddiction);
+
+        //set up if button is pressed
+        changeAddiction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dRef.update("addictionType", "z");
+
+                ((MainActivity)getActivity()).updateAddictionVariable();
+
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new AddictionSelectionFragment()).commit();
+            }
+        });
 
         return theView;
     }

@@ -292,7 +292,13 @@
             android:layout_width="1dp"
             android:layout_height="30dp"/>
 
-
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/changeAddiction"
+            android:layout_gravity="center"
+            android:text="Change Addiction"
+            />
 
     </LinearLayout>
 </ScrollView>

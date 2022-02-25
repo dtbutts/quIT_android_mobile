@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
@@ -38,6 +39,7 @@ public class HealthFragNicotine extends Fragment{
     private ProgressBar item4progress;
     private ProgressBar item5progress;
     private ProgressBar item6progress;
+    private Button changeAddiction;
 
 
 
@@ -110,6 +112,22 @@ public class HealthFragNicotine extends Fragment{
         item5progress = theView.findViewById(R.id.item5progress);
         item6progress = theView.findViewById(R.id.item6progress);
 
+        //set up nav for change addiction button
+        changeAddiction = theView.findViewById(R.id.changeAddiction);
+
+        //set up if button is pressed
+        changeAddiction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dRef.update("addictionType", "z");
+
+                ((MainActivity)getActivity()).updateAddictionVariable();
+
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new AddictionSelectionFragment()).commit();
+            }
+        });
+
         return theView;
 
     }
@@ -118,6 +136,7 @@ public class HealthFragNicotine extends Fragment{
     private int getProgressPercent(float timeSoberHours, float goalTime){
         int setTo;
         goalTime = ((float)24) * goalTime;
+        //       hours per day * days to goal
 
         float percentOfGoal = (timeSoberHours / goalTime) * ((float) 100);
         setTo = Math.round(percentOfGoal);
