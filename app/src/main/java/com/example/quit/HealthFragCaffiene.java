@@ -73,11 +73,11 @@ public class HealthFragCaffiene extends Fragment{
 
                             //Now set the progress bars here
                             float goalTime1 = 25;         //enter days to goal
-                            long goalTime2 = 7 ;
-                            long goalTime3 = 25 ;
-                            long goalTime4 = 25 ;
-                            long goalTime5 = 100 ;
-                            long goalTime6 = 3;
+                            float goalTime2 = 7 ;
+                            float goalTime3 = 25 ;
+                            float goalTime4 = 25 ;
+                            float goalTime5 = 100 ;
+                            float goalTime6 = 3;
 
                             float timeSoberHours = TimeUnit.MILLISECONDS.toHours(System.currentTimeMillis() - user.getSoberSince().getTime());
 
