@@ -145,6 +145,7 @@ public class EnterDataFragment extends Fragment {
                 userAccount.put("lastEndTime", LastEndTime);
                 userAccount.put("buttonPressed", ButtonPressed);
                 userAccount.put("imageUri", "");
+                userAccount.put("addictionType", "z");              //Dawson's change, adding new variable to database, initially 'z' meaning unchosen
 
                 //userAccount.put("timeSober", DaysOfSobriety);
 

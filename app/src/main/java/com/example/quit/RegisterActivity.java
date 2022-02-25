@@ -179,6 +179,7 @@ public class RegisterActivity extends AppCompatActivity {
                 //userAccount.put("buttonPressed", ButtonPressed);
                 userAccount.put("imageUri", "https://firebasestorage.googleapis.com/v0/b/quit-a645b.appspot.com/o/profile-icon-png-898.png?alt=media&token=a6f5dcb6-722a-4ac3-b89a-0a0823a0ed5e");
                 userAccount.put("soberSince", date);
+                userAccount.put("addictionType", "z");
                 //userAccount.put("timeSober", DaysOfSobriety);
 
                 checkIfAccountAlreadyExists(Username, db,userAccount);

@@ -5,14 +5,14 @@ import android.text.BoringLayout;
 import java.util.Date;
 
 public class User {
-    private String email, password, username,age, height, weight, moneySpent, timeAddicted, imageUri;
+    private String email, password, username,age, height, weight, moneySpent, timeAddicted, imageUri, addictionType;
 //    private Long totalTimeSober, lastEndTime;
     private Date soberSince;
    // private Boolean buttonPressed;
 
 
     public User(String username, String password, String age, String height, String weight, String moneySpent, String timeAddicted,
-                String imageUri, Date soberSince) {
+                String imageUri, Date soberSince, String addictionType) {
         this.email = email;
         this.password = password;
         this.username = username;
@@ -26,6 +26,7 @@ public class User {
         ///this.buttonPressed = buttonPressed;
         this.imageUri = imageUri;
         this.soberSince = soberSince;
+        this.addictionType = addictionType;
     }
 
     public User() {
@@ -133,5 +134,10 @@ public class User {
 
     public void setSoberSince(Date soberSince) {
         this.soberSince = soberSince;
+    }
+
+    public String getAddictionType() {return addictionType; }
+
+    public void setAddictionType(String addictionType){this.addictionType = addictionType;
     }
 }
