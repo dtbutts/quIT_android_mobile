@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/SDApp/senior_design_the_addicts/app/src/main/res/layout/health_frag_alcohol.xml" value="0.3171875" />
+        <entry key="..\:/SDApp/senior_design_the_addicts/app/src/main/res/layout/health_frag_caffiene.xml" value="0.3171875" />
+        <entry key="..\:/SDApp/senior_design_the_addicts/app/src/main/res/layout/health_frag_nicotine.xml" value="0.3171875" />
         <entry key="..\:/Users/isaia/AndroidStudioProjects/SeniorDesign/senior_design_the_addicts/app/src/main/res/drawable-anydpi/ic_money.xml" value="0.1" />
         <entry key="..\:/Users/isaia/AndroidStudioProjects/SeniorDesign/senior_design_the_addicts/app/src/main/res/drawable/ic_baseline_attach_money_24.xml" value="0.1" />
         <entry key="..\:/Users/isaia/AndroidStudioProjects/SeniorDesign/senior_design_the_addicts/app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.1" />
@@ -25,7 +28,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

@@ -36,6 +36,8 @@ public class HealthFragAlcohol extends Fragment{
     private ProgressBar item4progress;
     private ProgressBar item5progress;
     private ProgressBar item6progress;
+    private ProgressBar item7progress;
+    private ProgressBar item8progress;
     private Button changeAddiction;
 
 
@@ -71,12 +73,14 @@ public class HealthFragAlcohol extends Fragment{
                             Log.wtf("DTB", String.valueOf(soberTimeinMilliSeconds));
 
                             //Now set the progress bars here
-                            float goalTime1 = 25;         //enter days to goal
-                            float goalTime2 = 7 ;
-                            float goalTime3 = 25 ;
-                            float goalTime4 = 25 ;
-                            float goalTime5 = 100 ;
-                            float goalTime6 = 3;
+                            float goalTime1 = 1;         //enter days to goal
+                            float goalTime2 = 3 ;
+                            float goalTime3 = 7 ;
+                            float goalTime4 = 10 ;
+                            float goalTime5 = 14 ;
+                            float goalTime6 = 30;
+                            float goalTime7 = 60;
+                            float goalTime8 = 365;
 
                             float timeSoberHours = TimeUnit.MILLISECONDS.toHours(System.currentTimeMillis() - user.getSoberSince().getTime());
 
@@ -86,8 +90,8 @@ public class HealthFragAlcohol extends Fragment{
                             item4progress.setProgress(getProgressPercent(timeSoberHours, goalTime4));
                             item5progress.setProgress(getProgressPercent(timeSoberHours, goalTime5));
                             item6progress.setProgress(getProgressPercent(timeSoberHours, goalTime6));
-
-
+                            item7progress.setProgress(getProgressPercent(timeSoberHours, goalTime7));
+                            item8progress.setProgress(getProgressPercent(timeSoberHours, goalTime8));
                         }
                     } else {
                         //nothing
@@ -107,6 +111,8 @@ public class HealthFragAlcohol extends Fragment{
         item4progress = theView.findViewById(R.id.item4progress);
         item5progress = theView.findViewById(R.id.item5progress);
         item6progress = theView.findViewById(R.id.item6progress);
+        item7progress = theView.findViewById(R.id.item7progress);
+        item8progress = theView.findViewById(R.id.item8progress);
 
         //set up nav for change addiction button
         changeAddiction = theView.findViewById(R.id.changeAddiction);

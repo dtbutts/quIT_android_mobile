@@ -29,7 +29,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:text="SectionTitleCaffiene"/>               <!-- Change section title here-->
+            android:text="Improved Sleep"/>               <!-- Change section title here-->
 
         <TextView
             android:layout_width="match_parent"
@@ -40,8 +40,9 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:text="* add facts here \n * Use the new line operator to move down
-            \n* Continue as needed"
+            android:text="* After 24 hours, any effects of previously consumed caffeine should be completely gone. This leads to improved sleep! \n
+            * Many of the withdrawal symptoms from caffeine occur in the first few days. You're likely to start experiencing some now, like headache, anxiety, and irritability \n
+            * The first few days are the hardest, but keep pushing! You'll enjoy many benefits later if you can make it through the beginning!"
             />                                              <!-- Change section facts above. spots are same for every section-->
         <ProgressBar
             android:id="@+id/item1progress"
@@ -75,7 +76,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:text="SectionTitle"/>
+            android:text="Withdrawal Symptoms"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -86,8 +87,9 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:text="* add facts here \n * Use the new line operator to move down
-            \n* Continue as needed"
+            android:text="* After 9 days all or nearly all physical withdrawal symptoms should have passed \n
+            * You will likely still have psychological urges for caffeine, especially on slow mornings\n
+            * Now that the hard part is over, you will soon start to enjoy the bulk of the quality of life benefits from being caffeine free!"
             />
         <ProgressBar
             android:id="@+id/item2progress"
@@ -121,7 +123,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:text="SectionTitle"/>
+            android:text="Mood Regulation"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -132,8 +134,8 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:text="* add facts here \n * Use the new line operator to move down
-            \n* Continue as needed"
+            android:text="* Shortly after the withdrawal symptoms pass, you should start to notice a more regular and improved mood! \n
+            * Many people use caffeine to help cut short their bad mood in the mornings. Without that reliance, your mood will naturally get better"
             />
         <ProgressBar
             android:id="@+id/item3progress"
@@ -167,7 +169,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:text="SectionTitle"/>
+            android:text="Decreased Anxiety"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -178,8 +180,8 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:text="* add facts here \n * Use the new line operator to move down
-            \n* Continue as needed"
+            android:text="* After 2 weeks of no caffeine, you should notice that anxiety spikes begin to reduce \n
+            * Caffeine causes anxiety in many people who use it, and clearing caffeine out of your system can help reduce these unwanted spikes, especially after withdrawal symptoms pass."
             />
         <ProgressBar
             android:id="@+id/item4progress"
@@ -213,7 +215,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:text="SectionTitle"/>
+            android:text="Lower Blood Pressure"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -224,8 +226,8 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:text="* add facts here \n * Use the new line operator to move down
-            \n* Continue as needed"
+            android:text="* 1 month after quitting caffeine, you're likely to experience lower blood pressure levels \n
+            * Caffeine, especially when used around strenuous workouts, is known to cause increased blood pressure in some individuals. By cutting caffeine out you don't need to worry about the potential side effects of increased blood pressure caused by caffeine!"
             />
         <ProgressBar
             android:id="@+id/item5progress"
@@ -258,7 +260,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:text="SectionTitle"/>
+            android:text="General Health"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -269,8 +271,9 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:text="* add facts here \n * Use the new line operator to move down
-            \n* Continue as needed"
+            android:text="* Unless you used to drink your coffee black, after a month without caffeine you may start to notice some benefits from cutting out the extra calories and sugars from caffeinated beverages \n
+            * Drinking sugary drinks like non-black coffee or energy drinks is known to increase your chance of getting type 2 diabetes. You can sleep better at night knowing you've lowered that risk! \n
+            * Congratulations on making it this far in your recovery! Addiction can be a lifelong battle, but remember the accomplishments you've made and let them continue to motivate your future journey!"
             />
         <ProgressBar
             android:id="@+id/item6progress"

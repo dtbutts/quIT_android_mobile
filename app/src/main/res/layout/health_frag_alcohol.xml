@@ -27,7 +27,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:text="SectionTitleAlcohol"/>            <!-- Change section title here-->
+            android:text="Blood Sugar"/>            <!-- Change section title here-->
 
         <TextView
             android:layout_width="match_parent"
@@ -38,9 +38,12 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:text="* add facts here \n * Use the new line operator to move down
-            \n* Continue as needed"
-            />                                          <!-- Change section facts above. spots are same for every section-->
+            android:text="
+            * After 24 hours your blood sugar may begin to normalize as the alcohol leaves your system \n
+            * During this time, early withdrawal symptoms will likely start to take effect. These can include things like
+              tremors, sweating, anxiety, fatigue, and depression\n
+            * Don't let the early symptoms stop you! Push through the temporary discomfort to reach your improved life!"
+            />
         <ProgressBar
             android:id="@+id/item1progress"
             style="?android:attr/progressBarStyleHorizontal"
@@ -73,7 +76,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:text="SectionTitle"/>
+            android:text="Withdrawal Symptoms"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -84,8 +87,11 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:text="* add facts here \n * Use the new line operator to move down
-            \n* Continue as needed"
+            android:text="
+            * After 72 hours your early symptoms should start to become more manageable!\n
+            * This timeframe can vary for each individual, but if you notice symptoms getting worse beyond this point or start
+              experiencing more severe symptoms like seizures, contact your doctor immediately\n
+            * Use the first feelings of getting better as motivation to keep going! There is a long road ahead, but enjoy these small victories along the way!"
             />
         <ProgressBar
             android:id="@+id/item2progress"
@@ -119,7 +125,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:text="SectionTitle"/>
+            android:text="Improved Sleep"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -130,8 +136,10 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:text="* add facts here \n * Use the new line operator to move down
-            \n* Continue as needed"
+            android:text="
+            * After 1 week you can expect your symptoms to start ending completely and your sleep to dramatically improve!\n
+            * You may have used alcohol in the past to help you fall asleep, but when sober you will be getting a much higher quality night's rest\n
+            * Getting more sleep can provide countless benefits to your life! Your improved lifestyle can help motivate you on your way to full recovery!"
             />
         <ProgressBar
             android:id="@+id/item3progress"
@@ -165,7 +173,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:text="SectionTitle"/>
+            android:text="Hydration Levels"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -176,8 +184,10 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:text="* add facts here \n * Use the new line operator to move down
-            \n* Continue as needed"
+            android:text="
+            * After 10 days your hydration levels will be substantially improved! This will improve many aspects of your health, including the health and function of your skin, hair, and organs!\n
+            * Some long term side effects, like nightmares and anxiety, can start to show themselves\n
+            * You've reached a huge milestone! Give yourself credit and enjoy a well deserved sense of accomplishment. If you're still having some struggles on your journey, don't worry, you're not alone. Keep going strong and if you need help, visit the resources page!"
             />
         <ProgressBar
             android:id="@+id/item4progress"
@@ -211,7 +221,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:text="SectionTitle"/>
+            android:text="Weight Loss"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -222,8 +232,10 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:text="* add facts here \n * Use the new line operator to move down
-            \n* Continue as needed"
+            android:text="
+            * After 2 weeks you may start to notice some weight loss! Alcohol has a lot of calories, and by cutting those calories out the scale might start to show some lower numbers!\n
+            * Remember that giving up alcohol is only one part of a healthier lifestyle. If you want to lose weight, try not to replace your old alcohol calories with new calorie sources\n
+            * Weight loss is great, but it's only a small piece of the improved life your working toward. Keep the momentum going!"
             />
         <ProgressBar
             android:id="@+id/item5progress"
@@ -256,7 +268,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:text="SectionTitle"/>
+            android:text="Organ Health"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -267,11 +279,110 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:text="* add facts here \n * Use the new line operator to move down
-            \n* Continue as needed"
+            android:text="
+            * After a month of no alcohol your body will be benefiting in all sorts of ways! Your skin may start to clear up and look healthier, blood pressure may return to normal levels, and your liver health will greatly improve\n
+            * If you had longer lasting symptoms, you should finally start to notice some relief \n
+            * Congratulations, 1 whole month down! Be proud of the improved care you're showing your body!"
             />
         <ProgressBar
             android:id="@+id/item6progress"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:progressDrawable="@drawable/custom_progress_bar"
+            android:layout_width="350dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:indeterminate="false"
+            android:layout_below="@id/theGoal"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:max="100"
+            android:progress="0"
+            />
+
+        <Space
+            android:layout_width="1dp"
+            android:layout_height="30dp"/>
+
+
+        <!--  item three-->
+        <TextView
+            android:id="@+id/title7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:gravity="center"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="General Health"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:gravity="center"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="
+            * After 3 months you should feel a general sense of improved health and energy. Quitting alcohol has improved your health in so many ways that you're sure to feel it somewhere by this point\n
+            * Don't be ashamed or worried if some of your symptoms persist. Over time the benefits of quitting alcohol will start to outweigh the challenges!\n
+            * You're well on your way to enjoying an improved and healthier life! Remember the struggles you've overcame to get here!"
+            />
+        <ProgressBar
+            android:id="@+id/item7progress"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:progressDrawable="@drawable/custom_progress_bar"
+            android:layout_width="350dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:indeterminate="false"
+            android:layout_below="@id/theGoal"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:max="100"
+            android:progress="0"
+            />
+
+        <Space
+            android:layout_width="1dp"
+            android:layout_height="30dp"/>
+
+
+
+        <!--  item three-->
+        <TextView
+            android:id="@+id/title8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:gravity="center"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="Full Recovery"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:gravity="center"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="
+            * After 1 year of being sober most people will be completely or very close to completely recovered! Your risk of cancer, liver disease, stroke, and heart disease will be greatly diminished!\n
+            * Addiction recovery can be a lifelong struggle, remember what it took to get to this point and stay strong in the years to come\n
+            * You've retaken control of your life and proven to yourself that you can accomplish one of the most difficult things a person can do. Congratulations on a full recovery!"
+            />
+        <ProgressBar
+            android:id="@+id/item8progress"
             style="?android:attr/progressBarStyleHorizontal"
             android:progressDrawable="@drawable/custom_progress_bar"
             android:layout_width="350dp"

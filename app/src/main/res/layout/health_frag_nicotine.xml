@@ -27,7 +27,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:text="SectionTitleNicotine"/>            <!-- Change section title here-->
+            android:text="Heart Health"/>            <!-- Change section title here-->
 
         <TextView
             android:layout_width="match_parent"
@@ -38,8 +38,9 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:text="* add facts here \n * Use the new line operator to move down
-            \n* Continue as needed"
+            android:text="* After 24 hours of not using nicotine, your risk of a heart attack can drop by up to half \n
+            * During this time the early symptoms of nicotine withdrawal like headaches, mood swings, anxiety, and irritability will start to take place \n
+            * These early hours and days are the hardest part physically when quitting nicotine. Push through the temporary discomfort toward your healthier life!"
             />                                              <!-- Change section facts above. spots are same for every section-->
         <ProgressBar
             android:id="@+id/item1progress"
@@ -73,7 +74,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:text="SectionTitle"/>
+            android:text="Taste and Smell"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -84,8 +85,9 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:text="* add facts here \n * Use the new line operator to move down
-            \n* Continue as needed"
+            android:text="* After 48 hours you may start to notice an improved sense of taste and smell! \n
+            * At this stage you're likely in the midst of some withdrawal symptoms like anxiety and irritability \n
+            * Keep going, the benefits to come are worth the discomfort!"
             />
         <ProgressBar
             android:id="@+id/item2progress"
@@ -119,7 +121,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:text="SectionTitle"/>
+            android:text="Withdrawal Symptoms"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -130,8 +132,9 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:text="* add facts here \n * Use the new line operator to move down
-            \n* Continue as needed"
+            android:text="* After 3 days, the worst of the physical withdrawal symptoms should have passed! \n
+            * You will most likely still feel psychological cravings, but the physical symptoms should be gone or almost gone by this time \n
+            * You made it through the painful part! Your cravings might still come and go, but use your achievement as motivation to push through the urges!"
             />
         <ProgressBar
             android:id="@+id/item3progress"
@@ -165,7 +168,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:text="SectionTitle"/>
+            android:text="Circulation"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -176,8 +179,9 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:text="* add facts here \n * Use the new line operator to move down
-            \n* Continue as needed"
+            android:text="* After 2 weeks your blood circulation will start to improve! You might notice physical activity becoming easier  \n
+            * This period and benefit can continue to get stronger up to week 12 for some individuals \n
+            * From here things should be a lot easier! Most if not all of the psychological difficulties will be behind you now!"
             />
         <ProgressBar
             android:id="@+id/item4progress"
@@ -211,7 +215,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:text="SectionTitle"/>
+            android:text="Lung Capacity"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -222,8 +226,9 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:text="* add facts here \n * Use the new line operator to move down
-            \n* Continue as needed"
+            android:text="* Depending on your old method of consuming nicotine, your lung capacity after 3 months will be markedly improved! \n
+            * Side effects like coughing and wheezing will subside and your risk of respiratory disease will be greatly lowered \n
+            * Congratulations on making it this far in your recovery!"
             />
         <ProgressBar
             android:id="@+id/item5progress"
@@ -256,7 +261,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:text="SectionTitle"/>
+            android:text="General Health"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -267,8 +272,9 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:text="* add facts here \n * Use the new line operator to move down
-            \n* Continue as needed"
+            android:text="* After a year and beyond all nicotine caused health risks will be diminished considerably \n
+            * You've greatly improved your chances of avoiding things like heart disease, stroke, and cancer \n
+            * You made it to a year sober from nicotine! Addiction can be a lifelong battle, but remember the difficult accomplishment you've achieved and use it as motivation to stay sober!"
             />
         <ProgressBar
             android:id="@+id/item6progress"

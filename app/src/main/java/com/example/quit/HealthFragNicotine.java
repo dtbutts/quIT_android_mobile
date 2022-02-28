@@ -75,12 +75,12 @@ public class HealthFragNicotine extends Fragment{
                             Log.wtf("DTB", String.valueOf(soberTimeinMilliSeconds));
 
                             //Now set the progress bars here
-                            float goalTime1 = 25;         //enter days to goal
-                            float goalTime2 = 7 ;
-                            float goalTime3 = 25 ;
-                            float goalTime4 = 25 ;
-                            float goalTime5 = 100 ;
-                            float goalTime6 = 3;
+                            float goalTime1 = 1;         //enter days to goal
+                            float goalTime2 = 2 ;
+                            float goalTime3 = 3 ;
+                            float goalTime4 = 14 ;
+                            float goalTime5 = 60 ;
+                            float goalTime6 = 365;
 
                             float timeSoberHours = TimeUnit.MILLISECONDS.toHours(System.currentTimeMillis() - user.getSoberSince().getTime());
 
