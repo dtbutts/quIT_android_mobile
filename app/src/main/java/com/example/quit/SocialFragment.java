@@ -137,7 +137,7 @@ public class SocialFragment extends Fragment {
                         else{
                             activity = getActivity();
                             if(activity!=null){
-                                Toast.makeText(activity, "Something went wrong", Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(activity, "Something went wrong", Toast.LENGTH_SHORT).show();
                             }
                         }
                     }

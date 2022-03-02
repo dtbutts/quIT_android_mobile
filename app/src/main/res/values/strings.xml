@@ -14,4 +14,5 @@
     <string name="details"><u>Details</u></string>
     <string name="currentWeek"><u>Current Savings This Week</u></string>
     <string name="currentMonth"><u>Current Savings This Month</u></string>
+    <string name="expectedSavings"><u>Expected Savings</u></string>
 </resources>

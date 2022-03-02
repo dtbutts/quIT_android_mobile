@@ -22,7 +22,33 @@
             android:text="Social Sobriety Community"
             android:layout_gravity="center"
             android:textSize="20dp"
-            android:id="@+id/toolbar_title" />
+            android:id="@+id/toolbar_title"
+            />
+        <androidx.cardview.widget.CardView
+            android:id="@+id/view2"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+
+            android:layout_centerHorizontal="true"
+            android:elevation="12dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="20dp"
+            app:cardBackgroundColor="@android:color/transparent"
+            app:cardCornerRadius="40dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            >
+
+            <ImageView
+                android:id="@+id/profile_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_profile"
+                />
+        </androidx.cardview.widget.CardView>
+
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -36,29 +62,29 @@
         />
 
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/view2"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+<!--    <androidx.cardview.widget.CardView-->
+<!--        android:id="@+id/view2"-->
+<!--        android:layout_width="30dp"-->
+<!--        android:layout_height="30dp"-->
 
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="352dp"
-        android:layout_marginBottom="616dp"
-        android:elevation="12dp"
-        app:cardBackgroundColor="@android:color/transparent"
-        app:cardCornerRadius="40dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+<!--        android:layout_centerHorizontal="true"-->
+<!--        android:layout_marginStart="352dp"-->
+<!--        android:layout_marginBottom="616dp"-->
+<!--        android:elevation="12dp"-->
+<!--        app:cardBackgroundColor="@android:color/transparent"-->
+<!--        app:cardCornerRadius="40dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent">-->
 
-        <ImageView
-            android:id="@+id/profile_image"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_profile"
-            />
-    </androidx.cardview.widget.CardView>
+<!--        <ImageView-->
+<!--            android:id="@+id/profile_image"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:scaleType="centerCrop"-->
+<!--            android:src="@drawable/ic_profile"-->
+<!--            />-->
+<!--    </androidx.cardview.widget.CardView>-->
 
     <ImageView
         android:id="@+id/saved"

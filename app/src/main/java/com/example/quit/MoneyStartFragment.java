@@ -32,10 +32,12 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import me.abhinay.input.CurrencyEditText;
+
 public class MoneyStartFragment extends Fragment {
     FirebaseFirestore db;
     FirebaseUser firebaseUser;
-    EditText edit;
+    CurrencyEditText edit;
     Button start;
     TextView message;
     RelativeLayout editLayout;
@@ -51,7 +53,6 @@ public class MoneyStartFragment extends Fragment {
 //        editLayout.setVisibility(View.INVISIBLE);
 //        message.setVisibility(View.INVISIBLE);
         wholeShambo.setVisibility(View.INVISIBLE);
-
 
 
         db.collection("money")
@@ -87,6 +88,13 @@ public class MoneyStartFragment extends Fragment {
         editLayout = view.findViewById(R.id.editLayout);
         wholeShambo = view.findViewById(R.id.wholeShambo);
 
+        edit.setCurrency("$");
+        edit.setDelimiter(false);
+        edit.setSpacing(false);
+        edit.setDecimals(true);
+        //Make sure that Decimals is set as false if a custom Separator is used
+        edit.setSeparator(".");
+
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -104,7 +112,8 @@ public class MoneyStartFragment extends Fragment {
                 try {
                     tmp = Double.valueOf(Edit);
                 }catch (Exception e){
-
+                    Toast.makeText(getContext(), "enter number value only", Toast.LENGTH_SHORT).show();
+                    return;
                 }
                 Date date = new Date();
                 Double blank = 0.0;
