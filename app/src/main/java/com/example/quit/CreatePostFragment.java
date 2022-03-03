@@ -125,7 +125,8 @@ public class CreatePostFragment extends Fragment {
             public void onClick(View v) {
                 Log.i("thePost", "First");
                 String Title = title.getText().toString();
-                if (Title == null) {
+
+                if (Title == null || Title.isEmpty()) {
                     //makeToast (required)
                     //return;
                     Toast.makeText(v.getContext(),
@@ -135,7 +136,7 @@ public class CreatePostFragment extends Fragment {
                 }
                 Log.i("thePost", "Second");
                 String ThePost = thePost.getText().toString();
-                if (ThePost == null) {
+                if (ThePost == null || ThePost.isEmpty()) {
                     //makeToast (required)
                     //return;
                     Toast.makeText(v.getContext(),
@@ -144,9 +145,7 @@ public class CreatePostFragment extends Fragment {
                     return;
                 }
                 Log.i("thePost", "Second");
-                Toast.makeText(v.getContext(),
-                        "We got here",
-                        Toast.LENGTH_LONG).show();
+
                 submitPostToDatabase(Title, ThePost, view);
 
                 activity = getActivity();

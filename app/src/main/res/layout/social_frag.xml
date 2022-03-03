@@ -16,6 +16,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:backgroundTint="@color/ourTeal"
         >
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -51,14 +52,47 @@
 
     </androidx.appcompat.widget.Toolbar>
 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="@id/postToolbar"
+        app:layout_constraintStart_toStartOf="@id/postToolbar"
+        app:layout_constraintTop_toBottomOf="@id/postToolbar"
+        android:id="@+id/linearMenu">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:background="@drawable/borderfortextview"
+            android:padding="8dp"
+            android:text="View My Posts"
+
+            android:gravity="center"
+            android:id="@+id/myPostsTop"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:background="@drawable/borderfortextview"
+            android:padding="8dp"
+            android:text="View Saved Posts"
+            android:gravity="center"
+            android:id="@+id/savedPostsTop"/>
+
+    </LinearLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@id/postToolbar"
-        app:layout_constraintStart_toStartOf="@id/postToolbar"
-        app:layout_constraintTop_toBottomOf="@id/postToolbar"
+        app:layout_constraintEnd_toEndOf="@id/linearMenu"
+        app:layout_constraintStart_toStartOf="@id/linearMenu"
+        app:layout_constraintTop_toBottomOf="@id/linearMenu"
         />
 
 
@@ -86,34 +120,34 @@
 <!--            />-->
 <!--    </androidx.cardview.widget.CardView>-->
 
-    <ImageView
-        android:id="@+id/saved"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+<!--    <ImageView-->
+<!--        android:id="@+id/saved"-->
+<!--        android:layout_width="30dp"-->
+<!--        android:layout_height="30dp"-->
 
-        android:layout_marginStart="352dp"
-        android:layout_marginBottom="68dp"
-        android:src="@drawable/ic_saved"
-        app:layout_constraintBottom_toBottomOf="@id/recycler_view"
-        app:layout_constraintStart_toStartOf="parent"></ImageView>
+<!--        android:layout_marginStart="352dp"-->
+<!--        android:layout_marginBottom="68dp"-->
+<!--        android:src="@drawable/ic_saved"-->
+<!--        app:layout_constraintBottom_toBottomOf="@id/recycler_view"-->
+<!--        app:layout_constraintStart_toStartOf="parent"></ImageView>-->
 
-    <ImageView
-        android:id="@+id/my_posts"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="355dp"
-        android:layout_marginBottom="24dp"
-        android:src="@drawable/ic_my_posts"
-        app:layout_constraintBottom_toBottomOf="@id/recycler_view"
-        app:layout_constraintStart_toStartOf="parent"></ImageView>
+<!--    <ImageView-->
+<!--        android:id="@+id/my_posts"-->
+<!--        android:layout_width="30dp"-->
+<!--        android:layout_height="30dp"-->
+<!--        android:layout_marginStart="355dp"-->
+<!--        android:layout_marginBottom="24dp"-->
+<!--        android:src="@drawable/ic_my_posts"-->
+<!--        app:layout_constraintBottom_toBottomOf="@id/recycler_view"-->
+<!--        app:layout_constraintStart_toStartOf="parent"></ImageView>-->
 
     <ImageView
         android:id="@+id/compose"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="352dp"
-        android:layout_marginBottom="108dp"
-        android:src="@drawable/ic_compose"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="320dp"
+        android:layout_marginBottom="24dp"
+        android:src="@drawable/ic_add_circle"
         app:layout_constraintBottom_toBottomOf="@id/recycler_view"
         app:layout_constraintStart_toStartOf="parent"></ImageView>
 

@@ -1,11 +1,14 @@
 package com.example.quit;
 
-import android.Manifest;
+import static com.example.quit.R.color.ourTeal;
+
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -14,7 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.ImageView;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -31,11 +34,14 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SimpleItemAnimator;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -58,6 +64,7 @@ import Model.User;
 
 public class SocialFragment extends Fragment {
     ImageView compose, myPosts, savedPosts, profileImage;
+    TextView myPostsTop, savedPostsTop;
     private RecyclerView recyclerView;
     private PostAdapter postAdapter;
     private List<Post> postLists;
@@ -150,10 +157,35 @@ public class SocialFragment extends Fragment {
 
         }
 
+        myPostsTop = view.findViewById(R.id.myPostsTop);
+        savedPostsTop = view.findViewById(R.id.savedPostsTop);
+        myPostsTop.setClickable(true);
+        myPostsTop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activity = getActivity();
+                if(activity!=null){
+                    Intent intent = new Intent(activity, MyPostsActivity.class);
+                    activity.startActivity(intent);
+                }
+            }
+        });
+        savedPostsTop.setClickable(true);
+        savedPostsTop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activity = getActivity();
+                if(activity!=null){
+                    Intent intent = new Intent(activity, MySavedPostsActivity.class);
+                    activity.startActivity(intent);
+                }
+            }
+        });
+
 
         compose = view.findViewById(R.id.compose);
-        savedPosts = view.findViewById(R.id.saved);
-        myPosts = view.findViewById(R.id.my_posts);
+//        savedPosts = view.findViewById(R.id.saved);
+//        myPosts = view.findViewById(R.id.my_posts);
         profileImage = view.findViewById(R.id.profile_image);
         recyclerView = view.findViewById(R.id.recycler_view);
         ((SimpleItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
@@ -193,28 +225,28 @@ public class SocialFragment extends Fragment {
                 //MainActivity.fragmentManager.beginTransaction().replace(R.id.fragment_container,new CreatePostFragment()).commit();
             }
         });
-        myPosts.setClickable(true);
-        myPosts.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                activity = getActivity();
-                if(activity!=null){
-                    Intent intent = new Intent(activity, MyPostsActivity.class);
-                    activity.startActivity(intent);
-                }
-            }
-        });
-        savedPosts.setClickable(true);
-        savedPosts.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                activity = getActivity();
-                if(activity!=null){
-                    Intent intent = new Intent(activity, MySavedPostsActivity.class);
-                    activity.startActivity(intent);
-                }
-            }
-        });
+//        myPosts.setClickable(true);
+//        myPosts.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                activity = getActivity();
+//                if(activity!=null){
+//                    Intent intent = new Intent(activity, MyPostsActivity.class);
+//                    activity.startActivity(intent);
+//                }
+//            }
+//        });
+//        savedPosts.setClickable(true);
+//        savedPosts.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                activity = getActivity();
+//                if(activity!=null){
+//                    Intent intent = new Intent(activity, MySavedPostsActivity.class);
+//                    activity.startActivity(intent);
+//                }
+//            }
+//        });
 
         db.collection("userAccount")
                 .document(firebaseUser.getUid())
