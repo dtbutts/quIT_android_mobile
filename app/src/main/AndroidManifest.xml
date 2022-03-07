@@ -115,8 +115,8 @@
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
 
-        <service android:name=".BackgroundService" />
-        <receiver android:name=".AlarmReceiver"></receiver>
+<!--        <service android:name=".BackgroundService" />-->
+<!--        <receiver android:name=".AlarmReceiver"></receiver>-->
     </application>
 
 </manifest>

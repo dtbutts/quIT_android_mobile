@@ -2,21 +2,29 @@ package com.example.quit;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.icu.util.Currency;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -31,6 +39,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -40,9 +49,11 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import Model.Money;
+import me.abhinay.input.CurrencyEditText;
 
 public class MoneyFragment extends Fragment {
-    EditText avgMoneySpentWeekly;
+    CurrencyEditText avgMoneySpentWeekly;
+
     FirebaseFirestore db;
     FirebaseUser firebaseUser;
     TextView total, expectedMonthly, expectedYearly, startTime, monthVal, weekVal,
@@ -74,6 +85,15 @@ public class MoneyFragment extends Fragment {
         wholeShabang = view.findViewById(R.id.wholeShabang);
         wholeShabang.setVisibility(View.GONE);
         resetMoney = view.findViewById(R.id.resetMoney);
+
+
+        //toolbar set up
+        Toolbar toolbar = view.findViewById(R.id.moneyToolbar);
+        activity = getActivity();
+        if(activity!=null){
+            ((AppCompatActivity)activity).setSupportActionBar(toolbar);
+
+        }
 
 //        pause.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -112,35 +132,95 @@ public class MoneyFragment extends Fragment {
             }
         });
 
+        avgMoneySpentWeekly.setCurrency("$");
+        avgMoneySpentWeekly.setDelimiter(false);
+        avgMoneySpentWeekly.setSpacing(false);
+        avgMoneySpentWeekly.setDecimals(true);
+        //Make sure that Decimals is set as false if a custom Separator is used
+        avgMoneySpentWeekly.setSeparator(".");
+        avgMoneySpentWeekly.setOnEditorActionListener(
+                new EditText.OnEditorActionListener() {
+                    @Override
+                    public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+
+                        if ((i == EditorInfo.IME_ACTION_DONE)) {
+                            // the user is done typing.
+                            Double tmp = 0.0;
+                            try{
+                                Double tmpD = Double.parseDouble(avgMoneySpentWeekly.getText().toString().substring(1));
+                                //Double tmpMonthly = (tmpD/7) * 4.34524;
+                                DocumentReference dRef = db.collection("money")
+                                        .document(firebaseUser.getUid());
+                                dRef.update("avgWeekly",tmpD);
+                                Double tmpMonthly = tmpD * 4.34524;
+                                expectedMonthly.setText("$ "+(df.format(tmpMonthly)));
+                                tmp = tmpD * 52.1429;
+                                expectedYearly.setText("$ "+(df.format(tmp)));
+
+                                getMoneyInfo();
+                                InputMethodManager imm = (InputMethodManager) textView.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                                imm.hideSoftInputFromWindow(textView.getWindowToken(), 0);
+                            }catch (Exception e){
+                                Toast.makeText(getContext(), "enter number value only", Toast.LENGTH_SHORT).show();
+                            }
+
+                            return true; // consume.
+                        }
+                        else if(i == KeyEvent.KEYCODE_BACK){
+                            return false;
+                        }
+                        return false;
+                    }
+
+                }
+        );
 
         avgMoneySpentWeekly.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
             }
-
+            String current = "";
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+//                  if(!charSequence.toString().equals(current)){
+//       avgMoneySpentWeekly.removeTextChangedListener(this);
+//
+//       String cleanString = charSequence.toString().replaceAll("[$,.]", "");
+//
+//       double parsed = Double.parseDouble(cleanString);
+//       String formatted = NumberFormat.getCurrencyInstance().format((parsed/100));
+//
+//       current = formatted;
+//       avgMoneySpentWeekly.setText(formatted);
+//       avgMoneySpentWeekly.setSelection(formatted.length());
+//
+//       avgMoneySpentWeekly.addTextChangedListener(this);
+//    }
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
-                Double tmp = 0.0;
-                try {
-                    Double tmpD = Double.parseDouble(avgMoneySpentWeekly.getText().toString().substring(1));
-                    Double tmpMonthly = (tmpD/7) * 4.34524;
-                    expectedMonthly.setText("$ "+(df.format(tmpMonthly)));
-                    tmp = tmpD * 52.1429;
-                    expectedYearly.setText("$ "+(df.format(tmp)));
-                    DocumentReference dRef = db.collection("money")
-                            .document(firebaseUser.getUid());
-                    dRef.update("avgWeekly",tmpD);
-
-                }
-                catch(Exception e){
-
-                }
+//                Double tmp = 0.0;
+//                try {
+//
+//                    Double tmpD = Double.parseDouble(avgMoneySpentWeekly.getText().toString().substring(1));
+//                    //Double tmpMonthly = (tmpD/7) * 4.34524;
+//                    DocumentReference dRef = db.collection("money")
+//                            .document(firebaseUser.getUid());
+//                    dRef.update("avgWeekly", tmpD);
+//                    Double tmpMonthly = tmpD * 4.34524;
+//                    expectedMonthly.setText("$ " + (df.format(tmpMonthly)));
+//                    tmp = tmpD * 52.1429;
+//                    expectedYearly.setText("$ " + (df.format(tmp)));
+//
+//                    //getMoneyInfo();
+//
+//                } catch (Exception e) {
+//
+//                }
+            }
+            });
                 //Double tmpD = Double.parseDouble(avgMoneySpentWeekly.getText().toString());
 //                Double tmpMonthly = (tmp/7) * 4.34524;
 //                expectedMonthly.setText(Double.toString(tmpMonthly));
@@ -166,8 +246,8 @@ public class MoneyFragment extends Fragment {
 //
 //                            }
 //                        });
-            }
-        });
+           // }
+       // });
         getMoneyInfo();
         return view;
     }
@@ -299,7 +379,10 @@ public class MoneyFragment extends Fragment {
                                 }
                                 else{
                                     //set total savings
-                                    total.setText("$ "+(df.format(money.getTotal())));
+                                    //total.setText("$ "+(df.format(money.getTotal())));
+                                    Double tmpTotal = ((now - money.getStartDate())/day) * (money.getAvgWeekly()/7);
+                                    total.setText("$ "+(df.format(tmpTotal)));
+                                    money.setTotal(tmpTotal);
 
                                     //set weekly stats
                                     extraDays = (now - money.getStartOfWeekDate().getTime()) /day;
@@ -331,7 +414,8 @@ public class MoneyFragment extends Fragment {
 
                                 //set edit text box to current avgWeekly
                                 avgMoneySpentWeekly.setText("$ "+(df.format(money.getAvgWeekly())));
-
+                                //avgMoneySpentWeekly.setText(money.getAvgWeekly().toString());
+                                System.out.println();
                                 if(updateDB){
                                     updateDB(money);
                                 }
@@ -341,6 +425,7 @@ public class MoneyFragment extends Fragment {
                     }
                 });
     }
+
 
     private void updateDB(Money money) {
         Map<String, Object> moneyMap = new HashMap<>();

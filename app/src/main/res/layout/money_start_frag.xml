@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:background="@color/ourGray"
+    android:background="@color/white"
     android:layout_gravity="center"
     android:paddingLeft="20dp"
     android:paddingRight="20dp"
@@ -20,6 +20,7 @@
         android:text="See the financial benefits from your sobriety! Are you ready to start your money saving tracker?"
         android:layout_gravity="center"
         android:gravity="center"
+        android:textSize="20dp"
         android:textColor="@color/black"
         android:id="@+id/message"
         >
@@ -30,25 +31,37 @@
         android:layout_height="70dp"
         android:id="@+id/editLayout">
 
-        <com.cottacush.android.currencyedittext.CurrencyEditText
+<!--        <com.cottacush.android.currencyedittext.CurrencyEditText-->
+<!--            android:id="@+id/editStart"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_marginTop="15dp"-->
+<!--            android:background="@drawable/boarder"-->
+<!--            android:hint="edit here"-->
+<!--            android:paddingLeft="10dp"-->
+<!--            app:currencySymbol="$"-->
+<!--            android:textSize="14dp"-->
+<!--            android:textColor="@color/black"-->
+<!--            />-->
+        <me.abhinay.input.CurrencyEditText
             android:id="@+id/editStart"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/boarder"
-            android:hint="edit here"
-            android:paddingLeft="10dp"
-            app:currencySymbol="$"
+            android:inputType="number"
             android:textSize="14dp"
-            android:textColor="@color/black"
-            />
+            android:layout_marginTop="25dp"
+            android:background="@drawable/border_teal"
+            android:hint="edit here"
+            android:textColorHint="@color/black"
+            android:paddingLeft="10dp"
+            android:textColor="@color/black"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="7dp"
-            android:background="@color/ourGray"
+            android:layout_marginTop="17dp"
+            android:background="@color/white"
             android:textSize="15dp"
             android:text="Average money spent a week"
             android:textColor="@color/ourPurple"
@@ -59,7 +72,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text = "Start Savings"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="40dp"
         android:textSize="12dp"
         android:layout_gravity="center"
         android:id="@+id/startBtn"/>

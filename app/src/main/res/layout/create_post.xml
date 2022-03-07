@@ -2,7 +2,11 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:background="@color/white"
+    >
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -10,6 +14,7 @@
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:paddingTop="10dp"
         android:id="@+id/layout">
 
         <androidx.cardview.widget.CardView
@@ -48,33 +53,50 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/layout"
         android:layout_marginTop="20dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:hint="Title"
+        android:background="@drawable/border_teal"
+        android:textColorHint="@color/black"
+        android:textColor="@color/black"
+        android:padding="5dp"
         app:layout_constraintStart_toStartOf="@+id/layout"
         android:id="@+id/titleOfPost"/>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:layout_marginTop="7dp"
+        android:padding="5dp"
         app:layout_constraintStart_toEndOf="@id/titleOfPost"
         app:layout_constraintTop_toBottomOf="@id/titleOfPost"
         android:hint="Post"
+        android:background="@drawable/border_teal"
+        android:textColorHint="@color/black"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:id="@+id/thePost"/>
 
     <ImageView
         android:id="@+id/uploadImage"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
+        android:paddingLeft="10dp"
+        android:layout_marginTop="5dp"
         android:src="@drawable/ic_upload_image"
         app:layout_constraintStart_toEndOf="@id/thePost"
         app:layout_constraintTop_toBottomOf="@id/thePost"
-        android:layout_marginRight="360dp"/>
+        android:layout_marginRight="320dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="0dp"
         app:layout_constraintStart_toEndOf="@id/uploadImage"
         app:layout_constraintTop_toBottomOf="@id/uploadImage"
-        android:text="click here to upload image"
-        android:textColor="@color/white"
+        android:text="upload image"
+        android:textColor="@color/black"
         android:id="@+id/uploadText"/>
 
 
@@ -86,7 +108,7 @@
         app:layout_constraintTop_toBottomOf="@id/uploadText"
         android:layout_marginTop="18dp"
         android:id="@+id/buttonLayout"
-        >
+        android:gravity="center_horizontal">
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

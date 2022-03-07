@@ -4,41 +4,70 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:background="@drawable/money_gradient_background"
+    android:background="@color/white"
     android:layout_gravity="center"
-    android:paddingLeft="20dp"
-    android:paddingRight="20dp"
-    android:paddingTop="60dp"
-    android:paddingBottom="20dp"
     android:orientation="vertical"
     android:id="@+id/wholeShabang"
     >
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/moneyToolbar"
+        android:background="?android:attr/windowBackground"
+
+        android:backgroundTint="@color/ourTeal"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Money Savings"
+            android:layout_gravity="center"
+            android:textSize="20dp"
+            android:id="@+id/toolbar_title" />
+    </androidx.appcompat.widget.Toolbar>
 
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="70dp">
+        android:layout_height="70dp"
+        android:paddingLeft="20dp"
+        android:layout_marginTop="30dp"
+        android:paddingRight="20dp">
 
-        <com.cottacush.android.currencyedittext.CurrencyEditText
+        <!--        <EditText-->
+<!--        <com.cottacush.android.currencyedittext.CurrencyEditText-->
+<!--            android:id="@+id/edit"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_marginTop="15dp"-->
+<!--            android:background="@drawable/bordergray"-->
+<!--            android:hint="edit here"-->
+<!--            android:paddingLeft="10dp"-->
+<!--            android:imeOptions="actionDone"-->
+<!--            app:currencySymbol="$"-->
+<!--            android:textSize="14dp"-->
+<!--            android:textColor="@color/black"-->
+<!--            />-->
+
+        <me.abhinay.input.CurrencyEditText
             android:id="@+id/edit"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/bordergray"
+            android:inputType="number"
+            android:textSize="14dp"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/border_teal"
             android:hint="edit here"
             android:paddingLeft="10dp"
-            app:currencySymbol="$"
-            android:textSize="14dp"
-            android:textColor="@color/black"
-            />
+            android:textColor="@color/black"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="7dp"
-            android:background ="#3399ff"
+            android:layout_marginTop="17dp"
+            android:background ="@color/white"
             android:textSize="15dp"
-            android:text="Average money spent a week"
+            android:text="Edit Average Money Spent a Week"
             android:textColor="@color/ourPurple"
             />
     </RelativeLayout>
@@ -46,9 +75,11 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Total Savings since Date"
+        android:text="Total Savings Since Date"
+        android:textSize="17dp"
+        android:textStyle="bold"
         android:layout_gravity="center"
-        android:layout_marginTop="45dp"
+        android:layout_marginTop="10dp"
         android:textColor="@color/black"
         android:id="@+id/startTime"/>
     <TextView
@@ -63,36 +94,39 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/bordergray"
-        android:layout_marginTop="45dp"
-        >
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/border_teal">
+
         <TextView
+            android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:text="@string/currentWeek"
             android:textColor="@color/black"
-            android:layout_margin="10dp"
-            android:textStyle="bold"
-            android:id="@+id/title"/>
+            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="10dp"
             android:layout_below="@id/title"
-            >
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
+
             <TextView
                 android:id="@+id/titleWeek"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:gravity="center"
                 android:layout_weight="1"
+                android:gravity="center"
                 android:text="startDate - endDate"
                 android:textColor="@color/black" />
 
             <TextView
+                android:id="@+id/weekVal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
@@ -100,9 +134,7 @@
                 android:gravity="center"
                 android:text="$0"
                 android:textColor="@color/black"
-                android:textSize="20dp"
-                android:id="@+id/weekVal"
-                />
+                android:textSize="20dp" />
 
         </LinearLayout>
     </RelativeLayout>
@@ -110,8 +142,10 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/bordergray"
-        android:layout_marginTop="45dp"
+        android:background="@drawable/border_teal"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
         >
         <TextView
             android:layout_width="wrap_content"
@@ -160,26 +194,32 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Expected Savings"
+        android:text="@string/expectedSavings"
         android:textColor="@color/black"
         android:textStyle="bold"
-        android:layout_marginTop="45dp"/>
+        android:layout_marginTop="25dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
         >
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            >
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Expected Monthly Savings"
                 android:textColor="@color/black"
+                android:textSize="12dp"
                 android:layout_centerHorizontal="true"
                 android:id="@+id/projectedMonthly"/>
 
@@ -199,11 +239,14 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:paddingRight="20dp"
+            android:paddingLeft="20dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Expected Yearly Savings"
+                android:textSize="12dp"
                 android:textColor="@color/black"
                 android:layout_centerHorizontal="true"
                 android:id="@+id/projectedYearly"/>
@@ -224,8 +267,8 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:layout_marginLeft="275dp"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
         android:text="Reset"
         android:textAlignment="center"
         android:id="@+id/resetMoney"
