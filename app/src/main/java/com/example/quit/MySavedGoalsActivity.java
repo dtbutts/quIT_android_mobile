@@ -36,6 +36,7 @@ public class MySavedGoalsActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private SavedGoalsAdapter savedGoalsAdapter;
     private List<Goal> goalList;
+    private TextView makeGoalMessage;
 
     EditText newComment;
     TextView submitPost;
@@ -60,6 +61,7 @@ public class MySavedGoalsActivity extends AppCompatActivity {
             }
         });
 
+        makeGoalMessage = findViewById(R.id.makeGoalMessage);
 
         recyclerView = findViewById(R.id.recycler_view_my_saved_goals);
         recyclerView.setHasFixedSize(true);
@@ -108,6 +110,16 @@ public class MySavedGoalsActivity extends AppCompatActivity {
 //                                if(document.getId().equals(postuid)){
 
                             }
+
+                            //test if there are any saved goals here
+                            if(goalList.size() < 1){    //if there are no goals
+                                makeGoalMessage.setVisibility(View.VISIBLE);
+
+                            }else{                      //else don't show message
+                                makeGoalMessage.setVisibility(View.INVISIBLE);
+                            }
+
+
                             savedGoalsAdapter.notifyDataSetChanged();
                         } else {
                             //Log.d(TAG, "Error getting documents: ", task.getException());

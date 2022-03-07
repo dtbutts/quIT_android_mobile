@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.Log;
@@ -96,20 +97,34 @@ public class HomeFragment extends Fragment {
         db = FirebaseFirestore.getInstance();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         getTotalTimeElapsed();
-        //getButtonStatus();
-//        if(started){
-//            startSobriety.setText("Reset Sobriety");
-//        }
 
         signOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
-                activity = getActivity();
-                if(activity!=null){
-                    Intent intent = new Intent(activity, StartActivity.class);
-                    activity.startActivity(intent);
-                }
+
+                DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        switch (i) {
+                            case DialogInterface.BUTTON_POSITIVE:
+                                //code to actually sign out
+                                FirebaseAuth.getInstance().signOut();
+                                activity = getActivity();
+                                if (activity != null) {
+                                    Intent intent = new Intent(activity, StartActivity.class);
+                                    activity.startActivity(intent);
+                                }
+                            case DialogInterface.BUTTON_NEGATIVE:
+                                //No button clicked
+                                break;
+                        }
+                    }
+                };
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setMessage("Are you sure you want to sign out?")
+                        .setPositiveButton("Yes", dialogClickListener)
+                        .setNegativeButton("No", dialogClickListener).show();
+
             }
         });
 
@@ -121,30 +136,6 @@ public class HomeFragment extends Fragment {
                     startSobriety.setText("Reset Sobriety");
                     started =true;
                     setSoberSinceStatus(started);
-                    //setButtonStatus();
-//                    Log.d("SANITY", "DEARGOD");
-//                    //Intent alarm = new Intent(getContext(), BackgroundService.class);
-//                    //PendingIntent pendingIntent = PendingIntent.getService(this,0,intent,0);
-////                    LocalBroadcastManager.getInstance(getContext()).registerReceiver(
-////                            new BroadcastReceiver() {
-////                                @Override
-////                                public void onReceive(Context context, Intent intent) {
-////                                    double latitude = intent.getDoubleExtra(LocationBroadcastService.EXTRA_LATITUDE, 0);
-////                                    double longitude = intent.getDoubleExtra(LocationBroadcastService.EXTRA_LONGITUDE, 0);
-////                                    textView.setText("Lat: " + latitude + ", Lng: " + longitude);
-////                                }
-////                            }, new IntentFilter(LocationBroadcastService.ACTION_LOCATION_BROADCAST)
-////                    );
-//                    Intent alarm = new Intent(getContext(), AlarmReceiver.class);
-////                    boolean alarmRunning = (PendingIntent.getBroadcast(getContext(), 0, alarm, PendingIntent.FLAG_NO_CREATE) != null);
-////                    if(alarmRunning == false) {
-//                        Log.d("SERVICELOG", "OG");
-//                        PendingIntent pendingIntent = PendingIntent.getBroadcast(getContext(), 0, alarm, PendingIntent.FLAG_UPDATE_CURRENT);
-//                        //AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-//                        AlarmManager alarmManager = (AlarmManager) mActivity.getSystemService(Context.ALARM_SERVICE);
-//                        alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime(), 300000, pendingIntent);
-
-                    //}
                 }
                 else if(started){
                     DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
@@ -165,6 +156,10 @@ public class HomeFragment extends Fragment {
                                     secCounter.setText(formatTime(0l));
                                     //startTimer();
                                     startSobriety.setText("Start Sobriety");
+
+                                    //give positive message
+                                    sendPositiveMessage();
+
                                     break;
 
                                 case DialogInterface.BUTTON_NEGATIVE:
@@ -182,6 +177,7 @@ public class HomeFragment extends Fragment {
 
             }
         });
+
         return view;
     }
 
@@ -209,36 +205,6 @@ public class HomeFragment extends Fragment {
 
 
     }
-
-//    private void getButtonStatus() {
-//
-//        db.collection("userAccount")
-//                .document(firebaseUser.getUid())
-//                .get()
-//                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//                        if (task.isSuccessful()) {
-//                            DocumentSnapshot document = task.getResult();
-//                            if (document.exists()) {
-//                                User user =document.toObject(User.class);
-//                                if(user.getButtonPressed()){
-//                                    started = true;
-//                                    Log.d("THURSDAY", "BUTTON IS PRESSED FROM DB");
-//                                    startSobriety.setText("Reset Sobriety");
-//
-//                                    startTimer();
-//                                }
-//                                //Log.d(TAG, "DocumentSnapshot data: " + document.getData());
-//                            } else {
-//                                //Log.d(TAG, "No such document");
-//                            }
-//                        } else {
-//                            //Log.d(TAG, "get failed with ", task.getException());
-//                        }
-//                    }
-//                });
-//    }
 
     private void getTotalTimeElapsed() {
 
@@ -360,47 +326,13 @@ public class HomeFragment extends Fragment {
         return String.format("%02d", time);
     }
 
-//    @Override
-//    public void onDestroy() {
-//        Log.d("Checking", "Destroy");
-//        DocumentReference userReference = db.collection("userAccount")
-//                .document(firebaseUser.getUid());
-//        Long tmpTime = timeInMilliSeconds;
-//        userReference
-//                .update("totalTimeSober", tmpTime);
-//        Long lastEndtime = System.currentTimeMillis();
-//        userReference
-//                .update("lastEndTime", lastEndtime);
-//        super.onDestroy();
-//    }
-//
-//    @Override
-//    public void onStop() {
-//        super.onStop();
-//        Log.d("Checking", "Destroy");
-//        DocumentReference userReference = db.collection("userAccount")
-//                .document(firebaseUser.getUid());
-//        Long tmpTime = timeInMilliSeconds;
-//        userReference
-//                .update("totalTimeSober", tmpTime);
-//        Long lastEndtime = System.currentTimeMillis();
-//        userReference
-//                .update("lastEndTime", lastEndtime);
-//
-//    }
-//
-//    @Override
-//    public void onPause() {
-//
-//        super.onPause();
-//        Log.d("Checking", "Destroy");
-//        DocumentReference userReference = db.collection("userAccount")
-//                .document(firebaseUser.getUid());
-//        Long tmpTime = timeInMilliSeconds;
-//        userReference
-//                .update("totalTimeSober", tmpTime);
-//        Long lastEndtime = System.currentTimeMillis();
-//        userReference
-//                .update("lastEndTime", lastEndtime);
-//    }
+    private void sendPositiveMessage(){
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(getContext());
+        alertBuilder.setTitle("Don't Give Up!");
+        alertBuilder.setMessage("70.6% of addicts report relapsing. Keep improving yourself!").setCancelable(false);
+        AlertDialog alertDialog = alertBuilder.create();
+        alertDialog.show();
+        alertDialog.setCanceledOnTouchOutside(true);
+    }
+
 }

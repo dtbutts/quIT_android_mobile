@@ -9,12 +9,14 @@
 
     <Button
         android:id="@+id/signOut"
-        android:layout_width="50dp"
-        android:layout_height="30dp"
-        android:text="signout"
-        android:textSize="5dp"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="27dp" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:text="sign out"
+        android:textSize="13dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/addictionLogo"
@@ -48,12 +50,16 @@
         android:text="Sober since \nDate"
         android:textColor="@color/ourPurple"
         android:textSize="40dp"
+        android:shadowColor="@color/black"
+        android:shadowDx="5"
+        android:shadowDy="5"
+        android:shadowRadius="8"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.09" />
+        app:layout_constraintVertical_bias="0.107" />
 
     <RelativeLayout
         android:id="@+id/yearsCounterLayout"
@@ -84,6 +90,10 @@
             android:layout_marginTop="7dp"
             android:background="@color/ourGray"
             android:text="Years"
+            android:shadowColor="@color/black"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="1"
             android:textColor="@color/ourPurple"
             android:textSize="15dp" />
 
@@ -127,6 +137,10 @@
                 android:layout_marginTop="7dp"
                 android:background="@color/ourGray"
                 android:text="Days"
+                android:shadowColor="@color/black"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:shadowRadius="1"
                 android:textColor="@color/ourPurple"
                 android:textSize="15dp" />
 
@@ -158,6 +172,10 @@
                 android:layout_marginTop="7dp"
                 android:background="@color/ourGray"
                 android:text="Hours"
+                android:shadowColor="@color/black"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:shadowRadius="1"
                 android:textColor="@color/ourPurple"
                 android:textSize="15dp" />
 
@@ -190,6 +208,10 @@
                 android:background="@color/ourGray"
                 android:textSize="15dp"
                 android:text="Minutes"
+                android:shadowColor="@color/black"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:shadowRadius="1"
                 android:textColor="@color/ourPurple"
                 />
 
@@ -222,6 +244,10 @@
                 android:background="@color/ourGray"
                 android:textSize="15dp"
                 android:text="Seconds"
+                android:shadowColor="@color/black"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:shadowRadius="1"
                 android:textColor="@color/ourPurple"
                 />
 

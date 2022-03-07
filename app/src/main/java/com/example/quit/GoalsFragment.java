@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -47,6 +48,7 @@ public class GoalsFragment extends Fragment {
     private FirebaseUser firebaseUser;
     private GoalAdapter goalAdapter;
     private List<Goal> goalLists;
+    private TextView makeGoalMessage;
 
     @Nullable
     //@Override
@@ -55,6 +57,7 @@ public class GoalsFragment extends Fragment {
 
         addGoal = view.findViewById(R.id.addGoal);
         savedGoals = view.findViewById(R.id.savedGoals);
+        makeGoalMessage = view.findViewById(R.id.makeGoalMessage);
 
         addGoal.setClickable(true);
         addGoal.setOnClickListener(new View.OnClickListener() {
@@ -87,13 +90,6 @@ public class GoalsFragment extends Fragment {
             ((AppCompatActivity)activity).getSupportActionBar().setTitle("Goals");
         }
 
-//        Toolbar toolbar = view.findViewById(R.id.goalToolbar);
-//        activity = getActivity();
-//        if(activity!=null){
-//            ((AppCompatActivity)activity).setSupportActionBar(toolbar);
-//
-//        }
-
         recyclerView = view.findViewById(R.id.recycler_view_goals);
         ((SimpleItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
         recyclerView.getItemAnimator().setChangeDuration(0);
@@ -103,16 +99,12 @@ public class GoalsFragment extends Fragment {
 
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        //linearLayoutManager.setReverseLayout(true);
-        //linearLayoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(linearLayoutManager);
 
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
                 linearLayoutManager.getOrientation());
         dividerItemDecoration.setDrawable(ContextCompat.getDrawable(getContext(), R.drawable.divider)) ;
         recyclerView.addItemDecoration(dividerItemDecoration);
-
-        //recyclerView.getItemAnimator().setChangeDuration(0);
 
         goalLists= new ArrayList<>();
         goalAdapter = new GoalAdapter(getContext(), goalLists);
@@ -141,9 +133,16 @@ public class GoalsFragment extends Fragment {
                                     goalLists.add(goal);
                                 }
                                 Log.d("findComments", "In Loop");
-//                                if(document.getId().equals(postuid)){
 
                             }
+
+                            //Provides message in case of no goals
+                            if(goalLists.size() < 1){
+                                makeGoalMessage.setVisibility(View.VISIBLE);
+                            }else{
+                                makeGoalMessage.setVisibility(View.INVISIBLE);
+                            }
+
                             goalAdapter.notifyDataSetChanged();
                         } else {
                             //Log.d(TAG, "Error getting documents: ", task.getException());

@@ -21,4 +21,15 @@
         android:layout_alignParentBottom="true"
         />
 
+    <TextView
+        android:id="@+id/makeGoalMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="258dp"
+        android:gravity="center"
+        android:visibility="invisible"
+        android:text="You have no saved goals yet!\n\nWhen you complete a goal, you can choose to save it.\n\nThe goal will be saved here. Keep working on your goals!"
+        android:textSize="25dp" />
+
 </android.widget.RelativeLayout>

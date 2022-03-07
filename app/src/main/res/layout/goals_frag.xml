@@ -74,6 +74,19 @@
 
     </androidx.recyclerview.widget.RecyclerView>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/makeGoalMessage"
+        android:text="You don't have any goals yet!\n\nClick on the blue plus button to create a new goal.\n\nClick on the yellow bookmark to view saved goals."
+        android:textSize="25dp"
+        android:gravity="center"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/recycler_view_goals"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/goalsToolbar" />
+
     <ImageView
         android:id="@+id/addGoal"
         android:layout_width="75dp"

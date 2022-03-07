@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -11,125 +12,180 @@
     android:paddingTop="20dp"
     android:paddingBottom="20dp"
     android:orientation="vertical"
-    android:gravity="center"
+    android:gravity="left"
     >
 
-    <EditText
+    <Space
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Create a goal"
-        android:background="#909090"
-        android:id="@+id/theGoal"
+        android:layout_height="30dp"
         />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:text="Goal Name"
+        android:textSize="30dp"
+        android:gravity="left"
         android:textStyle="bold"
-        android:textSize="20dp"
-        android:text="@string/details"
+        android:textColor="@color/black"/>
+
+        <EditText
+            android:id="@+id/theGoal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#909090"
+            android:hint="Enter Title Here"
+            android:gravity="left"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"/>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:textStyle="bold"
+        android:textSize="30dp"
+        android:text="Specifics"
+        android:textColor="@color/black"
         android:layout_marginTop="18dp"
         />
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
         <TextView
+            android:id="@+id/measureText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Measure the goal in"
-            android:textSize="18dp"
-            android:id="@+id/measureText"
-            android:layout_marginRight="20dp"
-            />
+            android:text="Measure goal in:"
+            android:textSize="20dp"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <Spinner
             android:id="@+id/measurements_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/measureText"
             android:background="#909090"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/measureText"/>
-    </RelativeLayout>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
-        >
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Total Needed Progress"
-            android:textSize="18dp"
             android:id="@+id/totalText"
-            android:layout_marginRight="20dp"
-            />
-        <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/totalText"
-            android:hint="Total Hours"
-            android:inputType="number"
-            android:id="@+id/totalEdit"
-            android:background="#909090"
-            />
-    </RelativeLayout>
+            android:text="Total needed progress:"
+            android:textSize="20dp"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
-        android:layout_gravity="center"
-        >
-        <TextView
+        <EditText
+            android:id="@+id/totalEdit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Current Progress"
+            android:layout_marginEnd="4dp"
+            android:layout_toRightOf="@id/totalText"
+            android:background="#909090"
+            android:hint="Total hours"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
+            android:inputType="number"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
             android:id="@+id/currentText"
-            android:textSize="18dp"
-            android:layout_marginRight="20dp"
-            />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Current progress:"
+            android:textSize="20dp"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <EditText
+            android:id="@+id/currentEdit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/currentText"
-            android:hint="Current Hours"
-            android:inputType="number"
-            android:id="@+id/currentEdit"
             android:background="#909090"
-            />
-    </RelativeLayout>
+            android:hint="Current hours"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
+            android:inputType="number"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
-        android:layout_gravity="center"
-        >
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
         <TextView
+            android:id="@+id/deadlineText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Deadline"
-            android:id="@+id/deadlineText"
-            android:layout_marginRight="20dp"
-            android:textSize="18dp"
-            />
+            android:text="Deadline:"
+            android:textSize="20dp"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
+            android:id="@+id/deadlineEdit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/deadlineText"
-            android:hint="Choose date"
-            android:id="@+id/deadlineEdit"
             android:background="#909090"
-            />
-    </RelativeLayout>
+            android:hint="Choose date"
+            android:textSize="19dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="update goal"
+        android:backgroundTint="@color/ourTeal"
+        android:textColor="@color/black"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
         android:id="@+id/submitGoal"/>
