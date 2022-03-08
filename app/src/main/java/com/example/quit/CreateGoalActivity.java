@@ -60,6 +60,7 @@ public class CreateGoalActivity extends AppCompatActivity {
 // Create an ArrayAdapter using the string array and a default spinner layout
         arrayAdapter = ArrayAdapter.createFromResource(this,
                 R.array.measurements_array, R.layout.my_custom_spinner);
+
 // Specify the layout to use when the list of choices appears
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 // Apply the adapter to the spinner

@@ -27,9 +27,11 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.NumberFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import me.abhinay.input.CurrencyEditText;
@@ -110,7 +112,10 @@ public class MoneyStartFragment extends Fragment {
                 Double tmp = 0.0;
                 Edit = Edit.substring(1);
                 try {
-                    tmp = Double.valueOf(Edit);
+                    NumberFormat format = NumberFormat.getInstance(Locale.getDefault());
+                    Number number = format.parse(Edit);
+                    tmp = number.doubleValue();
+                    //tmp = Double.valueOf(Edit);
                 }catch (Exception e){
                     Toast.makeText(getContext(), "enter number value only", Toast.LENGTH_SHORT).show();
                     return;

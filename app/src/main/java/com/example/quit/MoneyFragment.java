@@ -44,6 +44,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -147,7 +148,10 @@ public class MoneyFragment extends Fragment {
                             // the user is done typing.
                             Double tmp = 0.0;
                             try{
-                                Double tmpD = Double.parseDouble(avgMoneySpentWeekly.getText().toString().substring(1));
+                                NumberFormat format = NumberFormat.getInstance(Locale.getDefault());
+                                Number number = format.parse(avgMoneySpentWeekly.getText().toString().substring(1));
+                                Double tmpD = number.doubleValue();
+//                                Double tmpD = Double.parseDouble(number);
                                 //Double tmpMonthly = (tmpD/7) * 4.34524;
                                 DocumentReference dRef = db.collection("money")
                                         .document(firebaseUser.getUid());
