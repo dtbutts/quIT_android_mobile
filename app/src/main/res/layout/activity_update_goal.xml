@@ -3,19 +3,38 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/goal_gradient_background"
+    android:background="@color/white"
     android:id="@+id/goalRelativeLayout"
     >
 
-    <TextView
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/goalsToolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text = "This is the goal"
-        android:textColor="@color/black"
-        android:gravity="center"
+        android:background="?android:attr/windowBackground"
+
+        android:backgroundTint="@color/ourTeal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Update Goal"
+            android:textSize="20dp" />
+    </androidx.appcompat.widget.Toolbar>
+
+
+    <TextView
         android:id="@+id/theGoal"
-        android:layout_marginTop="40dp"
-        />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
+        android:gravity="center"
+        android:text="This is the goal"
+        android:textColor="@color/black" />
 
 
     <ProgressBar
@@ -42,14 +61,14 @@
         android:id="@+id/percentComplete"/>
 
     <TextView
+        android:id="@+id/actualPercent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text = "%"
-        android:textColor="@color/white"
-        android:gravity="center"
         android:layout_below="@id/theGoal"
-        android:id="@+id/actualPercent"
-        android:layout_marginTop="50dp"/>
+        android:layout_marginTop="50dp"
+        android:gravity="center"
+        android:text="%"
+        android:textColor="@color/white" />
 
     <TextView
         android:layout_width="match_parent"
@@ -80,6 +99,7 @@
             android:text="0 hours"
             android:layout_toRightOf="@id/arrowDown"
             android:id="@+id/currentUpdate"
+            android:textColor="@color/black"
             android:layout_centerVertical="true"/>
         <ImageView
             android:layout_width="80dp"
@@ -94,12 +114,14 @@
 
 
     <Button
+        android:id="@+id/updateButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Update"
         android:layout_below="@id/arrowLayout"
-        android:id="@+id/updateButton"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:backgroundTint="@color/ourTeal"
+        android:text="Update"
+        android:textColor="@color/black" />
 
     <RelativeLayout
         android:layout_width="wrap_content"

@@ -3,7 +3,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/goal_gradient_background"
+    android:background="@color/white"
     android:id="@+id/goalRelativeLayout">
 
     <TextView
@@ -32,11 +32,11 @@
         android:progressDrawable="@drawable/custom_progress_bar"
         android:layout_width="350dp"
         android:layout_height="100dp"
-        android:indeterminate="false"
         android:layout_below="@id/theGoal"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
+        android:indeterminate="false"
         />
 
     <TextView

@@ -3,7 +3,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/goal_gradient_background"
+    android:background="@color/white"
     android:id="@+id/goalRelativeLayout">
 
     <TextView

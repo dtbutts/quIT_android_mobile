@@ -1,65 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/goal_gradient_background">
+    android:background="@color/white">
 
 
     <androidx.appcompat.widget.Toolbar
+        android:id="@+id/goalsToolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/goalsToolbar"
         android:background="?android:attr/windowBackground"
-        android:backgroundTint="@color/ourGray"
+
+        android:backgroundTint="@color/ourTeal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-            />
+        app:layout_constraintTop_toTopOf="parent">
 
-        <!--    <androidx.appcompat.widget.Toolbar-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:id="@+id/postToolbar"-->
-<!--        android:background="?android:attr/windowBackground"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        android:backgroundTint="@color/ourGray"-->
-<!--        >-->
-<!--        <TextView-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="Goals"-->
-<!--            android:textSize="30dp"-->
-<!--            android:id="@+id/toolbar_title" />-->
-<!--    </androidx.appcompat.widget.Toolbar>-->
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Goals"
+            android:textSize="20dp" />
+    </androidx.appcompat.widget.Toolbar>
 
-<!--    <RelativeLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        android:layout_marginTop="10dp"-->
-
-<!--        android:id="@+id/relativeLayout">-->
-<!--        <TextView-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:textSize="30sp"-->
-<!--            android:text="Goals"-->
-<!--            android:id="@+id/goalText"-->
-<!--            android:layout_marginRight="190dp"-->
-<!--            android:layout_marginLeft="20dp"-->
-<!--            android:layout_centerVertical="true"-->
-<!--            />-->
-
-
-<!--        <View-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height=".75dp"-->
-<!--            android:background="@android:color/black"-->
-<!--            android:layout_marginTop="70dp"-->
-<!--             />-->
-<!--    </RelativeLayout>-->
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_goals"
@@ -69,45 +35,51 @@
         app:layout_constraintEnd_toEndOf="@id/goalsToolbar"
         app:layout_constraintStart_toStartOf="@id/goalsToolbar"
         app:layout_constraintTop_toBottomOf="@id/goalsToolbar"
-        android:background="@drawable/goal_gradient_background"
+        android:background="@color/white"
         >
 
     </androidx.recyclerview.widget.RecyclerView>
 
     <TextView
+        android:id="@+id/makeGoalMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/makeGoalMessage"
-        android:text="You don't have any goals yet!\n\nClick on the blue plus button to create a new goal.\n\nClick on the yellow bookmark to view saved goals."
-        android:textSize="25dp"
         android:gravity="center"
+        android:text="You don't have any goals yet!\n\nClick on the yellow bookmark to view saved goals.\n\nClick on the blue plus button to create a new goal."
+        android:textColor="@color/black"
+        android:textSize="25dp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/recycler_view_goals"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/goalsToolbar" />
 
-    <ImageView
-        android:id="@+id/addGoal"
-        android:layout_width="75dp"
-        android:layout_height="50dp"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="320dp"
-        android:layout_marginBottom="32dp"
-        android:src="@drawable/ic_add_goal"
-        app:layout_constraintBottom_toBottomOf="@id/recycler_view_goals"
-        app:layout_constraintStart_toStartOf="parent" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/savedGoals"
-        android:layout_width="75dp"
-        android:layout_height="50dp"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="320dp"
-        android:layout_marginBottom="100dp"
-        android:src="@drawable/ic_saved"
-        app:layout_constraintBottom_toBottomOf="@id/recycler_view_goals"
-        app:layout_constraintStart_toStartOf="parent" />
+        <ImageView
+            android:id="@+id/addGoal"
+            android:layout_width="75dp"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_add_goal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <ImageView
+            android:id="@+id/savedGoals"
+            android:layout_width="75dp"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_saved"
+            app:layout_constraintBottom_toTopOf="@+id/addGoal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.966" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

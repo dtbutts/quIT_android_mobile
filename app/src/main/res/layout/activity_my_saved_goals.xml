@@ -3,15 +3,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background = "@drawable/goal_gradient_background">
+    android:background = "@color/white">
 
     <androidx.appcompat.widget.Toolbar
+        android:id="@+id/savedGoalsToolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/savedGoalsToolbar"
         android:background="?android:attr/windowBackground"
-        android:backgroundTint="@color/ourGray"
-        />
+
+        android:backgroundTint="@color/ourTeal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Saved Goals"
+            android:textSize="20dp" />
+    </androidx.appcompat.widget.Toolbar>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_my_saved_goals"
@@ -30,6 +41,8 @@
         android:gravity="center"
         android:visibility="invisible"
         android:text="You have no saved goals yet!\n\nWhen you complete a goal, you can choose to save it.\n\nThe goal will be saved here. Keep working on your goals!"
-        android:textSize="25dp" />
+        android:textSize="25dp"
+        android:textColor="@color/black"
+        />
 
 </android.widget.RelativeLayout>
