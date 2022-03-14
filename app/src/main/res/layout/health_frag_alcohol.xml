@@ -9,12 +9,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/ourGray">
+    android:background="@color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/moneyToolbar"
+            android:background="?android:attr/windowBackground"
+
+            android:backgroundTint="@color/ourTeal"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Health Progress"
+                android:layout_gravity="center"
+                android:textSize="20dp"
+                android:id="@+id/toolbar_title" />
+        </androidx.appcompat.widget.Toolbar>
+
 
         <!--  item one-->
         <TextView
@@ -27,6 +45,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            android:textColor="@color/black"
             android:text="Blood Sugar"/>            <!-- Change section title here-->
 
         <TextView
@@ -38,6 +57,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            android:textColor="@color/black"
             android:text="
             * After 24 hours your blood sugar may begin to normalize as the alcohol leaves your system \n
             * During this time, early withdrawal symptoms will likely start to take effect. These can include things like
@@ -76,6 +96,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            android:textColor="@color/black"
             android:text="Withdrawal Symptoms"/>
 
         <TextView
@@ -87,6 +108,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            android:textColor="@color/black"
             android:text="
             * After 72 hours your early symptoms should start to become more manageable!\n
             * This timeframe can vary for each individual, but if you notice symptoms getting worse beyond this point or start
@@ -125,6 +147,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            android:textColor="@color/black"
             android:text="Improved Sleep"/>
 
         <TextView
@@ -136,6 +159,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            android:textColor="@color/black"
             android:text="
             * After 1 week you can expect your symptoms to start ending completely and your sleep to dramatically improve!\n
             * You may have used alcohol in the past to help you fall asleep, but when sober you will be getting a much higher quality night's rest\n
@@ -173,6 +197,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            android:textColor="@color/black"
             android:text="Hydration Levels"/>
 
         <TextView
@@ -184,6 +209,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            android:textColor="@color/black"
             android:text="
             * After 10 days your hydration levels will be substantially improved! This will improve many aspects of your health, including the health and function of your skin, hair, and organs!\n
             * Some long term side effects, like nightmares and anxiety, can start to show themselves\n
@@ -221,6 +247,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            android:textColor="@color/black"
             android:text="Weight Loss"/>
 
         <TextView
@@ -232,6 +259,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            android:textColor="@color/black"
             android:text="
             * After 2 weeks you may start to notice some weight loss! Alcohol has a lot of calories, and by cutting those calories out the scale might start to show some lower numbers!\n
             * Remember that giving up alcohol is only one part of a healthier lifestyle. If you want to lose weight, try not to replace your old alcohol calories with new calorie sources\n
@@ -268,6 +296,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            android:textColor="@color/black"
             android:text="Organ Health"/>
 
         <TextView
@@ -279,6 +308,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            android:textColor="@color/black"
             android:text="
             * After a month of no alcohol your body will be benefiting in all sorts of ways! Your skin may start to clear up and look healthier, blood pressure may return to normal levels, and your liver health will greatly improve\n
             * If you had longer lasting symptoms, you should finally start to notice some relief \n
@@ -316,6 +346,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            android:textColor="@color/black"
             android:text="General Health"/>
 
         <TextView
@@ -327,6 +358,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            android:textColor="@color/black"
             android:text="
             * After 3 months you should feel a general sense of improved health and energy. Quitting alcohol has improved your health in so many ways that you're sure to feel it somewhere by this point\n
             * Don't be ashamed or worried if some of your symptoms persist. Over time the benefits of quitting alcohol will start to outweigh the challenges!\n
@@ -365,6 +397,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            android:textColor="@color/black"
             android:text="Full Recovery"/>
 
         <TextView
@@ -376,6 +409,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            android:textColor="@color/black"
             android:text="
             * After 1 year of being sober most people will be completely or very close to completely recovered! Your risk of cancer, liver disease, stroke, and heart disease will be greatly diminished!\n
             * Addiction recovery can be a lifelong struggle, remember what it took to get to this point and stay strong in the years to come\n
@@ -406,6 +440,8 @@
             android:layout_height="match_parent"
             android:id="@+id/changeAddiction"
             android:layout_gravity="center"
+            android:backgroundTint="@color/ourTeal"
+            android:textColor="@color/black"
             android:text="Change Addiction"
             />
 
