@@ -41,8 +41,8 @@ import java.util.concurrent.TimeUnit;
 public class RegisterActivity extends AppCompatActivity {
 
     private Button btnSubmit;
-    private EditText email, username,password,age, height, weight,dayOfAddiction;
-    private TextView dayOfSobriety;
+    private EditText email, username,password,age, height, weight, confpass;
+    private TextView dayOfSobriety, dayOfAddiction;
     private RelativeLayout lengthOfSobriety;
     private TextView alreadyUser;
     private RadioButton radioYes;
@@ -50,6 +50,7 @@ public class RegisterActivity extends AppCompatActivity {
     FirebaseFirestore db;
     FirebaseAuth mAuth;
     final Calendar myCalendar= Calendar.getInstance();
+    final Calendar add_Calendar= Calendar.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -65,6 +66,7 @@ public class RegisterActivity extends AppCompatActivity {
         email = findViewById(R.id.email);
         username = findViewById(R.id.userName);
         password = findViewById(R.id.password);
+        confpass = findViewById(R.id.confpassword);
         age = findViewById(R.id.age);
         height = findViewById(R.id.height);
         weight = findViewById(R.id.weight);
@@ -79,9 +81,29 @@ public class RegisterActivity extends AppCompatActivity {
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH,month);
                 myCalendar.set(Calendar.DAY_OF_MONTH,day);
-                updateLabel();
+                // Prevent future dates from being picked.
+                view.setMaxDate(System.currentTimeMillis());
+                updateLabel(dayOfSobriety, myCalendar);
             }
         };
+        DatePickerDialog.OnDateSetListener add_date =new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int day) {
+                add_Calendar.set(Calendar.YEAR, year);
+                add_Calendar.set(Calendar.MONTH,month);
+                add_Calendar.set(Calendar.DAY_OF_MONTH,day);
+                // Prevent future dates from being picked.
+                view.setMaxDate(System.currentTimeMillis());
+                updateLabel(dayOfAddiction, add_Calendar);
+            }
+        };
+        dayOfAddiction.setClickable(true);
+        dayOfAddiction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new DatePickerDialog(RegisterActivity.this,add_date,add_Calendar.get(Calendar.YEAR),add_Calendar.get(Calendar.MONTH),add_Calendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
         dayOfSobriety.setClickable(true);
         dayOfSobriety.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,12 +140,11 @@ public class RegisterActivity extends AppCompatActivity {
                 }
                 String Email = email.getText().toString();
                 String Username = username.getText().toString();
-
                 String Password = password.getText().toString();
+                String ConfPass = confpass.getText().toString();
                 String Age = age.getText().toString();
                 String Height = height.getText().toString();
                 String Weight = weight.getText().toString();
-                //String Money = moneySpent.getText().toString();
                 String DaysOfAddicted = dayOfAddiction.getText().toString();
                 String DaysOfSobriety = dayOfSobriety.getText().toString();
                 Date date = null;
@@ -131,40 +152,25 @@ public class RegisterActivity extends AppCompatActivity {
                 if(Username.isEmpty() || Email.isEmpty() ||Password.isEmpty() ||
                         Age.isEmpty() ||Height.isEmpty() ||Weight.isEmpty() ||
                         DaysOfAddicted.isEmpty() ){
-                    //makeToast (required)
                     Toast.makeText(getApplicationContext(), "Make sure to fill out all required (*) fields", Toast.LENGTH_LONG).show();
                     return;
-                    //return;
                 }
-               // Long TotalTimeSober = 0L;
+                if(!Password.equals(ConfPass))  {
+                    Toast.makeText(getApplicationContext(), "Passwords entered do not match", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                // Long TotalTimeSober = 0L;
                 //Boolean ButtonPressed = false;
                 //Long LastEndTime = 0L;
                 if(!DaysOfSobriety.equals("") && myCalendar!=null) {
-                    //ButtonPressed = true;
-                    //TotalTimeSober = System.currentTimeMillis() - myCalendar.getTime().getTime();
-                    //LastEndTime = System.currentTimeMillis();
                     date = myCalendar.getTime();
-//                    try {
-//                        Integer tmp = Integer.parseInt(DaysOfSobriety);
-//                        if(tmp>0){
-//                            try{
-//                                TotalTimeSober = TimeUnit.DAYS.toMillis(Long.parseLong(DaysOfSobriety));
-//
-//                                ButtonPressed = true;
-//                                LastEndTime = System.currentTimeMillis();
-//                            }catch (Exception e){
-//
-//                            }
-//                        }
-//                    }
-//                    catch (Exception e){
-//
-//                    }
                 }
-
-
-
-
+                // Calculate days addicted
+                long days_add = 0;
+                if(!DaysOfAddicted.equals("") && add_Calendar!=null) {
+                    days_add = System.currentTimeMillis() - add_Calendar.getTimeInMillis();
+                    days_add = days_add % 86400000;
+                }
                 Map<String, Object> userAccount = new HashMap<>();
                 userAccount.put("email", Email);
                 userAccount.put("password", Password);
@@ -173,7 +179,7 @@ public class RegisterActivity extends AppCompatActivity {
                 userAccount.put("height", Height);
                 userAccount.put("weight", Weight);
                 //userAccount.put("moneySpent", Money);
-                userAccount.put("timeAddicted", DaysOfAddicted);
+                userAccount.put("timeAddicted", String.valueOf(days_add));
                 //userAccount.put("totalTimeSober", TotalTimeSober);
                 //userAccount.put("lastEndTime", LastEndTime);
                 //userAccount.put("buttonPressed", ButtonPressed);
@@ -211,7 +217,6 @@ public class RegisterActivity extends AppCompatActivity {
                     try{
 
                         Log.d("UsernameCheck", "onComplete: MATCH NOT FOUND - username is available");
-                        Toast.makeText(getApplicationContext(), "username changed", Toast.LENGTH_SHORT).show();
 
                         //create authorization of user for retrieving current user later on
                         mAuth.createUserWithEmailAndPassword((String)userAccount.get("email"), (String) userAccount.get("password"))
@@ -219,7 +224,6 @@ public class RegisterActivity extends AppCompatActivity {
                                                            @Override
                                                            public void onComplete(@NonNull Task<AuthResult> task) {
                                                                if(task.isSuccessful()){
-                                                                   Toast.makeText(getApplicationContext(), "auth worked", Toast.LENGTH_LONG).show();
                                                                    FirebaseUser firebaseUser = mAuth.getCurrentUser();
                                                                    String userid = firebaseUser.getUid();
 
@@ -262,9 +266,10 @@ public class RegisterActivity extends AppCompatActivity {
         return;
     }
 
-    private void updateLabel(){
+    private void updateLabel(TextView view, Calendar cal){
         String myFormat="MM/dd/yy";
         SimpleDateFormat dateFormat=new SimpleDateFormat(myFormat, Locale.US);
-        dayOfSobriety.setText(dateFormat.format(myCalendar.getTime()));
+        String date = dateFormat.format(cal.getTime());
+        view.setText(date.trim());
     }
 }

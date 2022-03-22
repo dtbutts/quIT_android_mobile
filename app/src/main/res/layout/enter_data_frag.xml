@@ -25,10 +25,8 @@
             android:background="@drawable/boarder"
             android:hint="email"
             android:paddingLeft="10dp"
-
             android:textSize="14dp"
             android:textColor="@color/black"
-
              />
 
         <TextView
@@ -54,10 +52,9 @@
             android:background="@drawable/boarder"
             android:hint="password"
             android:paddingLeft="10dp"
-
-            android:textSize="14dp"
+            android:inputType="textPassword"
             android:textColor="@color/black"
-
+            android:textSize="14dp"
             />
 
         <TextView
@@ -67,7 +64,7 @@
             android:layout_marginTop="7dp"
             android:background="@color/ourGray"
             android:textSize="15dp"
-            android:text="Email Password*"
+            android:text="Password*"
             android:textColor="@color/ourPurple"
             />
     </RelativeLayout>
@@ -84,7 +81,6 @@
             android:background="@drawable/boarder"
             android:hint="username"
             android:paddingLeft="10dp"
-
             android:textSize="14dp"
             android:textColor="@color/black"
 
@@ -231,10 +227,9 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="7dp"
             android:background="@color/ourGray"
-            android:textSize="15dp"
-            android:text="Add Average Money Spent A Week*"
+            android:text="How much do you spend per week on your addiction?*"
             android:textColor="@color/ourPurple"
-            />
+            android:textSize="15dp" />
     </RelativeLayout>
     <TextView
         android:layout_width="wrap_content"
@@ -317,8 +312,8 @@
             android:hint="days"
             android:paddingLeft="10dp"
 
-            android:textSize="14dp"
             android:textColor="@color/black"
+            android:textSize="14dp"
 
             />
 

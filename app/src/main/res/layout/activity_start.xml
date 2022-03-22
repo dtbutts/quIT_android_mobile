@@ -34,11 +34,8 @@
             android:background="@drawable/boarder"
             android:hint="email"
             android:paddingLeft="10dp"
-
             android:textColor="@color/black"
-            android:textSize="14dp"
-
-            />
+            android:textSize="14dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -70,10 +67,9 @@
             android:background="@drawable/boarder"
             android:hint="password"
             android:paddingLeft="10dp"
-
-            android:textSize="14dp"
+            android:inputType="textPassword"
             android:textColor="@color/black"
-
+            android:textSize="14dp"
             />
 
         <TextView
@@ -97,22 +93,26 @@
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginLeft="80dp"
         android:layout_marginTop="10dp"
-        android:layout_marginRight="80dp">
+        android:layout_marginRight="80dp"
+        android:backgroundTint="@color/ourTeal">
 
     </Button>
 
 
-    <TextView
+    <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="New User? Click here\n to Register"
+        android:text="New User? Register"
         app:layout_constraintTop_toBottomOf="@id/loginBtn"
         app:layout_constraintStart_toStartOf="parent"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/ourPurple"
         android:id="@+id/newUser"
-        android:layout_marginTop="10dp">
-    </TextView>
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="80dp"
+        android:layout_marginRight="80dp">
+    </Button>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

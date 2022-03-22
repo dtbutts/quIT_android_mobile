@@ -217,7 +217,7 @@ public class EnterDataFragment extends Fragment {
                     try{
 
                         Log.d("UsernameCheck", "onComplete: MATCH NOT FOUND - username is available");
-                        Toast.makeText(mActivity, "username changed", Toast.LENGTH_SHORT).show();
+                        //  Toast.makeText(mActivity, "username changed", Toast.LENGTH_SHORT).show();
 
                         //create authorization of user for retrieving current user later on
                         mAuth.createUserWithEmailAndPassword((String)userAccount.get("email"), (String) userAccount.get("password"))
@@ -225,7 +225,7 @@ public class EnterDataFragment extends Fragment {
                                     @Override
                                     public void onComplete(@NonNull Task<AuthResult> task) {
                                         if(task.isSuccessful()){
-                                            Toast.makeText(mActivity, "auth worked", Toast.LENGTH_LONG).show();
+                                            // Toast.makeText(mActivity, "auth worked", Toast.LENGTH_LONG).show();
                                             FirebaseUser firebaseUser = mAuth.getCurrentUser();
                                             String userid = firebaseUser.getUid();
 
