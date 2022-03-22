@@ -25,9 +25,9 @@
             android:background="@drawable/boarder"
             android:hint="email"
             android:paddingLeft="10dp"
-            android:textSize="14dp"
             android:textColor="@color/black"
-             />
+            android:textSize="14dp"
+            android:textColorHint="@color/ourGray" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -51,11 +51,11 @@
             android:layout_marginTop="15dp"
             android:background="@drawable/boarder"
             android:hint="password"
-            android:paddingLeft="10dp"
             android:inputType="textPassword"
+            android:paddingLeft="10dp"
             android:textColor="@color/black"
             android:textSize="14dp"
-            />
+            android:textColorHint="@color/ourGray" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -81,9 +81,9 @@
             android:background="@drawable/boarder"
             android:hint="username"
             android:paddingLeft="10dp"
-            android:textSize="14dp"
             android:textColor="@color/black"
-
+            android:textSize="14dp"
+            android:textColorHint="@color/ourGray"
             />
 
         <TextView
@@ -118,12 +118,11 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="15dp"
                 android:background="@drawable/boarder"
-                android:textSize="14dp"
-                android:hint="years"
                 android:gravity="center"
+                android:hint="years"
                 android:textColor="@color/black"
-
-                />
+                android:textColorHint="@color/ourGray"
+                android:textSize="14dp" />
 
             <TextView
                 android:layout_width="wrap_content"

@@ -42,7 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="60dp"
             >
-    
+
             <EditText
                 android:id="@+id/email"
                 android:layout_width="match_parent"
@@ -50,10 +50,11 @@
                 android:layout_marginTop="15dp"
                 android:background="@drawable/boarder"
                 android:hint="email"
-                android:paddingLeft="10dp"
                 android:lines="1"
+                android:paddingLeft="10dp"
                 android:textColor="@color/black"
                 android:textSize="14dp"
+                android:textColorHint="@color/ourGray"
 
                 />
 
@@ -80,11 +81,11 @@
                 android:layout_marginTop="15dp"
                 android:background="@drawable/boarder"
                 android:hint="username"
+                android:lines="1"
                 android:paddingLeft="10dp"
                 android:textColor="@color/black"
                 android:textSize="14dp"
-                android:lines="1"
-                />
+                android:textColorHint="@color/ourGray"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -108,11 +109,11 @@
                 android:background="@drawable/boarder"
                 android:hint="password"
                 android:inputType="textPassword"
+                android:lines="1"
                 android:paddingLeft="10dp"
                 android:textColor="@color/black"
                 android:textSize="14dp"
-                android:lines="1"
-                />
+                android:textColorHint="@color/ourGray"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -139,7 +140,8 @@
                 android:lines="1"
                 android:paddingLeft="10dp"
                 android:textColor="@color/black"
-                android:textSize="14dp" />
+                android:textSize="14dp"
+                android:textColorHint="@color/ourGray"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -176,6 +178,7 @@
                     android:hint="years"
                     android:textColor="@color/black"
                     android:textSize="14dp"
+                    android:textColorHint="@color/ourGray"
 
                     />
 
@@ -203,11 +206,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="15dp"
-                    android:hint="inches"
                     android:background="@drawable/boarder"
-                    android:textColor="@color/black"
                     android:gravity="center"
+                    android:hint="inches"
+                    android:textColor="@color/black"
                     android:textSize="14dp"
+                    android:textColorHint="@color/ourGray"
 
                     />
 
@@ -236,11 +240,12 @@
                     android:layout_height="match_parent"
                     android:layout_marginTop="15dp"
                     android:background="@drawable/boarder"
-                    android:textColor="@color/black"
-                    android:hint="lbs"
                     android:gravity="center"
+                    android:hint="lbs"
+                    android:textColor="@color/black"
                     android:textSize="14dp"
 
+                    android:textColorHint="@color/ourGray"
                     />
 
                 <TextView
@@ -306,12 +311,12 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="15dp"
                 android:background="@drawable/boarder"
+                android:gravity="center"
                 android:lines="1"
                 android:paddingLeft="10dp"
-                android:textColor="@color/black"
                 android:singleLine="true"
-                android:textSize="14dp"
-                android:gravity="center"/>
+                android:textColor="@color/black"
+                android:textSize="14dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -319,7 +324,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="7dp"
                 android:background="@color/white"
-                android:text="Days*"
+                android:text="Approximate Start Date*"
                 android:textColor="@color/ourPurple"
                 android:textSize="15dp" />
         </RelativeLayout>
@@ -401,9 +406,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/ourPurple"
-            android:text="Your personal data will be kept private unless you choose to share it using the social portion of the app. It will be utilized only to calculate your sobriety progress and its effects on your life."
+            android:text="Your personal data will be kept private unless you choose to share it using the social features of the QuIT app. QuIT will use the above information only to calculate your sobriety progress and its effects on your life."
             android:buttonTint="@color/ourTeal"
-            android:lines="4"/>
+            android:lines="5"/>
     
         <Button
             android:id="@+id/submit_btn"
