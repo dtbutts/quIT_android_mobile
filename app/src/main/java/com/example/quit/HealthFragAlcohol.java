@@ -130,7 +130,7 @@ public class HealthFragAlcohol extends Fragment{
         item7progress = theView.findViewById(R.id.item7progress);
         item8progress = theView.findViewById(R.id.item8progress);
 
-        //------------------------------------------------------------------
+        /*
 
         //Instantiate expandable lists
         createGroupList();
@@ -139,7 +139,7 @@ public class HealthFragAlcohol extends Fragment{
         //Get the listview
         expandableListView = theView.findViewById(R.id.BS);
 
-        expandableListAdapter = new MyExpandableListAdapter(this.getContext(), groupList, collection);
+        //expandableListAdapter = new MyExpandableListAdapter(this.getContext(), group, collection);
         expandableListView.setAdapter(expandableListAdapter);
         expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
             int lastExpandedPosition = -1;
@@ -161,7 +161,7 @@ public class HealthFragAlcohol extends Fragment{
         });
 
 
-        //------------------------------------------------------------------
+        */
 
         //set up nav for change addiction button
         changeAddiction = theView.findViewById(R.id.changeAddiction);

@@ -3,14 +3,111 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:orientation="horizontal">
 
-    <ExpandableListView
-        android:id="@+id/expandable"
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:groupIndicator="@color/white"
-        android:gravity="center"
-        android:textColor="@color/black" />
+        android:orientation="vertical"
+        android:background="@color/white">
+
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/moneyToolbar"
+            android:background="?android:attr/windowBackground"
+
+            android:backgroundTint="@color/ourTeal"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Health Progress"
+                android:layout_gravity="center"
+                android:textSize="20dp"
+                android:id="@+id/toolbar_title" />
+        </androidx.appcompat.widget.Toolbar>
+
+        <Space
+            android:layout_width="1dp"
+            android:layout_height="30dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/border_teal">
+
+            <ExpandableListView
+                android:id="@+id/expandable1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="@android:color/transparent"
+                android:dividerHeight="30dp"
+                android:gravity="center"
+                android:padding="10dp" />
+
+        </LinearLayout>
+
+        <Space
+            android:layout_width="1dp"
+            android:layout_height="30dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/border_teal">
+
+            <ExpandableListView
+                android:id="@+id/expandable2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="10dp"
+                android:divider="@android:color/transparent"
+                android:dividerHeight="30dp"
+                android:gravity="center"
+                />
+
+        </LinearLayout>
+
+        <Space
+            android:layout_width="1dp"
+            android:layout_height="30dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/border_teal">
+
+            <ExpandableListView
+                android:id="@+id/expandable3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="10dp"
+                android:divider="@android:color/transparent"
+                android:dividerHeight="30dp"
+                android:gravity="center"
+                />
+
+        </LinearLayout>
+
+        <Space
+            android:layout_width="1dp"
+            android:layout_height="30dp"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/changeAddiction"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/ourTeal"
+            android:textColor="@color/black"
+            android:text="Change Addiction"
+            />
+    </LinearLayout>
 
 </LinearLayout>

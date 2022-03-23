@@ -10,13 +10,7 @@
         android:id="@+id/child"
         android:layout_weight="1"
         android:text="Child"
-        />
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageTest"
-        android:background="@drawable/add_goal_border"
-        android:contentDescription="@string/app_name"
+        android:textColor="@color/black"
         />
 
 </LinearLayout>

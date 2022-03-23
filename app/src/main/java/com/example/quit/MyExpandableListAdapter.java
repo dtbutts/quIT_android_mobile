@@ -16,11 +16,11 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 
     private Context context;
     private Map<String, List<String>> collection;
-    private List<String> groupList;
+    private String group;
 
-    public MyExpandableListAdapter(Context context, List<String> groupList, Map<String, List<String>> collection){
+    public MyExpandableListAdapter(Context context, String group, Map<String, List<String>> collection){
         this.context = context;
-        this.groupList = groupList;
+        this.group = group;
         this.collection = collection;
     }
 
@@ -31,17 +31,17 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getChildrenCount(int i) {
-        return collection.get(groupList.get(i)).size();
+        return collection.get(group).size();
     }
 
     @Override
     public Object getGroup(int i) {
-        return groupList.get(i);
+        return group;
     }
 
     @Override
     public Object getChild(int i, int i1) {
-        return collection.get(groupList.get(i)).get(i1);
+        return collection.get(group).get(i1);
     }
 
     @Override
@@ -81,8 +81,8 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
             view = inflater.inflate(R.layout.child_item, null);
         }
         TextView item = view.findViewById(R.id.child);
-        ImageView imageTest = view.findViewById(R.id.imageTest);
         item.setText(child);
+
 
         return view;
     }

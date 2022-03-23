@@ -17,12 +17,10 @@ import java.util.Map;
 
 public class NewHealthFragAlcohol extends Fragment {
 
-    private List<String> groupList;
-    private List<String> childList;
-    private Map<String, List<String>> mobileCollection;
-    private ExpandableListView expandableListView;
+    private String group1, group2, group3;
+    private ExpandableListView expandableListView1, expandableListView2, expandableListView3;
     private ExpandableListAdapter expandableListAdapter;
-    private Map<String,List<String>> collection;
+    private Map<String,List<String>> collection1, collection2, collection3;
 
     public NewHealthFragAlcohol() {
         // Required empty public constructor
@@ -31,24 +29,71 @@ public class NewHealthFragAlcohol extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View theView = inflater.inflate(R.layout.fragment_new_health_frag_alcohol, container, false);
 
-        createGroupList();
+        createGroups();
         createCollection();
 
-        expandableListView = theView.findViewById(R.id.expandable);
+        expandableListView1 = theView.findViewById(R.id.expandable1);
+        expandableListView2 = theView.findViewById(R.id.expandable2);
+        expandableListView3 = theView.findViewById(R.id.expandable3);
 
-        expandableListAdapter = new MyExpandableListAdapter(this.getContext(), groupList, collection);
-        expandableListView.setAdapter(expandableListAdapter);
-        expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+
+        expandableListAdapter = new MyExpandableListAdapter(this.getContext(), group1, collection1);
+        expandableListView1.setAdapter(expandableListAdapter);
+        expandableListView1.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
             int lastExpandedPosition = -1;
             @Override
             public void onGroupExpand(int i) {
                 if(lastExpandedPosition != -1 && i != lastExpandedPosition){
-                    expandableListView.collapseGroup(lastExpandedPosition);
+                    expandableListView1.collapseGroup(lastExpandedPosition);
                 }
                 lastExpandedPosition = i;
             }
         });
-        expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+        expandableListView1.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i1, long l) {
+                String selected = expandableListAdapter.getChild(i,i1).toString();
+
+                return true;
+            }
+        });
+
+
+        expandableListAdapter = new MyExpandableListAdapter(this.getContext(), group2, collection2);
+        expandableListView2.setAdapter(expandableListAdapter);
+        expandableListView2.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+            int lastExpandedPosition = -1;
+            @Override
+            public void onGroupExpand(int i) {
+                if(lastExpandedPosition != -1 && i != lastExpandedPosition){
+                    expandableListView2.collapseGroup(lastExpandedPosition);
+                }
+                lastExpandedPosition = i;
+            }
+        });
+        expandableListView2.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i1, long l) {
+                String selected = expandableListAdapter.getChild(i,i1).toString();
+
+                return true;
+            }
+        });
+
+
+        expandableListAdapter = new MyExpandableListAdapter(this.getContext(), group3, collection3);
+        expandableListView3.setAdapter(expandableListAdapter);
+        expandableListView3.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+            int lastExpandedPosition = -1;
+            @Override
+            public void onGroupExpand(int i) {
+                if(lastExpandedPosition != -1 && i != lastExpandedPosition){
+                    expandableListView3.collapseGroup(lastExpandedPosition);
+                }
+                lastExpandedPosition = i;
+            }
+        });
+        expandableListView3.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i1, long l) {
                 String selected = expandableListAdapter.getChild(i,i1).toString();
@@ -61,19 +106,30 @@ public class NewHealthFragAlcohol extends Fragment {
         return theView;
     }
 
+    private void createGroups() {
+        group1 = "Blood Sugar";
+        group2 = "Withdrawal Symptoms";
+        group3 = "Improved Sleep";
+    }
+
     private void createCollection() {
-        String[] bloodSugar = {"After 24 hours your blood sugar may begin to normalize as the alcohol leaves your system,",
-                "During this time, early withdrawal symptoms will likely start to take effect. These can include things like tremors, sweating, anxiety, fatigue, and depression",
-                "Don't let the early symptoms stop you! Push through the temporary discomfort to reach your improved life!"
-        };
-        String[] withdrawalSymptoms = {"After 72 hours your early symptoms should start to become more manageable!",
-                "This timeframe can vary for each individual, but if you notice symptoms getting worse beyond this point or start experiencing more severe symptoms like seizures, contact your doctor immediately",
-                "Use the first feelings of getting better as motivation to keep going! There is a long road ahead, but enjoy these small victories along the way!"
-        };
-        String[] improvedSleep = {"After 1 week you can expect your symptoms to start ending completely and your sleep to dramatically improve!",
-                "You may have used alcohol in the past to help you fall asleep, but when sober you will be getting a much higher quality night's rest",
-                "Getting more sleep can provide countless benefits to your life! Your improved lifestyle can help motivate you on your way to full recovery!"
-        };
+
+        List<String> bloodSugar = new ArrayList<>();
+        bloodSugar.add("After 24 hours your blood sugar may begin to normalize as the alcohol leaves your system,");
+        bloodSugar.add("During this time, early withdrawal symptoms will likely start to take effect. These can include things like tremors, sweating, anxiety, fatigue, and depression");
+        bloodSugar.add("Don't let the early symptoms stop you! Push through the temporary discomfort to reach your improved life!");
+
+        List<String> withdrawalSymptoms = new ArrayList<>();
+        withdrawalSymptoms.add("After 72 hours your early symptoms should start to become more manageable!");
+        withdrawalSymptoms.add("This timeframe can vary for each individual, but if you notice symptoms getting worse beyond this point or start experiencing more severe symptoms like seizures, contact your doctor immediately");
+        withdrawalSymptoms.add("Use the first feelings of getting better as motivation to keep going! There is a long road ahead, but enjoy these small victories along the way!");
+
+        List<String> improvedSleep = new ArrayList<>();
+        improvedSleep.add("After 1 week you can expect your symptoms to start ending completely and your sleep to dramatically improve!");
+        improvedSleep.add("You may have used alcohol in the past to help you fall asleep, but when sober you will be getting a much higher quality night's rest");
+        improvedSleep.add("Getting more sleep can provide countless benefits to your life! Your improved lifestyle can help motivate you on your way to full recovery!");
+
+        /*
         String[] hydrationLevels = {"After 10 days your hydration levels will be substantially improved! This will improve many aspects of your health, including the health and function of your skin, hair, and organs!",
                 "Some long term side effects, like nightmares and anxiety, can start to show themselves",
                 "You've reached a huge milestone! Give yourself credit and enjoy a well deserved sense of accomplishment. If you're still having some struggles on your journey, don't worry, you're not alone. Keep going strong and if you need help, visit the resources page!"
@@ -94,47 +150,17 @@ public class NewHealthFragAlcohol extends Fragment {
                 "Addiction recovery can be a lifelong struggle, remember what it took to get to this point and stay strong in the years to come",
                 "You've retaken control of your life and proven to yourself that you can accomplish one of the most difficult things a person can do. Congratulations on a full recovery!"
         };
-        collection = new HashMap<String, List<String>>();
-        for(String group : groupList){
-            switch (group){
-                case "Blood Sugar":         loadChild(bloodSugar);
-                    break;
-                case "Withdrawal Symptoms": loadChild(withdrawalSymptoms);
-                    break;
-                case "Improved Sleep":      loadChild(improvedSleep);
-                    break;
-                case "Hydration Levels":    loadChild(hydrationLevels);
-                    break;
-                case "Weight Loss":         loadChild(weightLoss);
-                    break;
-                case "Organ Health":        loadChild(organHealth);
-                    break;
-                case "General Health":      loadChild(generalHealth);
-                    break;
-                case "Full Recovery":       loadChild(fullRecovery);
-                    break;
-            }
-            collection.put(group,childList);
-        }
-    }
+        */
 
-    private void loadChild(String[] groups) {
-        childList = new ArrayList<>();
-        for(String group : groups){
-            childList.add(group);
-        }
-    }
+        collection1 = new HashMap<>();
+        collection1.put(group1, bloodSugar);
 
-    private void createGroupList() {
-        groupList = new ArrayList<>();
-        groupList.add("Blood Sugar");
-        groupList.add("Withdrawal Symptoms");
-        groupList.add("Improved Sleep");
-        groupList.add("Hydration Levels");
-        groupList.add("Weight Loss");
-        groupList.add("Organ Health");
-        groupList.add("General Health");
-        groupList.add("Full Recovery");
-    }
+        collection2 = new HashMap<>();
+        collection2.put(group2, withdrawalSymptoms);
 
+        collection3 = new HashMap<>();
+        collection3.put(group3, improvedSleep);
+
+
+    }
 }
