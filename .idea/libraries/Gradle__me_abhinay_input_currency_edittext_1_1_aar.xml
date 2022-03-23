@@ -4,6 +4,9 @@
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/641ee6122768ca5fc8a8a4feb4be4ea7/transformed/jetified-currency-edittext-1.1/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/641ee6122768ca5fc8a8a4feb4be4ea7/transformed/jetified-currency-edittext-1.1/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/641ee6122768ca5fc8a8a4feb4be4ea7/transformed/jetified-currency-edittext-1.1/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/88d8e653db714c234c617b3b6ec73feb/transformed/jetified-currency-edittext-1.1/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/88d8e653db714c234c617b3b6ec73feb/transformed/jetified-currency-edittext-1.1/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/88d8e653db714c234c617b3b6ec73feb/transformed/jetified-currency-edittext-1.1/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/me.abhinay.input/currency-edittext/1.1/86d97a900fddf241a0ccd4e6b6505653ea778b2e/currency-edittext-1.1-javadoc.jar!/" />
