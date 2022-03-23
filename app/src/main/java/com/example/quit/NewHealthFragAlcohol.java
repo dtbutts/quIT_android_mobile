@@ -1,143 +1,40 @@
 package com.example.quit;
 
 import android.os.Bundle;
-import android.util.Log;
+import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
-
-import Model.User;
 
 
-public class HealthFragAlcohol extends Fragment{
-
-    //variables here
-    private Date soberSince;
-    private long soberTimeinMilliSeconds;
-    private ProgressBar item1progress;
-    private ProgressBar item2progress;
-    private ProgressBar item3progress;
-    private ProgressBar item4progress;
-    private ProgressBar item5progress;
-    private ProgressBar item6progress;
-    private ProgressBar item7progress;
-    private ProgressBar item8progress;
-    private Button changeAddiction;
+public class NewHealthFragAlcohol extends Fragment {
 
     private List<String> groupList;
     private List<String> childList;
-    private Map<String,List<String>> collection;
+    private Map<String, List<String>> mobileCollection;
     private ExpandableListView expandableListView;
     private ExpandableListAdapter expandableListAdapter;
+    private Map<String,List<String>> collection;
 
-
-    //required empty public constructor
-    public HealthFragAlcohol(){
-
+    public NewHealthFragAlcohol() {
+        // Required empty public constructor
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View theView = inflater.inflate(R.layout.fragment_new_health_frag_alcohol, container, false);
 
-        FirebaseFirestore db;
-        FirebaseAuth mAuth;
-
-
-
-        //instantiate dastabase variables
-        db = FirebaseFirestore.getInstance();
-        mAuth = FirebaseAuth.getInstance();
-        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        DocumentReference dRef  = db.collection("userAccount").document(firebaseUser.getUid());
-
-        // grab addiction type variable to be used in the navigation
-        dRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        User user = document.toObject(User.class);
-                        if (user.getAddictionType() != null) {
-                            soberSince = user.getSoberSince();
-                            soberTimeinMilliSeconds = soberSince.getTime();
-                            Log.wtf("DTB", String.valueOf(soberTimeinMilliSeconds));
-
-                            //Now set the progress bars here
-                            float goalTime1 = 1;         //enter days to goal
-                            float goalTime2 = 3 ;
-                            float goalTime3 = 7 ;
-                            float goalTime4 = 10 ;
-                            float goalTime5 = 14 ;
-                            float goalTime6 = 30;
-                            float goalTime7 = 60;
-                            float goalTime8 = 365;
-
-                            float timeSoberHours = TimeUnit.MILLISECONDS.toHours(System.currentTimeMillis() - user.getSoberSince().getTime());
-
-                            item1progress.setProgress(getProgressPercent(timeSoberHours, goalTime1));
-                            item2progress.setProgress(getProgressPercent(timeSoberHours, goalTime2));
-                            item3progress.setProgress(getProgressPercent(timeSoberHours, goalTime3));
-                            item4progress.setProgress(getProgressPercent(timeSoberHours, goalTime4));
-                            item5progress.setProgress(getProgressPercent(timeSoberHours, goalTime5));
-                            item6progress.setProgress(getProgressPercent(timeSoberHours, goalTime6));
-                            item7progress.setProgress(getProgressPercent(timeSoberHours, goalTime7));
-                            item8progress.setProgress(getProgressPercent(timeSoberHours, goalTime8));
-                        }
-                    } else {
-                        //nothing
-                    }
-                } else {
-                    //nothing
-                }
-            }
-        });
-
-        View theView = inflater.inflate(R.layout.health_frag_alcohol, container, false);
-
-        //instantiate fields from xml
-        item1progress = theView.findViewById(R.id.item1progress);
-        item2progress = theView.findViewById(R.id.item2progress);
-        item3progress = theView.findViewById(R.id.item3progress);
-        item4progress = theView.findViewById(R.id.item4progress);
-        item5progress = theView.findViewById(R.id.item5progress);
-        item6progress = theView.findViewById(R.id.item6progress);
-        item7progress = theView.findViewById(R.id.item7progress);
-        item8progress = theView.findViewById(R.id.item8progress);
-
-        //------------------------------------------------------------------
-
-        //Instantiate expandable lists
         createGroupList();
         createCollection();
 
-        //Get the listview
-        expandableListView = theView.findViewById(R.id.BS);
+        expandableListView = theView.findViewById(R.id.expandable);
 
         expandableListAdapter = new MyExpandableListAdapter(this.getContext(), groupList, collection);
         expandableListView.setAdapter(expandableListAdapter);
@@ -160,24 +57,6 @@ public class HealthFragAlcohol extends Fragment{
             }
         });
 
-
-        //------------------------------------------------------------------
-
-        //set up nav for change addiction button
-        changeAddiction = theView.findViewById(R.id.changeAddiction);
-
-        //set up if button is pressed
-        changeAddiction.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dRef.update("addictionType", "z");
-
-                ((MainActivity)getActivity()).updateAddictionVariable();
-
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new AddictionSelectionFragment()).commit();
-            }
-        });
 
         return theView;
     }
@@ -219,21 +98,21 @@ public class HealthFragAlcohol extends Fragment{
         for(String group : groupList){
             switch (group){
                 case "Blood Sugar":         loadChild(bloodSugar);
-                                            break;
+                    break;
                 case "Withdrawal Symptoms": loadChild(withdrawalSymptoms);
-                                            break;
+                    break;
                 case "Improved Sleep":      loadChild(improvedSleep);
-                                            break;
+                    break;
                 case "Hydration Levels":    loadChild(hydrationLevels);
-                                            break;
+                    break;
                 case "Weight Loss":         loadChild(weightLoss);
-                                            break;
+                    break;
                 case "Organ Health":        loadChild(organHealth);
-                                            break;
+                    break;
                 case "General Health":      loadChild(generalHealth);
-                                            break;
+                    break;
                 case "Full Recovery":       loadChild(fullRecovery);
-                                            break;
+                    break;
             }
             collection.put(group,childList);
         }
@@ -258,17 +137,4 @@ public class HealthFragAlcohol extends Fragment{
         groupList.add("Full Recovery");
     }
 
-    //used to get a percentage from the time sober and a goal time
-    private int getProgressPercent(float timeSoberHours, float goalTime){
-        int setTo;
-        goalTime = ((float)24) * goalTime;
-
-        float percentOfGoal = (timeSoberHours / goalTime) * ((float) 100);
-        setTo = Math.round(percentOfGoal);
-
-        return setTo;
-    }
-
 }
-
-
