@@ -65,6 +65,7 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
         if(view == null){
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = inflater.inflate(R.layout.group_item, null);
+
         }
         TextView item = view.findViewById(R.id.group);
         item.setTypeface(null, Typeface.BOLD);
@@ -76,9 +77,11 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
     @Override
     public View getChildView(int i, int i1, boolean b, View view, ViewGroup viewGroup) {
         String child = getChild(i,i1).toString();
+
         if (view == null){
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = inflater.inflate(R.layout.child_item, null);
+
         }
         TextView item = view.findViewById(R.id.child);
         item.setText(child);

@@ -4,14 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:orientation="horizontal">
+    android:orientation="vertical"
+    android:background="@color/white">
 
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@color/white">
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
 
         <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
@@ -30,84 +31,210 @@
                 android:id="@+id/toolbar_title" />
         </androidx.appcompat.widget.Toolbar>
 
-        <Space
-            android:layout_width="1dp"
-            android:layout_height="30dp"/>
 
-        <LinearLayout
+        <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="@drawable/border_teal">
+            android:layout_height="match_parent"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:background="@color/white">
 
-            <ExpandableListView
-                android:id="@+id/expandable1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:divider="@android:color/transparent"
-                android:dividerHeight="30dp"
-                android:gravity="center"
-                android:padding="10dp" />
-
-        </LinearLayout>
-
-        <Space
-            android:layout_width="1dp"
-            android:layout_height="30dp"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="@drawable/border_teal">
-
-            <ExpandableListView
-                android:id="@+id/expandable2"
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="10dp"
-                android:divider="@android:color/transparent"
-                android:dividerHeight="30dp"
-                android:gravity="center"
-                />
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:background="@color/white"
+                android:orientation="vertical">
 
-        </LinearLayout>
 
-        <Space
-            android:layout_width="1dp"
-            android:layout_height="30dp"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="@drawable/border_teal">
+                <Space
+                    android:layout_width="1dp"
+                    android:layout_height="30dp"/>
 
-            <ExpandableListView
-                android:id="@+id/expandable3"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="10dp"
-                android:divider="@android:color/transparent"
-                android:dividerHeight="30dp"
-                android:gravity="center"
-                />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@drawable/border_teal">
 
-        </LinearLayout>
+                    <ExpandableListView
+                        android:id="@+id/expandable1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:divider="@android:color/transparent"
+                        android:dividerHeight="30dp"
+                        android:gravity="center"
+                        android:padding="10dp" />
 
-        <Space
-            android:layout_width="1dp"
-            android:layout_height="30dp"/>
+                    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/health_progress_bar1"
+                        android:paddingBottom="15dp">
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/changeAddiction"
-            android:layout_gravity="center"
-            android:backgroundTint="@color/ourTeal"
-            android:textColor="@color/black"
-            android:text="Change Addiction"
-            />
+                        <ProgressBar
+                            android:id="@+id/progressBar1"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:progressDrawable="@drawable/custom_progress_bar"
+                            android:layout_width="match_parent"
+                            android:paddingLeft="15dp"
+                            android:paddingRight="15dp"
+                            android:layout_height="30dp"
+                            android:indeterminate="false"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"/>
+
+                        <TextView
+                            android:id="@+id/percentComplete1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:gravity="center"
+                            android:text="50%"
+                            android:textColor="@color/white"
+                            app:layout_constraintBottom_toBottomOf="@+id/progressBar1"
+                            app:layout_constraintEnd_toEndOf="@+id/progressBar1"
+                            app:layout_constraintStart_toStartOf="@+id/progressBar1"
+                            app:layout_constraintTop_toTopOf="@+id/progressBar1" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="1dp"
+                    android:layout_height="30dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@drawable/border_teal">
+
+                    <ExpandableListView
+                        android:id="@+id/expandable2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="10dp"
+                        android:divider="@android:color/transparent"
+                        android:dividerHeight="30dp"
+                        android:gravity="center"
+                        />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/health_progress_bar2"
+                        android:paddingBottom="15dp">
+
+                        <ProgressBar
+                            android:id="@+id/progressBar2"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:progressDrawable="@drawable/custom_progress_bar"
+                            android:layout_width="match_parent"
+                            android:paddingLeft="15dp"
+                            android:paddingRight="15dp"
+                            android:layout_height="30dp"
+                            android:indeterminate="false"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"/>
+
+                        <TextView
+                            android:id="@+id/percentComplete2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:gravity="center"
+                            android:text="50%"
+                            android:textColor="@color/white"
+                            app:layout_constraintBottom_toBottomOf="@+id/progressBar2"
+                            app:layout_constraintEnd_toEndOf="@+id/progressBar2"
+                            app:layout_constraintStart_toStartOf="@+id/progressBar2"
+                            app:layout_constraintTop_toTopOf="@+id/progressBar2" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="1dp"
+                    android:layout_height="30dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@drawable/border_teal">
+
+                    <ExpandableListView
+                        android:id="@+id/expandable3"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="10dp"
+                        android:divider="@android:color/transparent"
+                        android:dividerHeight="30dp"
+                        android:gravity="center"
+                        />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/health_progress_bar3"
+                        android:paddingBottom="15dp">
+
+                        <ProgressBar
+                            android:id="@+id/progressBar3"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:progressDrawable="@drawable/custom_progress_bar"
+                            android:layout_width="match_parent"
+                            android:paddingLeft="15dp"
+                            android:paddingRight="15dp"
+                            android:layout_height="30dp"
+                            android:indeterminate="false"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"/>
+
+                        <TextView
+                            android:id="@+id/percentComplete3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:gravity="center"
+                            android:text="50%"
+                            android:textColor="@color/white"
+                            app:layout_constraintBottom_toBottomOf="@+id/progressBar3"
+                            app:layout_constraintEnd_toEndOf="@+id/progressBar3"
+                            app:layout_constraintStart_toStartOf="@+id/progressBar3"
+                            app:layout_constraintTop_toTopOf="@+id/progressBar3" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="1dp"
+                    android:layout_height="30dp"/>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/changeAddiction"
+                    android:layout_gravity="center"
+                    android:backgroundTint="@color/ourTeal"
+                    android:textColor="@color/black"
+                    android:text="Change Addiction"
+                    />
+            </LinearLayout>
+        </ScrollView>
     </LinearLayout>
 
 </LinearLayout>

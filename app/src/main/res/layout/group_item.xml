@@ -13,11 +13,14 @@
         android:textColor="@color/black"
         android:textSize="30dp"
         />
-    <ImageView
-        android:layout_width="30dp"
-        android:layout_height="10dp"
-        android:src="@drawable/dots"
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/groupShow"
         android:layout_gravity="center"
+        android:text="Show More"
+        android:textColor="@color/ourGray"
+        android:textSize="10dp"
         />
 
 </LinearLayout>

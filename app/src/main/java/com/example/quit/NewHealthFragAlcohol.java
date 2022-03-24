@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ public class NewHealthFragAlcohol extends Fragment {
     private ExpandableListView expandableListView1, expandableListView2, expandableListView3;
     private ExpandableListAdapter expandableListAdapter;
     private Map<String,List<String>> collection1, collection2, collection3;
+    private TextView groupShow;
 
     public NewHealthFragAlcohol() {
         // Required empty public constructor
@@ -40,13 +42,17 @@ public class NewHealthFragAlcohol extends Fragment {
         expandableListAdapter = new MyExpandableListAdapter(this.getContext(), group1, collection1);
         expandableListView1.setAdapter(expandableListAdapter);
         expandableListView1.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
-            int lastExpandedPosition = -1;
             @Override
             public void onGroupExpand(int i) {
-                if(lastExpandedPosition != -1 && i != lastExpandedPosition){
-                    expandableListView1.collapseGroup(lastExpandedPosition);
-                }
-                lastExpandedPosition = i;
+                TextView groupShow = expandableListView1.findViewById(R.id.groupShow);
+                groupShow.setText("Show Less");
+            }
+        });
+        expandableListView1.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
+            @Override
+            public void onGroupCollapse(int i) {
+                TextView groupShow = expandableListView1.findViewById(R.id.groupShow);
+                groupShow.setText("Show More");
             }
         });
         expandableListView1.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
@@ -62,13 +68,17 @@ public class NewHealthFragAlcohol extends Fragment {
         expandableListAdapter = new MyExpandableListAdapter(this.getContext(), group2, collection2);
         expandableListView2.setAdapter(expandableListAdapter);
         expandableListView2.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
-            int lastExpandedPosition = -1;
             @Override
             public void onGroupExpand(int i) {
-                if(lastExpandedPosition != -1 && i != lastExpandedPosition){
-                    expandableListView2.collapseGroup(lastExpandedPosition);
-                }
-                lastExpandedPosition = i;
+                TextView groupShow = expandableListView2.findViewById(R.id.groupShow);
+                groupShow.setText("Show Less");
+            }
+        });
+        expandableListView2.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
+            @Override
+            public void onGroupCollapse(int i) {
+                TextView groupShow = expandableListView2.findViewById(R.id.groupShow);
+                groupShow.setText("Show More");
             }
         });
         expandableListView2.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
@@ -84,13 +94,17 @@ public class NewHealthFragAlcohol extends Fragment {
         expandableListAdapter = new MyExpandableListAdapter(this.getContext(), group3, collection3);
         expandableListView3.setAdapter(expandableListAdapter);
         expandableListView3.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
-            int lastExpandedPosition = -1;
             @Override
             public void onGroupExpand(int i) {
-                if(lastExpandedPosition != -1 && i != lastExpandedPosition){
-                    expandableListView3.collapseGroup(lastExpandedPosition);
-                }
-                lastExpandedPosition = i;
+                TextView groupShow = expandableListView3.findViewById(R.id.groupShow);
+                groupShow.setText("Show Less");
+            }
+        });
+        expandableListView3.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
+            @Override
+            public void onGroupCollapse(int i) {
+                TextView groupShow = expandableListView3.findViewById(R.id.groupShow);
+                groupShow.setText("Show More");
             }
         });
         expandableListView3.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
