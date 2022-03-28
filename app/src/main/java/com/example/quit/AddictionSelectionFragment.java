@@ -86,7 +86,7 @@ public class AddictionSelectionFragment extends Fragment {
                 ((MainActivity)getActivity()).updateAddictionVariable();
 
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new NewHealthFragAlcohol()).commit();
+                        new HealthFragAlcohol()).commit();
             }
         });
 

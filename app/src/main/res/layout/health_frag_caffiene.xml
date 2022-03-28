@@ -271,7 +271,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:text="* Unless you used to drink your coffee black, after a month without caffeine you may start to notice some benefits from cutting out the extra calories and sugars from caffeinated beverages \n
+            android:text="* Unless you used to drink your coffee black, after a month and a half without caffeine you may start to notice some benefits from cutting out the extra calories and sugars from caffeinated beverages \n
             * Drinking sugary drinks like non-black coffee or energy drinks is known to increase your chance of getting type 2 diabetes. You can sleep better at night knowing you've lowered that risk! \n
             * Congratulations on making it this far in your recovery! Addiction can be a lifelong battle, but remember the accomplishments you've made and let them continue to motivate your future journey!"
             />

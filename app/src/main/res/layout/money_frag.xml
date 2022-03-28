@@ -52,13 +52,13 @@
             android:id="@+id/edit"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:inputType="number"
-            android:textSize="14dp"
             android:layout_marginTop="25dp"
             android:background="@drawable/border_teal"
             android:hint="edit here"
+            android:inputType="number"
             android:paddingLeft="10dp"
-            android:textColor="@color/black"/>
+            android:textColor="@color/black"
+            android:textSize="14dp" />
 
         <TextView
             android:layout_width="wrap_content"
