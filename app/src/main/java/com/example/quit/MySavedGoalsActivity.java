@@ -52,7 +52,7 @@ public class MySavedGoalsActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.savedGoalsToolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("My Saved Goals");
+        //getSupportActionBar().setTitle("My Saved Goals");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

@@ -87,7 +87,7 @@ public class GoalsFragment extends Fragment {
         activity = getActivity();
         if(activity!=null){
             ((AppCompatActivity)activity).setSupportActionBar(toolbar);
-            ((AppCompatActivity)activity).getSupportActionBar().setTitle("Goals");
+            //((AppCompatActivity)activity).getSupportActionBar().setTitle("Goals");
         }
 
         recyclerView = view.findViewById(R.id.recycler_view_goals);

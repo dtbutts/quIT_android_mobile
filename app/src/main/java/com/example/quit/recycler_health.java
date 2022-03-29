@@ -1,8 +1,11 @@
 package com.example.quit;
 
+import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -37,6 +40,7 @@ public class recycler_health extends Fragment {
     private Date soberSince;
     private long soberTimeinMilliSeconds;
     float timeSoberHours;
+    Activity activity;
 
     public recycler_health() {
         // Required empty public constructor
@@ -50,6 +54,12 @@ public class recycler_health extends Fragment {
         FirebaseFirestore db;
         FirebaseAuth mAuth;
 
+//        Toolbar toolbar = theView.findViewById(R.id.goalsToolbar);
+//        activity = getActivity();
+//        if(activity!=null){
+//            ((AppCompatActivity)activity).setSupportActionBar(toolbar);
+//
+//        }
         //instantiate database variables
         db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
