@@ -140,15 +140,32 @@
 <!--        android:src="@drawable/ic_my_posts"-->
 <!--        app:layout_constraintBottom_toBottomOf="@id/recycler_view"-->
 <!--        app:layout_constraintStart_toStartOf="parent"></ImageView>-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/compose"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="320dp"
-        android:layout_marginBottom="24dp"
-        android:src="@drawable/ic_add_circle"
-        app:layout_constraintBottom_toBottomOf="@id/recycler_view"
-        app:layout_constraintStart_toStartOf="parent"></ImageView>
+        <ImageView
+            android:id="@+id/compose"
+            android:layout_width="75dp"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_add_circle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginBottom="40dp"/>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+<!--    <ImageView-->
+<!--        android:id="@+id/compose"-->
+<!--        android:layout_width="50dp"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:layout_marginStart="320dp"-->
+<!--        android:layout_marginBottom="24dp"-->
+<!--        android:src="@drawable/ic_add_circle"-->
+<!--        app:layout_constraintBottom_toBottomOf="@id/recycler_view"-->
+<!--        app:layout_constraintStart_toStartOf="parent"></ImageView>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

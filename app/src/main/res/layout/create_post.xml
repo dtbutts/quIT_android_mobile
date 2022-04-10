@@ -77,18 +77,35 @@
         android:paddingRight="10dp"
         android:id="@+id/thePost"/>
 
+
+<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--        android:id="@+id/constraintLayout"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent">-->
+
+<!--        <ImageView-->
+<!--            android:id="@+id/compose"-->
+<!--            android:layout_width="75dp"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:layout_centerVertical="true"-->
+<!--            android:src="@drawable/ic_add_circle"-->
+<!--            app:layout_constraintBottom_toBottomOf="@id/thePost"-->
+<!--            app:layout_constraintEnd_toEndOf="@id/thePost"-->
+<!--            android:layout_marginBottom="40dp"/>-->
+
+
+
+<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
     <ImageView
         android:id="@+id/uploadImage"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:paddingLeft="10dp"
         android:layout_marginTop="5dp"
         android:src="@drawable/ic_upload_image"
         app:layout_constraintStart_toEndOf="@id/thePost"
         app:layout_constraintTop_toBottomOf="@id/thePost"
-        android:layout_marginRight="320dp"
         android:adjustViewBounds="true"
-        android:scaleType="centerCrop"/>
+        />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -96,6 +113,7 @@
         app:layout_constraintStart_toEndOf="@id/uploadImage"
         app:layout_constraintTop_toBottomOf="@id/uploadImage"
         android:text="upload image"
+        android:gravity="center"
         android:textColor="@color/black"
         android:id="@+id/uploadText"/>
 
