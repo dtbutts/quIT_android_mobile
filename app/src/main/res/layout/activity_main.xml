@@ -27,7 +27,9 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:background="?android:attr/windowBackground"/>
+        android:background="?android:attr/windowBackground"
+        app:itemIconTint="@drawable/bottom_nav_coloring"
+        app:itemTextColor="@drawable/bottom_nav_coloring"/>
 
 
 
